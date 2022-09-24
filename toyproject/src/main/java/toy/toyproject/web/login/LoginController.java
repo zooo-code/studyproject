@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import toy.toyproject.domain.login.LoginService;
 import toy.toyproject.domain.member.Member;
 import toy.toyproject.web.SessionConst;
-import toy.toyproject.web.session.SessionManager;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,7 +24,7 @@ import javax.validation.Valid;
 public class LoginController {
 
     private final LoginService loginService;
-    private final SessionManager sessionManager;
+
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
@@ -54,14 +54,5 @@ public class LoginController {
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
         return "redirect:" + redirectURL;
-    }
-
-    @PostMapping("/logout")
-    public String logoutV3(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        return "redirect:/";
     }
 }
