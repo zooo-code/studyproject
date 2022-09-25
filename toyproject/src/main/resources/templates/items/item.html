@@ -34,8 +34,12 @@
         <input type="text" id="price" name="price" class="form-control" value="10000" th:value="${item.price}" readonly>
     </div>
     <div>
-        <label for="quantity" th:text="#{label.item.quantity}">수량</label>
-        <input type="text" id="quantity" name="quantity" class="form-control" value="10" th:value="${item.quantity}" readonly>
+        <label for="where" th:text="#{label.item.where}">위치</label>
+        <input type="text" id="where" name="where" class="form-control" value="서울" th:value="${item.where}" readonly>
+    </div>
+    <div>
+        <label for="explain" th:text="#{label.item.explain}">위치</label>
+        <input type="text" id="explain" name="explain" class="form-control" value="설명" th:value="${item.explain}" readonly>
     </div>
 
     <hr class="my-4">

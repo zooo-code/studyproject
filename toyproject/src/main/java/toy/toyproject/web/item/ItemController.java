@@ -61,7 +61,8 @@ public class ItemController {
         Item item = new Item();
         item.setItemName(form.getItemName());
         item.setPrice(form.getPrice());
-
+        item.setWhere(form.getWhere());
+        item.setExplain(form.getExplain());
 
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
@@ -90,7 +91,8 @@ public class ItemController {
         Item itemParam = new Item();
         itemParam.setItemName(form.getItemName());
         itemParam.setPrice(form.getPrice());
-
+        itemParam.setWhere(form.getWhere());
+        itemParam.setExplain(form.getExplain());
 
         itemRepository.update(itemId, itemParam);
         return "redirect:/items/{itemId}";

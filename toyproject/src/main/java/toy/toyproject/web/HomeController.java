@@ -7,13 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import toy.toyproject.domain.item.Item;
+import toy.toyproject.domain.item.ItemRepository;
 import toy.toyproject.domain.member.Member;
+
+import java.util.List;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
 
+    private final ItemRepository itemRepository;
 
     @GetMapping("/")
     public String homeLoginV3Spring(
@@ -29,5 +34,11 @@ public class HomeController {
         return "loginHome";
     }
 
+    @GetMapping
+    public String homeitems(Model model) {
 
+        List<Item> items = itemRepository.findAll();
+        model.addAttribute("items", items);
+        return "home";
+    }
 }
