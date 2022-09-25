@@ -6,5 +6,6 @@
 
 
 - [ ] DB연결
+- [x] 메모리 기반 DB 연결
 
-dependency
+- dependency
