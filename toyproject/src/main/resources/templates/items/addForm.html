@@ -45,10 +45,10 @@
             </div>
         </div>
         <div>
-            <label for="quantity" th:text="#{label.item.quantity}">수량</label>
-            <input type="text" id="quantity" th:field="*{quantity}"
-                   th:errorclass="field-error" class="form-control" placeholder="수량을 입력하세요">
-            <div class="field-error" th:errors="*{quantity}">
+            <label for="quantity" th:text="#{label.item.where}">위치</label>
+            <input type="text" id="quantity" th:field="*{where}"
+                   th:errorclass="field-error" class="form-control" placeholder="위치를 입력하세요">
+            <div class="field-error" th:errors="*{where}">
                 수량 오류
             </div>
         </div>

@@ -9,15 +9,16 @@ public class Item {
     private Long id;
     private String itemName;
     private Integer price;
-    private Integer quantity;
-
+    private String Where;
+    private String Explain;
     public Item(){
 
     }
 
-    public Item(String itemName, Integer price, Integer quantity) {
+    public Item(String itemName, Integer price, String where, String explain) {
         this.itemName = itemName;
         this.price = price;
-        this.quantity = quantity;
+        this.Where = where;
+        this.Explain = explain;
     }
 }

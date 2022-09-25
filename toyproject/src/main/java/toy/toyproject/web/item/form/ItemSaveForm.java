@@ -24,10 +24,10 @@ public class ItemSaveForm {
 //    private Integer quantity;
 
     @NotEmpty
-    private String ExplainWhere;
+    private String Where;
 
     @NotEmpty
-    private String ExplainAccommodations;
+    private String Explain;
 
 
 

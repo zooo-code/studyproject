@@ -50,13 +50,7 @@ public class ItemController {
     @PostMapping("/add")
     public String addItem(@Validated @ModelAttribute("item") ItemSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        //특정 필드 예외가 아닌 전체 예외
-        if (form.getPrice() != null && form.getExplainWhere() != null) {
-            int resultPrice = form.getPrice();
-            if (resultPrice < 5000) {
-                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
-            }
-        }
+
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
@@ -85,13 +79,8 @@ public class ItemController {
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") ItemUpdateForm form, BindingResult bindingResult) {
 
-        //특정 필드 예외가 아닌 전체 예외
-        if (form.getPrice() != null && form.getExplainWhere() != null) {
-            int resultPrice = form.getPrice() ;
-            if (resultPrice < 10000) {
-                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
-            }
-        }
+
+
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
