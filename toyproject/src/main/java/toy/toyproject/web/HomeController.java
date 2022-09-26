@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import toy.toyproject.domain.item.Item;
-import toy.toyproject.domain.item.ItemRepository;
+import toy.toyproject.domain.item.MemoryItemRepository;
 import toy.toyproject.domain.member.Member;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final ItemRepository itemRepository;
+    private final MemoryItemRepository memoryItemRepository;
 
     @GetMapping("/")
     public String homeLoginV3Spring(
@@ -37,7 +37,7 @@ public class HomeController {
     @GetMapping
     public String homeitems(Model model) {
 
-        List<Item> items = itemRepository.findAll();
+        List<Item> items = memoryItemRepository.findAll();
         model.addAttribute("items", items);
         return "home";
     }

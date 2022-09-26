@@ -23,10 +23,10 @@ public class ItemSaveForm {
 //    @Max(value = 9999)
 //    private Integer quantity;
 
-    @NotEmpty
+    @NotBlank
     private String Where;
 
-    @NotEmpty
+    @NotBlank
     private String Explain;
 
 
