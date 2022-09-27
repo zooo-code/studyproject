@@ -8,4 +8,6 @@
 - [x] 메모리 기반 DB 연결
 
 - dependency
-- 
+- thymeleaf
+- lombok
+- springweb
