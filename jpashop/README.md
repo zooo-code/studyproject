@@ -1,9 +1,14 @@
-- [ ] 채우기
-- [ ] 채우기
-- [ ] 채우기
-- [ ] 채우기
+- [x] 회원 가입,목록 구현
+- [x] 상품 등록,목록 구현
+- [x] 상품 주문,주문 내역
+- [x] h2 db 연결 
 - [ ] 채우기
 - [ ] 채우기
 - [ ] 채우기
 - dependency
-- 
+  - thymeleaf
+  - validation
+  - jpa
+  - spring web
+  - lombok
+  - h2
