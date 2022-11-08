@@ -8,12 +8,12 @@ import lombok.Setter;
 public class Item {
 
     private Long id;
-    private String name;
+    private String itemName;
     private Integer price;
     private int quantity;
 
     public Item(String name, Integer price, int quantity) {
-        this.name = name;
+        this.itemName = name;
         this.price = price;
         this.quantity = quantity;
     }
