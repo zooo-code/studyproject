@@ -22,7 +22,7 @@ class MemberRepositoryTest {
         Member member = new Member("kim", "test1", "1234");
         memberRepository.save(member);
 
-        Member byUserId = memberRepository.findByUserId(member.getId());
+        Member byUserId = memberRepository.findById(member.getId());
         System.out.println("byUserId = " + byUserId);
 
         Assertions.assertThat(member).isEqualTo(byUserId);

@@ -15,9 +15,16 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
 
-    public Member findByUserId(Long id){
+    public Member findById(Long id){
         return store.get(id);
     }
+    @Override
+    public Optional<Member> findByLoginId(String loginId) {
+        return findAll().stream()
+                .filter(m -> m.getLoginId().equals(loginId))
+                .findFirst();
+    }
+
     public void clearStore(){
         store.clear();
     }

@@ -11,13 +11,13 @@ public class Member {
 
     private String name;
 
-    private String userid;
+    private String loginId;
 
     private String password;
 
-    public Member(String name, String userid, String password) {
+    public Member(String name, String loginid, String password) {
         this.name = name;
-        this.userid = userid;
+        this.loginId = loginId;
         this.password = password;
     }
 }
