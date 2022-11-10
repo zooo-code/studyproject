@@ -10,12 +10,13 @@ import java.util.Map;
 public class MemoryItemRepository implements ItemRepository{
 
 
-    private static Map<Long, Item> store = new HashMap<>();
+    private static final Map<Long, Item> store = new HashMap<>();
     private static long sequence = 0L;
 
-    public void save(Item item){
-        item.setId(sequence++);
+    public Item save(Item item) {
+        item.setId(++sequence);
         store.put(item.getId(), item);
+        return item;
     }
 
     public Item findById(Long id){
@@ -25,6 +26,14 @@ public class MemoryItemRepository implements ItemRepository{
     @Override
     public List<Item> findAll() {
         return new ArrayList<>(store.values());
+    }
+
+    @Override
+    public void update(Long itemId, Item updateParam) {
+        Item findItem = findById(itemId);
+        findItem.setItemName(updateParam.getItemName());
+        findItem.setPrice(updateParam.getPrice());
+        findItem.setQuantity(updateParam.getQuantity());
     }
 
     public void clearStore(){

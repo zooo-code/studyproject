@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+
 class ItemRepositoryTest {
 
-    @Autowired
-    MemoryItemRepository itemRepository;
+
+    MemoryItemRepository itemRepository = new MemoryItemRepository();
 
     @AfterEach
     void clearStore(){
