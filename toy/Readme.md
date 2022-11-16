@@ -6,6 +6,7 @@
 - [x] validation 구현
 - [x] 에러 페이지 구현 
 - [ ] H2 데이터 연결
+- [ ] 커넥션 풀 등록
 
 
 
@@ -14,3 +15,4 @@
   - lombok
   - springweb
   - validation
+  - h2database
