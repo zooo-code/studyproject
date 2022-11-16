@@ -10,7 +10,6 @@ import study.toy.interceptor.LoginCheckInterceptor;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LogInterceptor())
@@ -21,7 +20,10 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/" ,"/home" ,"/members/add", "/login", "/logout",
+                .excludePathPatterns("/index.html","/" ,"/home" ,"/members/add", "/login", "/logout",
                         "/css/**", "/*.ico", "/error");
     }
+
+
+
 }

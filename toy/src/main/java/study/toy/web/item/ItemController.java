@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import study.toy.domain.item.Item;
+import study.toy.domain.item.ItemRepository;
 import study.toy.domain.item.MemoryItemRepository;
 import study.toy.web.item.form.ItemSaveForm;
 import study.toy.web.item.form.ItemUpdateForm;
@@ -22,17 +23,17 @@ import java.util.List;
 @RequestMapping("/item/items")
 @RequiredArgsConstructor
 public class ItemController {
-    private final MemoryItemRepository memoryItemRepository;
+    private final ItemRepository ItemRepository;
 
     @GetMapping
     public String items(Model model) {
-        List<Item> items = memoryItemRepository.findAll();
+        List<Item> items = ItemRepository.findAll();
         model.addAttribute("items", items);
         return "item/items";
     }
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId , Model model){
-        Item findItem = memoryItemRepository.findById(itemId);
+        Item findItem = ItemRepository.findById(itemId);
         model.addAttribute("item",findItem);
         return "item/item";
     }
@@ -61,7 +62,7 @@ public class ItemController {
         item.setPrice(form.getPrice());
         item.setQuantity(form.getQuantity());
 
-        Item savedItem = memoryItemRepository.save(item);
+        Item savedItem = ItemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
         return "redirect:/item/items/{itemId}";
@@ -69,7 +70,7 @@ public class ItemController {
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
-        Item item = memoryItemRepository.findById(itemId);
+        Item item = ItemRepository.findById(itemId);
         model.addAttribute("item", item);
         return "item/editForm";
     }
@@ -93,7 +94,7 @@ public class ItemController {
         itemParam.setPrice(form.getPrice());
 
         itemParam.setQuantity(form.getQuantity());
-        memoryItemRepository.update(itemId, itemParam);
+        ItemRepository.update(itemId, itemParam);
         return "redirect:/item/items/{itemId}";
     }
 }

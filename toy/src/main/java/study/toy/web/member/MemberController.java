@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import study.toy.domain.member.Member;
+import study.toy.domain.member.MemberRepository;
 import study.toy.domain.member.MemoryMemberRepository;
 
 import javax.validation.Valid;
@@ -19,7 +20,7 @@ import javax.validation.Valid;
 @RequestMapping("/members")
 public class MemberController {
 
-    private final MemoryMemberRepository memoryMemberRepository;
+    private final MemberRepository MemberRepository;
 
     @GetMapping("/add")
     public String addForm(@ModelAttribute("member") Member member){
@@ -32,7 +33,7 @@ public class MemberController {
             return "members/addMemberForm";
         }
 
-        memoryMemberRepository.save(member);
+        MemberRepository.save(member);
         return "redirect:/home";
     }
 }

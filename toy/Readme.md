@@ -4,6 +4,10 @@
 - [x] 상품 등록 구현
 - [x] 메모리 기반 DB 연결
 - [x] validation 구현
+- [x] 에러 페이지 구현 
+- [ ] H2 데이터 연결
+
+
 
 - dependency
   - thymeleaf
