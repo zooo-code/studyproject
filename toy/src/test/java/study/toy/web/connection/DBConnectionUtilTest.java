@@ -1,0 +1,21 @@
+package study.toy.web.connection;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+
+import java.sql.Connection;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+
+@Slf4j
+class DBConnectionUtilTest {
+
+    @Test
+    void connection(){
+        Connection connection = DBConnectionUtil.getConnection();
+        System.out.println("connection = " + connection);
+        assertThat(connection).isNotNull();
+    }
+}

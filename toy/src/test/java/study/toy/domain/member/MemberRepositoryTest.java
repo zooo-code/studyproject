@@ -19,7 +19,10 @@ class MemberRepositoryTest {
 
     @Test
     void save(){
-        Member member = new Member("kim", "test1", "1234");
+        Member member = new Member();
+        member.setName("kim");
+        member.setLoginId("test1");
+        member.setPassword("1234");
         memberRepository.save(member);
 
         Member byUserId = memberRepository.findById(member.getId());
