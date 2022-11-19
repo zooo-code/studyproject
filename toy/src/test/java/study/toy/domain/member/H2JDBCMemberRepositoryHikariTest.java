@@ -4,13 +4,13 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import study.toy.domain.member.etc.H2JDBCMemberRepositoryHikari;
 
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static study.toy.web.connection.ConnectionConst.*;
 
 @Slf4j

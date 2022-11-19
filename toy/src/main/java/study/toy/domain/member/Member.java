@@ -33,4 +33,11 @@ public class Member {
         this.password = password;
     }
 
+    public Member(Long id, String name, String loginId, String password, int money) {
+        this.id = id;
+        this.name = name;
+        this.loginId = loginId;
+        this.password = password;
+        this.money = money;
+    }
 }

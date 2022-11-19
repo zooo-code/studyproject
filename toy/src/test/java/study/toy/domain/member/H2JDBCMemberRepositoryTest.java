@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import study.toy.domain.member.etc.H2JDBCMemberRepository;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

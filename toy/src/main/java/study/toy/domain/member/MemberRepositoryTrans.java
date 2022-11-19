@@ -1,19 +1,19 @@
 package study.toy.domain.member;
 
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.support.JdbcUtils;
-import study.toy.web.connection.DBConnectionUtil;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.NoSuchElementException;
 
-
 @Slf4j
-public class H2JDBCMemberRepositoryHikari {
+public class MemberRepositoryTrans {
+
     private final DataSource dataSource;
 
-    public H2JDBCMemberRepositoryHikari(DataSource dataSource) {
+    public MemberRepositoryTrans(DataSource dataSource) {
         this.dataSource = dataSource;
     }
     private void close(Connection con, Statement stmt, ResultSet rs) {
@@ -28,8 +28,10 @@ public class H2JDBCMemberRepositoryHikari {
     }
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, login_id, name, password) values(?,?,?,?)";
+
         Connection con = null;
         PreparedStatement pstmt = null;
+
         try {
             con = getConnection();
 //            데이터베이스에 전달할 SQL과 파라미터로 전달할 데이터들을 준비한다.
@@ -49,7 +51,32 @@ public class H2JDBCMemberRepositoryHikari {
             close(con, pstmt, null);
         }
     }
+    public Member saveWithMoney(Member member) throws SQLException {
+        String sql = "insert into member(member_id, login_id, name, password,money) values(?,?,?,?,?)";
 
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = getConnection();
+//            데이터베이스에 전달할 SQL과 파라미터로 전달할 데이터들을 준비한다.
+            pstmt = con.prepareStatement(sql);
+//            SQL의 첫,두번째 ? 에 값을 지정한다. 문자이므로 setString 을 사용한다.
+            pstmt.setLong(1, member.getId());
+            pstmt.setString(2, member.getLoginId());
+//            SQL의 세번째 ? 에 값을 지정한다
+            pstmt.setString(3, member.getName());
+            pstmt.setString(4,member.getPassword());
+            pstmt.setInt(5,member.getMoney());
+            pstmt.executeUpdate();
+            return member;
+        } catch (SQLException e) {
+            log.error("db error", e);
+            throw e;
+        } finally {
+            close(con, pstmt, null);
+        }
+    }
 
     public Member findById(String login_id) throws SQLException {
         String sql = "select * from member where login_id = ?";
@@ -68,13 +95,10 @@ public class H2JDBCMemberRepositoryHikari {
                 Member member = new Member();
                 member.setLoginId(rs.getString("login_id"));
                 member.setPassword(rs.getString("password"));
-                System.out.println("member.getPassword() = " + member.getPassword());
                 member.setName(rs.getString("name"));
-                System.out.println("member.getName() = " + member.getName());
                 member.setId(rs.getLong("member_id"));
-                System.out.println("member.getId() = " + member.getId());
                 member.setMoney(rs.getInt("money"));
-                System.out.println("member.getMoney() = " + member.getMoney());
+
 
                 return member;
             } else {
@@ -126,5 +150,4 @@ public class H2JDBCMemberRepositoryHikari {
         }
 
     }
-
 }
