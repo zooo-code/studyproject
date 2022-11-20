@@ -79,14 +79,15 @@ class MemberServiceTransactionTest {
     @DisplayName("정상 이체")
     void accountTransfer() throws SQLException {
         //given
-        Member memberA = new Member(1L,MEMBER_A,MEMBER_A,"test!",10000);
+        Member memberA = new Member(1L,MEMBER_A,MEMBER_A,"test!");
 
         System.out.println("memberA.getMoney() = " + memberA.getMoney());
-        Member memberB = new Member(2L, MEMBER_B, MEMBER_B,"test!",10000);
+        Member memberB = new Member(2L, MEMBER_B, MEMBER_B,"test!");
 
-        memberRepositoryTrans.saveWithMoney(memberA);
-        memberRepositoryTrans.saveWithMoney(memberB);
-
+        memberRepositoryTrans.save(memberA);
+        memberRepositoryTrans.save(memberB);
+        memberRepositoryTrans.update(memberA.getLoginId(),10000);
+        memberRepositoryTrans.update(memberB.getLoginId(),10000);
         //when
         memberServiceTransaction.accountTransfer(memberA.getLoginId(), memberB.getLoginId(), 2000);
 
@@ -101,13 +102,15 @@ class MemberServiceTransactionTest {
     @DisplayName("이체중 예외 발생")
     void accountTransferEx() throws SQLException {
         //given
-        Member memberA = new Member(1L,MEMBER_A,MEMBER_A,"test!",10000);
-        Member memberEx = new Member(2L,MEMBER_EX, MEMBER_EX,"test!",10000);
+        Member memberA = new Member(1L,MEMBER_A,MEMBER_A,"test!");
+        Member memberEx = new Member(2L,MEMBER_EX, MEMBER_EX,"test!");
 
-        memberRepositoryTrans.saveWithMoney(memberA);
-        memberRepositoryTrans.saveWithMoney(memberEx);
+        memberRepositoryTrans.save(memberA);
+        memberRepositoryTrans.save(memberEx);
+        memberRepositoryTrans.update(memberA.getLoginId(),10000);
+        memberRepositoryTrans.update(memberEx.getLoginId(),10000);
         System.out.println("findMemberA = " + memberA);
-        System.out.println("findMemberB = " + memberEx);
+        System.out.println("memberEx = " + memberEx);
         //when
         assertThatThrownBy(() ->
                 memberServiceTransaction.accountTransfer(memberA.getLoginId(), memberEx.getLoginId(), 2000))

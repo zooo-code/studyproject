@@ -51,32 +51,7 @@ public class MemberRepositoryTrans {
             close(con, pstmt, null);
         }
     }
-    public Member saveWithMoney(Member member) throws SQLException {
-        String sql = "insert into member(member_id, login_id, name, password,money) values(?,?,?,?,?)";
 
-        Connection con = null;
-        PreparedStatement pstmt = null;
-
-        try {
-            con = getConnection();
-//            데이터베이스에 전달할 SQL과 파라미터로 전달할 데이터들을 준비한다.
-            pstmt = con.prepareStatement(sql);
-//            SQL의 첫,두번째 ? 에 값을 지정한다. 문자이므로 setString 을 사용한다.
-            pstmt.setLong(1, member.getId());
-            pstmt.setString(2, member.getLoginId());
-//            SQL의 세번째 ? 에 값을 지정한다
-            pstmt.setString(3, member.getName());
-            pstmt.setString(4,member.getPassword());
-            pstmt.setInt(5,member.getMoney());
-            pstmt.executeUpdate();
-            return member;
-        } catch (SQLException e) {
-            log.error("db error", e);
-            throw e;
-        } finally {
-            close(con, pstmt, null);
-        }
-    }
 
     public Member findById(String login_id) throws SQLException {
         String sql = "select * from member where login_id = ?";
