@@ -24,8 +24,8 @@ public class MemberServiceTransaction {
 
 
     private void bizLogic(String fromId, String toId, int money) throws SQLException {
-        Member fromMember = memberRepositoryTrans.findById(fromId);
-        Member toMember = memberRepositoryTrans.findById(toId);
+        Member fromMember = memberRepositoryTrans.findByLoginId(fromId);
+        Member toMember = memberRepositoryTrans.findByLoginId(toId);
 
         memberRepositoryTrans.update(fromId, fromMember.getMoney()-money);
         validation(toMember);

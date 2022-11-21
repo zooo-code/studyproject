@@ -3,7 +3,7 @@ package study.toy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import study.toy.domain.item.Item;
-import study.toy.domain.item.MemoryItemRepository;
+import study.toy.domain.item.repository.MemoryItemRepository;
 import study.toy.domain.member.Member;
 import study.toy.domain.member.MemoryMemberRepository;
 

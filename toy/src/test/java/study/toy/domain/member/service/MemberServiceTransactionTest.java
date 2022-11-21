@@ -92,8 +92,8 @@ class MemberServiceTransactionTest {
         memberServiceTransaction.accountTransfer(memberA.getLoginId(), memberB.getLoginId(), 2000);
 
         //then
-        Member findMemberA = memberRepositoryTrans.findById(memberA.getLoginId());
-        Member findMemberB = memberRepositoryTrans.findById(memberB.getLoginId());
+        Member findMemberA = memberRepositoryTrans.findByLoginId(memberA.getLoginId());
+        Member findMemberB = memberRepositoryTrans.findByLoginId(memberB.getLoginId());
         assertThat(findMemberA.getMoney()).isEqualTo(8000);
         assertThat(findMemberB.getMoney()).isEqualTo(12000);
     }
@@ -117,8 +117,8 @@ class MemberServiceTransactionTest {
                 .isInstanceOf(IllegalStateException.class);
 
         //then
-        Member findMemberA = memberRepositoryTrans.findById(memberA.getLoginId());
-        Member findMemberB = memberRepositoryTrans.findById(memberEx.getLoginId());
+        Member findMemberA = memberRepositoryTrans.findByLoginId((memberA.getLoginId()));
+        Member findMemberB = memberRepositoryTrans.findByLoginId((memberEx.getLoginId()));
         System.out.println("findMemberA = " + findMemberA);
         System.out.println("findMemberB = " + findMemberB);
         log.info("error ={} {}",findMemberA.getMoney(),findMemberB.getMoney());

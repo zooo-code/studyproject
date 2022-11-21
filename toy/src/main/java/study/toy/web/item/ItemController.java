@@ -10,12 +10,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import study.toy.domain.item.Item;
-import study.toy.domain.item.ItemRepository;
-import study.toy.domain.item.MemoryItemRepository;
+import study.toy.domain.item.repository.ItemRepository;
+import study.toy.domain.item.repository.ItemSearchCond;
+import study.toy.domain.item.service.ItemUpdateDto;
 import study.toy.web.item.form.ItemSaveForm;
 import study.toy.web.item.form.ItemUpdateForm;
 
-import javax.validation.constraints.Null;
 import java.util.List;
 
 @Slf4j
@@ -26,15 +26,15 @@ public class ItemController {
     private final ItemRepository ItemRepository;
 
     @GetMapping
-    public String items(Model model) {
-        List<Item> items = ItemRepository.findAll();
+    public String items(@ModelAttribute("itemSearch")ItemSearchCond itemSearch, Model model) {
+        List<Item> items = ItemRepository.findAll(itemSearch);
         model.addAttribute("items", items);
         return "item/items";
     }
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId , Model model){
-        Item findItem = ItemRepository.findById(itemId);
-        model.addAttribute("item",findItem);
+        Item Item = ItemRepository.findById(itemId).get();
+        model.addAttribute("item",Item);
         return "item/item";
     }
     @GetMapping("/add")
@@ -70,13 +70,13 @@ public class ItemController {
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
-        Item item = ItemRepository.findById(itemId);
+        Item item = ItemRepository.findById(itemId).get();
         model.addAttribute("item", item);
         return "item/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") ItemUpdateForm form, BindingResult bindingResult) {
+    public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") ItemUpdateDto form, BindingResult bindingResult) {
 
         //특정 필드가 아닌 복합 룰 검증
         if (form.getPrice() != null && form.getQuantity() != null) {
@@ -89,12 +89,8 @@ public class ItemController {
             log.info("errors={}", bindingResult);
             return "item/editForm";
         }
-        Item itemParam = new Item();
-        itemParam.setItemName(form.getItemName());
-        itemParam.setPrice(form.getPrice());
 
-        itemParam.setQuantity(form.getQuantity());
-        ItemRepository.update(itemId, itemParam);
+        ItemRepository.update(itemId, form);
         return "redirect:/item/items/{itemId}";
     }
 }

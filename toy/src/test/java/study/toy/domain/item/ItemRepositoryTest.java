@@ -3,8 +3,7 @@ package study.toy.domain.item;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import study.toy.domain.item.repository.MemoryItemRepository;
 
 
 class ItemRepositoryTest {
@@ -25,8 +24,6 @@ class ItemRepositoryTest {
         //when
         itemRepository.save(item);
         //then
-        Item byId = itemRepository.findById(item.getId());
 
-        Assertions.assertThat(item).isEqualTo(byId);
     }
 }

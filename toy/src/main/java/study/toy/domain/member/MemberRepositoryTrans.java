@@ -53,7 +53,7 @@ public class MemberRepositoryTrans {
     }
 
 
-    public Member findById(String login_id) throws SQLException {
+    public Member findByLoginId(String login_id) throws SQLException {
         String sql = "select * from member where login_id = ?";
 
         Connection con = null;

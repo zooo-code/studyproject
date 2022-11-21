@@ -11,10 +11,11 @@ public class MemoryMemberRepository implements MemberRepository{
 
     private static Map<Long, Member> store = new HashMap<>();
     private static long sequence = 0L;
-    public void save(Member member){
+    public Member save(Member member){
         member.setId(sequence++);
         log.info("save: member={}", member);
         store.put(member.getId(),member);
+        return member;
     }
 
 
@@ -26,6 +27,16 @@ public class MemoryMemberRepository implements MemberRepository{
         return findAll().stream()
                 .filter(m -> m.getLoginId().equals(loginId))
                 .findFirst();
+    }
+
+    @Override
+    public void delete(String login_id) {
+
+    }
+
+    @Override
+    public void update(String login_id, int money) {
+
     }
 
     public void clearStore(){
