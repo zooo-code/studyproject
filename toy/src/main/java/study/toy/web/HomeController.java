@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import study.toy.domain.member.Member;
+import study.toy.domain.member.MemberRepository;
 import study.toy.domain.member.MemoryMemberRepository;
 
 @Slf4j
@@ -14,7 +15,7 @@ import study.toy.domain.member.MemoryMemberRepository;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final MemoryMemberRepository memoryMemberRepository;
+    private final MemberRepository memberRepository;
     @GetMapping("/home")
     public String homeLogin(
             @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model){

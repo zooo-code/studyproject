@@ -9,7 +9,7 @@ import study.toy.domain.member.MemoryMemberRepository;
 
 import javax.annotation.PostConstruct;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class TestDataInit {
 

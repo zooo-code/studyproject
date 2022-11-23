@@ -8,7 +8,7 @@ import study.toy.domain.item.service.ItemUpdateDto;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Repository
+//@Repository
 public class MemoryItemRepository implements ItemRepository{
 
 

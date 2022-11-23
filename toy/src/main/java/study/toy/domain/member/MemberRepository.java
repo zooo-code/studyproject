@@ -1,5 +1,7 @@
 package study.toy.domain.member;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
 public interface MemberRepository {

@@ -4,32 +4,34 @@ package study.toy.domain.member.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import study.toy.domain.member.Member;
+import study.toy.domain.member.MemberRepository;
 import study.toy.domain.member.MemberRepositoryTrans;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 @Slf4j
 public class MemberServiceTransaction {
 
-    private final MemberRepositoryTrans memberRepositoryTrans;
+    private final MemberRepository memberRepository;
 
-    public MemberServiceTransaction(MemberRepositoryTrans memberRepositoryTrans) {
-        this.memberRepositoryTrans = memberRepositoryTrans;
+    public MemberServiceTransaction(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Transactional
-    public void accountTransfer(String fromId, String toId, int money) throws SQLException {
+    public void accountTransfer(String fromId, String toId, int money) {
         bizLogic(fromId,toId,money);
     }
 
 
-    private void bizLogic(String fromId, String toId, int money) throws SQLException {
-        Member fromMember = memberRepositoryTrans.findByLoginId(fromId);
-        Member toMember = memberRepositoryTrans.findByLoginId(toId);
+    private void bizLogic(String fromId, String toId, int money)  {
+        Optional<Member> fromMember = memberRepository.findByLoginId(fromId);
+        Optional<Member> toMember = memberRepository.findByLoginId(toId);
 
-        memberRepositoryTrans.update(fromId, fromMember.getMoney()-money);
-        validation(toMember);
-        memberRepositoryTrans.update(toId, toMember.getMoney() + money);
+        memberRepository.update(fromId, fromMember.get().getMoney()-money);
+        validation(toMember.get());
+        memberRepository.update(toId, toMember.get().getMoney() + money);
 
     }
     private void validation(Member toMember) {

@@ -11,15 +11,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import study.toy.domain.member.Member;
+import study.toy.domain.member.MemberRepository;
 import study.toy.domain.member.MemberRepositoryTrans;
-
 import javax.sql.DataSource;
-
 import java.sql.SQLException;
-
+import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 트랜잭션 - DataSource, transactionManager 자동 등록
@@ -34,7 +32,7 @@ class MemberServiceTransactionTest {
     public static final String MEMBER_EX = "ex";
 
     @Autowired
-    private MemberRepositoryTrans memberRepositoryTrans;
+    private MemberRepository memberRepository;
 
     @Autowired
     private MemberServiceTransaction memberServiceTransaction;
@@ -51,51 +49,51 @@ class MemberServiceTransactionTest {
         }
 
         @Bean
-        MemberRepositoryTrans memberRepositoryTrans() {
+        MemberRepository memberRepository() {
             return new MemberRepositoryTrans(dataSource);
         }
 
         @Bean
         MemberServiceTransaction memberServiceTransaction(){
-            return new MemberServiceTransaction(memberRepositoryTrans());
+            return new MemberServiceTransaction(memberRepository());
         }
     }
 
     @AfterEach
-    void after() throws SQLException {
-        memberRepositoryTrans.delete(MEMBER_A);
-        memberRepositoryTrans.delete(MEMBER_B);
-        memberRepositoryTrans.delete(MEMBER_EX);
+    void after() {
+        memberRepository.delete(MEMBER_A);
+        memberRepository.delete(MEMBER_B);
+        memberRepository.delete(MEMBER_EX);
     }
 
     @Test
     void AopCheck() {
         log.info("memberService class={}", memberServiceTransaction.getClass());
-        log.info("memberRepository class={}", memberRepositoryTrans.getClass());
+        log.info("memberRepository class={}", memberRepository.getClass());
         Assertions.assertThat(AopUtils.isAopProxy(memberServiceTransaction)).isTrue();
-        Assertions.assertThat(AopUtils.isAopProxy(memberRepositoryTrans)).isFalse();
+//        지금은 memberRepository가 bean 에 등록되어 있는 상태라 안댐
+        Assertions.assertThat(AopUtils.isAopProxy(memberRepository)).isFalse();
     }
     @Test
     @DisplayName("정상 이체")
     void accountTransfer() throws SQLException {
         //given
         Member memberA = new Member(1L,MEMBER_A,MEMBER_A,"test!");
-
-        System.out.println("memberA.getMoney() = " + memberA.getMoney());
         Member memberB = new Member(2L, MEMBER_B, MEMBER_B,"test!");
 
-        memberRepositoryTrans.save(memberA);
-        memberRepositoryTrans.save(memberB);
-        memberRepositoryTrans.update(memberA.getLoginId(),10000);
-        memberRepositoryTrans.update(memberB.getLoginId(),10000);
+        memberRepository.save(memberA);
+        memberRepository.save(memberB);
+        memberRepository.update(memberA.getLoginId(),10000);
+        memberRepository.update(memberB.getLoginId(),10000);
         //when
         memberServiceTransaction.accountTransfer(memberA.getLoginId(), memberB.getLoginId(), 2000);
 
         //then
-        Member findMemberA = memberRepositoryTrans.findByLoginId(memberA.getLoginId());
-        Member findMemberB = memberRepositoryTrans.findByLoginId(memberB.getLoginId());
-        assertThat(findMemberA.getMoney()).isEqualTo(8000);
-        assertThat(findMemberB.getMoney()).isEqualTo(12000);
+        Optional<Member> findMemberA = memberRepository.findByLoginId(memberA.getLoginId());
+        Optional<Member> findMemberB = memberRepository.findByLoginId(memberB.getLoginId());
+
+        assertThat(findMemberA.get().getMoney()).isEqualTo(8000);
+        assertThat(findMemberB.get().getMoney()).isEqualTo(12000);
     }
 
     @Test
@@ -105,25 +103,19 @@ class MemberServiceTransactionTest {
         Member memberA = new Member(1L,MEMBER_A,MEMBER_A,"test!");
         Member memberEx = new Member(2L,MEMBER_EX, MEMBER_EX,"test!");
 
-        memberRepositoryTrans.save(memberA);
-        memberRepositoryTrans.save(memberEx);
-        memberRepositoryTrans.update(memberA.getLoginId(),10000);
-        memberRepositoryTrans.update(memberEx.getLoginId(),10000);
-        System.out.println("findMemberA = " + memberA);
-        System.out.println("memberEx = " + memberEx);
+        memberRepository.save(memberA);
+        memberRepository.save(memberEx);
+        memberRepository.update(memberA.getLoginId(),10000);
+        memberRepository.update(memberEx.getLoginId(),10000);
         //when
         assertThatThrownBy(() ->
                 memberServiceTransaction.accountTransfer(memberA.getLoginId(), memberEx.getLoginId(), 2000))
                 .isInstanceOf(IllegalStateException.class);
-
         //then
-        Member findMemberA = memberRepositoryTrans.findByLoginId((memberA.getLoginId()));
-        Member findMemberB = memberRepositoryTrans.findByLoginId((memberEx.getLoginId()));
-        System.out.println("findMemberA = " + findMemberA);
-        System.out.println("findMemberB = " + findMemberB);
-        log.info("error ={} {}",findMemberA.getMoney(),findMemberB.getMoney());
-        assertThat(findMemberA.getMoney()).isEqualTo(10000);
-        assertThat(findMemberB.getMoney()).isEqualTo(10000);
+        Optional<Member> findMemberA = memberRepository.findByLoginId((memberA.getLoginId()));
+        Optional<Member> findMemberB = memberRepository.findByLoginId((memberEx.getLoginId()));
+        assertThat(findMemberA.get().getMoney()).isEqualTo(10000);
+        assertThat(findMemberB.get().getMoney()).isEqualTo(10000);
     }
 
 }

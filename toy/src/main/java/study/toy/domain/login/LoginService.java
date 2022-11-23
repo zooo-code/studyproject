@@ -3,13 +3,14 @@ package study.toy.domain.login;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import study.toy.domain.member.Member;
+import study.toy.domain.member.MemberRepository;
 import study.toy.domain.member.MemoryMemberRepository;
 
 @Service
 @RequiredArgsConstructor
 public class LoginService {
 
-    private final MemoryMemberRepository memoryMemberRepository;
+    private final MemberRepository memberRepository;
 
     public Member login(String loginId, String password) {
 //        Optional<Member> findMemberOptional = memoryMemberRepository.findByLoginId(loginId);
@@ -20,7 +21,7 @@ public class LoginService {
 //        }else {
 //            return null;
 //        }
-        return memoryMemberRepository.findByLoginId(loginId)
+        return memberRepository.findByLoginId(loginId)
                 .filter(m -> m.getPassword().equals(password))
                 .orElse(null);
     }
