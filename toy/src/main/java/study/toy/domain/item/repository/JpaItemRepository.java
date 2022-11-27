@@ -15,14 +15,12 @@ import java.util.Optional;
 
 
 @Slf4j
-@Repository
+//@Repository
 @Transactional
 @RequiredArgsConstructor
 public class JpaItemRepository implements  ItemRepository{
 
     private final SpringDataJpaItemRepository repository;;
-
-
 
     @Override
     public Item save(Item item) {
