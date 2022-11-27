@@ -45,7 +45,7 @@ import java.util.Optional;
  * 동적 SQL을 해결하기 어렵다.
  */
 @Slf4j
-@Repository
+//@Repository
 public class JdbcTemplateItemRepository implements ItemRepository{
 
     private final NamedParameterJdbcTemplate template;

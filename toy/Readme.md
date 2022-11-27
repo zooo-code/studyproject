@@ -8,12 +8,12 @@
 - [x] H2 데이터 연결
 - [x] 커넥션 풀 등록
 - [x] 트랜잭션 적용
-- [ ] 테스트 데이터 셋 분리
+- [x] 테스트 데이터 셋 분리
 - [x] 체크예외 언체크 예외로 변환
 - [ ] JDBC
 - [ ] JPA
 - [ ] springDataJPA
-- [ ]Querydsl
+- [ ] Querydsl
 
 
 - dependency
