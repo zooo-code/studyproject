@@ -81,6 +81,11 @@ public class JdbcTemplateItemRepository implements ItemRepository{
     }
 
     @Override
+    public void deleteItem(Long id) {
+
+    }
+
+    @Override
     public Optional<Item> findById(Long id) {
         String sql = "select id, item_name, price, quantity from item where id = :id";
         try {

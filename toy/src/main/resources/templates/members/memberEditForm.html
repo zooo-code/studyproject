@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2 th:text="#{page.member}">회원 정보 수정</h2>
+    </div>
+    <form action="item.html" th:action th:object="${member}" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+        </div>
+        <div>
+            <label for="id" th:text="#{label.member.memberName}">회원 이름</label>
+            <input type="text" id="id" th:field="*{loginId}" class="form-control" readonly>
+        </div>
+
+    </form>
+
+
+</div> <!-- /container -->
+</body>
+</html>

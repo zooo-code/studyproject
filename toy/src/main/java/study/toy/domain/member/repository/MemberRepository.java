@@ -1,6 +1,7 @@
-package study.toy.domain.member;
+package study.toy.domain.member.repository;
 
 import org.springframework.stereotype.Repository;
+import study.toy.domain.member.Member;
 
 import java.util.Optional;
 

@@ -4,10 +4,8 @@ package study.toy.domain.member.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import study.toy.domain.member.Member;
-import study.toy.domain.member.MemberRepository;
-import study.toy.domain.member.MemberRepositoryTrans;
+import study.toy.domain.member.repository.MemberRepository;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 @Slf4j

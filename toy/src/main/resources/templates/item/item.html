@@ -53,6 +53,12 @@
                     th:onclick="|location.href='@{/item/items}'|"
                     type="button" th:text="#{button.cancel}">목록으로</button>
         </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='itemDelete.html'"
+                    th:onclick="|location.href='@{/item/items/{itemId}/delete(itemId=${item.id})}'|"
+                    type="button" th:text="#{button.delete}">아이템 삭제</button>
+        </div>
     </div>
 
 </div> <!-- /container -->

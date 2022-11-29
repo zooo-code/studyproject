@@ -56,4 +56,9 @@ public class JpaItemRepository implements  ItemRepository{
 
 
     }
+
+    @Override
+    public void deleteItem(Long id) {
+
+    }
 }

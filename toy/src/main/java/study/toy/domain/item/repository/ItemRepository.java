@@ -14,4 +14,6 @@ public interface ItemRepository {
     List<Item> findAll(ItemSearchCond cond);
 
     void update(Long itemId, ItemUpdateDto updateParam);
+
+    void  deleteItem(Long id);
 }

@@ -23,7 +23,6 @@ public class Member {
     private int money;
 
     public Member() {
-
     }
 
     public Member(Long id, String name, String loginId, String password) {

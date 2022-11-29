@@ -38,6 +38,19 @@ public class JpaItemRepositoryQuerydsl implements ItemRepository{
         Item item = em.find(Item.class, id);
         return Optional.ofNullable(item);
     }
+    @Override
+    public void deleteItem(Long id){
+        Item item = em.find(Item.class, id);
+        em.remove(item);
+    }
+
+    @Override
+    public void update(Long itemId, ItemUpdateDto updateParam) {
+        Item findItem = findById(itemId).orElseThrow();
+        findItem.setItemName(updateParam.getItemName());
+        findItem.setPrice(updateParam.getPrice());
+        findItem.setQuantity(updateParam.getQuantity());
+    }
 
     @Override
     public List<Item> findAll(ItemSearchCond cond) {
@@ -50,16 +63,6 @@ public class JpaItemRepositoryQuerydsl implements ItemRepository{
                 .fetch();
         return result;
     }
-
-    @Override
-    public void update(Long itemId, ItemUpdateDto updateParam) {
-        Item findItem = findById(itemId).orElseThrow();
-        findItem.setItemName(updateParam.getItemName());
-        findItem.setPrice(updateParam.getPrice());
-        findItem.setQuantity(updateParam.getQuantity());
-    }
-
-
     private BooleanExpression likeItemName(String itemName) {
         if (StringUtils.hasText(itemName)) {
             return item.itemName.like("%" + itemName + "%");

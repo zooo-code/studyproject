@@ -52,6 +52,11 @@ public class MemoryItemRepository implements ItemRepository{
         findItem.setQuantity(updateParam.getQuantity());
     }
 
+    @Override
+    public void deleteItem(Long id) {
+
+    }
+
     public void clearStore(){
         store.clear();
     }

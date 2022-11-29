@@ -3,8 +3,7 @@ package study.toy.domain.login;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import study.toy.domain.member.Member;
-import study.toy.domain.member.MemberRepository;
-import study.toy.domain.member.MemoryMemberRepository;
+import study.toy.domain.member.repository.MemberRepository;
 
 @Service
 @RequiredArgsConstructor

@@ -1,10 +1,11 @@
-package study.toy.domain.member;
+package study.toy.domain.member.repository;
 
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import study.toy.domain.member.Member;
 
 
 import javax.sql.DataSource;

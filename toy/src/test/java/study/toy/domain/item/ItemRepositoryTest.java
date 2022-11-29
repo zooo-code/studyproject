@@ -1,14 +1,11 @@
 package study.toy.domain.item;
 
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import study.toy.domain.item.repository.ItemRepository;
-import study.toy.domain.item.repository.MemoryItemRepository;
 import study.toy.domain.item.service.ItemUpdateDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,6 +29,19 @@ class ItemRepositoryTest {
         //then
         Item findItem = itemRepository.findById(item.getId()).get();
         assertThat(findItem).isEqualTo(savedItem);
+    }
+    @Test
+    void delete(){
+        //given
+        Item item = new Item("test1", 10000, 1);
+
+        //when
+        Item savedItem = itemRepository.save(item);
+
+        Item findItem = itemRepository.findById(item.getId()).get();
+        //then
+        itemRepository.deleteItem(findItem.getId());
+        assertThat(itemRepository.findById(item.getId())).isEmpty();
     }
     @Test
     void updateItem() {

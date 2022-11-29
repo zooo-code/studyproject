@@ -7,8 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import study.toy.domain.member.Member;
-import study.toy.domain.member.MemberRepository;
-import study.toy.domain.member.MemoryMemberRepository;
+import study.toy.domain.member.repository.MemberRepository;
 
 @Slf4j
 @Controller

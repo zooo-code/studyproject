@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+
+
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2 th:text="#{page.item.delete}">상품 삭제</h2>
+    </div>
+    <div>
+        <label for="itemId" th:text="#{label.item.id}">상품 ID</label>
+        <input type="text" id="itemId" name="itemId" class="form-control" value="test" th:value="${item.get().getId()}" readonly>
+        <label for="itemName" th:text="#{label.item.itemName}">상품 이름</label>
+        <input type="text" id="itemName" name="itemName" class="form-control" value="test" th:value="${item.get().getItemName()}" readonly>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="w-10 btn btn-primary btn-lg"
+                    onclick="location.href='items.html'"
+                    th:onclick="|location.href='@{/item/items}'|"
+                    type="button" th:text="#{button.home}">home</button>
+        </div>
+    </div>
+</div> <!-- /container -->
+
+
+
+</html>

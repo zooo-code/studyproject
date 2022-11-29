@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import study.toy.domain.member.Member;
-import study.toy.domain.member.MemberRepository;
-import study.toy.domain.member.MemberRepositoryTrans;
+import study.toy.domain.member.repository.MemberRepository;
+import study.toy.domain.member.repository.MemberRepositoryTrans;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -72,7 +72,7 @@ class MemberServiceTransactionTest {
         log.info("memberRepository class={}", memberRepository.getClass());
         Assertions.assertThat(AopUtils.isAopProxy(memberServiceTransaction)).isTrue();
 //        지금은 memberRepository가 bean 에 등록되어 있는 상태라 안댐
-        Assertions.assertThat(AopUtils.isAopProxy(memberRepository)).isFalse();
+//        Assertions.assertThat(AopUtils.isAopProxy(memberRepository)).isFalse();
     }
     @Test
     @DisplayName("정상 이체")

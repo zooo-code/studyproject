@@ -17,6 +17,7 @@ import study.toy.web.item.form.ItemSaveForm;
 import study.toy.web.item.form.ItemUpdateForm;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -93,4 +94,15 @@ public class ItemController {
         ItemRepository.update(itemId, form);
         return "redirect:/item/items/{itemId}";
     }
+
+    @GetMapping("/{itemId}/delete")
+    public String delete(@PathVariable Long itemId, Model model){
+
+        Optional<Item> Item = ItemRepository.findById(itemId);
+        model.addAttribute("item", Item);
+        ItemRepository.deleteItem(itemId);
+
+        return "item/itemDelete";
+    }
+
 }
