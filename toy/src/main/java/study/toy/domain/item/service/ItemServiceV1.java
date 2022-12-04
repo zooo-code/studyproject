@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Service
+//@Service
 @RequiredArgsConstructor
 public class ItemServiceV1 implements ItemService {
 

@@ -19,15 +19,44 @@
     <div class="py-5 text-center">
         <h2 th:text="#{page.member}">회원 정보</h2>
     </div>
-    <h2 th:if="${param.status}" th:text="'저장 완료'"></h2>
+
+    <h4 class="mb-3">회원 정보 입력</h4>
+
+    <form action="" th:action th:object="${member}" method="post">
 
     <div>
         <label for="loginId" th:text="#{label.member.loginId}"> 회원 ID </label>
-        <input type="text" id="loginId" name="loginId" class="form-control" value="1" th:value="${member.get().loginId}" readonly>
+        <input type="text" id="loginId" name="loginId" class="form-control" value="1"
+               th:value="${member.get().loginId}" readonly>
+    </div>
+    <div>
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" th:field="*{password}" class="form-control"
+               th:errorclass="field-error" readonly>
+    </div>
+    <div>
+        <label for="name">이름</label>
+        <input type="text" id="name" th:field="*{name}" class="form-control"
+               th:errorclass="field-error" readonly>
     </div>
 
+        <hr class="my-4">
 
-
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg"
+                        onclick="location.href='items.html'"
+                        th:onclick="|location.href='@{/home}'|"
+                        type="button">회원 정보 수정</button>
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='items.html'"
+                        th:onclick="|location.href='@{/home}'|"
+                        type="button">취소</button>
+            </div>
+        </div>
+    </form>
 </div> <!-- /container -->
 </body>
 </html>

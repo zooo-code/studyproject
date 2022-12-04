@@ -36,7 +36,7 @@ class ItemRepositoryTest {
         Item item = new Item("test1", 10000, 1);
 
         //when
-        Item savedItem = itemRepository.save(item);
+        itemRepository.save(item);
 
         Item findItem = itemRepository.findById(item.getId()).get();
         //then

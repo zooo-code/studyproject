@@ -36,13 +36,15 @@ public class MemberRepositoryJPA implements MemberRepository{
 
     @Override
     public Optional<Member> findByLoginId(String loginId) {
+
         Member member = em.find(Member.class, loginId);
         return Optional.ofNullable(member);
     }
 
     @Override
     public void delete(String login_id) {
-
+        Member member = em.find(Member.class, login_id);
+        em.remove(member);
     }
 
     @Override
