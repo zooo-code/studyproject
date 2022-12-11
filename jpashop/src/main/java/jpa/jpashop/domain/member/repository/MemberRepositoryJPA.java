@@ -2,17 +2,18 @@ package jpa.jpashop.domain.member.repository;
 
 
 import jpa.jpashop.domain.member.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.util.List;
+
 
 @Repository
+@RequiredArgsConstructor
 public class MemberRepositoryJPA implements MemberRepository{
 
-    @PersistenceContext
-    EntityManager em;
-
+    private final EntityManager em;
     @Override
     public Long save(Member member){
         em.persist(member);
@@ -20,7 +21,26 @@ public class MemberRepositoryJPA implements MemberRepository{
     }
 
     @Override
-    public Member findById(Long id){
+    public Member findOne(Long id){
         return em.find(Member.class, id);
+    }
+
+    @Override
+    public List<Member> findAll() {
+        return em.createQuery("select m from Member m", Member.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Member> findByName(String name) {
+        return em.createQuery("select m from Member m where m.name = :name",Member.class)
+                .setParameter("name",name)
+                .getResultList();
+    }
+    @Override
+    public List<Member> findByLoginId(String loginId){
+        return em.createQuery("select m from Member m where m.loginId = :loginId",Member.class)
+                .setParameter("loginId",loginId)
+                .getResultList();
     }
 }
