@@ -17,4 +17,5 @@ public interface OrderRepository {
 
     List<Order> findAll(OrderSearch orderSearch);
 
+    List<Order> findAllByString(OrderSearch orderSearch);
 }

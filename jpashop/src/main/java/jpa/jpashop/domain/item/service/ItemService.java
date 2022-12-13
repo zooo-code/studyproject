@@ -11,4 +11,6 @@ public interface ItemService {
     List<Item> findItems();
 
     Item findOne(Long itemId);
+
+    void updateItem(Long itemId, String name, int price, int stockQuantity);
 }

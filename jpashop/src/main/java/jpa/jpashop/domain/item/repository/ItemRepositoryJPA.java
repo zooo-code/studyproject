@@ -34,4 +34,8 @@ public class ItemRepositoryJPA implements ItemRepository{
         return em.createQuery("select i from Item i",Item.class)
                 .getResultList();
     }
+
+    public void update(ItemUpdateDto updateParam){
+
+    }
 }
