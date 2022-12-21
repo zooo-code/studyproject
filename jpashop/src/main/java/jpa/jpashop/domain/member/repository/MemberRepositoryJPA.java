@@ -43,4 +43,13 @@ public class MemberRepositoryJPA implements MemberRepository{
                 .setParameter("loginId",loginId)
                 .getResultList();
     }
+
+    @Override
+    public Member findByLoginIdForLogin(String loginId) {
+        return em.createQuery("select m from Member m where m.loginId = :loginId", Member.class)
+                .setParameter("loginId",loginId)
+                .getSingleResult();
+    }
+
+
 }

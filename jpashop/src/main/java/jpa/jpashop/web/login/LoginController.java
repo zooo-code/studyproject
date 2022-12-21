@@ -1,60 +1,61 @@
-package study.toy.web.login;
-
-
+package jpa.jpashop.web.login;
+import jpa.jpashop.domain.login.LoginService;
+import jpa.jpashop.domain.member.Member;
+import jpa.jpashop.interceptor.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import study.toy.domain.login.LoginService;
-import study.toy.domain.member.Member;
-import study.toy.web.SessionConst;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
+
+
     private final LoginService loginService;
 
+
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
-        return "login/loginForm";
+    public String loginForm(@ModelAttribute("loginForm")LoginForm form) {
+        return "login/loginForm" ;
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
-                        @RequestParam(defaultValue = "/home") String redirectURL,
+    public String login(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult result,
+                        @RequestParam(defaultValue = "/") String redirectURL,
                         HttpServletRequest request){
 
-        if (bindingResult.hasErrors()){
-            return "login/loginForm";
+        if (result.hasErrors()){
+            log.info("로그인 에러입니다.{},{}",form.getLoginId(),form.getPassword());
+           return "login/loginForm";
         }
-
         Member loginMember = loginService.login(form.getLoginId(), form.getPassword());
 
-        if (loginMember == null) {
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+        Member login = loginService.login(form.getLoginId(), form.getPassword());
+        if (login == null){
+            result.reject("loginFail", "아이디 또는 비밀번호를 찾을 수 없습니다.");
             return "login/loginForm";
         }
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember);
-
         return "redirect:" + redirectURL;
     }
+
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
+        log.info("logout");
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/home";
+        return "redirect:/";
     }
 
 }

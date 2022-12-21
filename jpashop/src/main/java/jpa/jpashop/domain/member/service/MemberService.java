@@ -13,4 +13,6 @@ public interface MemberService {
     List<Member> findMembers();
 
     Member findOne(Long memberId);
+
+
 }

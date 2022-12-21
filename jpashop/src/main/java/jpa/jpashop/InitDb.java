@@ -44,7 +44,7 @@ public class InitDb {
 
         public void dbInit1() {
             System.out.println("Init1" + this.getClass());
-            Member member = createMember("userA", "서울", "1", "1111");
+            Member member = createMember("test","123","userA", "서울", "1", "1111");
             em.persist(member);
 
             Book book1 = createBook("JPA1 BOOK", 10000, 100);
@@ -62,7 +62,7 @@ public class InitDb {
         }
 
         public void dbInit2() {
-            Member member = createMember("userB", "진주", "2", "2222");
+            Member member = createMember("test1","1234","userB", "진주", "2", "2222");
             em.persist(member);
 
             Book book1 = createBook("SPRING1 BOOK", 20000, 200);
@@ -79,9 +79,11 @@ public class InitDb {
             em.persist(order);
         }
 
-        private Member createMember(String name, String city, String street, String zipcode) {
+        private Member createMember(String loginId, String password, String name, String city, String street, String zipcode) {
             Member member = new Member();
             member.setName(name);
+            member.setLoginId(loginId);
+            member.setPassword(password);
             member.setAddress(new Address(city, street, zipcode));
             return member;
         }

@@ -14,6 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Controller
@@ -35,8 +38,9 @@ public class OrderController {
     }
 
     @PostMapping
-    public String order(@Validated @RequestParam("memberId") Long memberId,
-                        @RequestParam("itemId") Long itemId, @RequestParam("count") int count) {
+    public String order(@RequestParam("memberId") Long memberId,
+                        @RequestParam("itemId") Long itemId,
+                        @RequestParam("count") int count) {
         orderService.order(memberId, itemId, count);
         return "redirect:/order/orders";
     }
