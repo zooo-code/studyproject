@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments/loginBodyHeader :: loginBodyHeader"/>
+
+    <label >등록할 상품 종류</label>
+
+    <div class="form-group">
+        <form th:action="@{/items/category}"  method="post" th:object="${selectItem}">
+            <div>
+                <select name="category" th:field="*{category}" >
+                    <option th:each="category : ${T(jpa.jpashop.domain.item.itemcategory.Category).values()}"
+                            th:value="${category}" th:text="${category}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button class="btn btn-primary" onclick="location.href='home.html'"
+                    th:onclick="|location.href='@{/}'|" type="button">홈으로</button>
+        </form>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+
+
+</body>
+</html>

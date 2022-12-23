@@ -45,7 +45,9 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@Validated @ModelAttribute("item") ItemSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String addItem(@Validated @ModelAttribute("item") ItemSaveForm form,
+                          BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes) {
 
         //특정 필드가 아닌 복합 룰 검증
         if (form.getPrice() != null && form.getQuantity() != null) {
@@ -62,8 +64,8 @@ public class ItemController {
         item.setItemName(form.getItemName());
         item.setPrice(form.getPrice());
         item.setQuantity(form.getQuantity());
-
         Item savedItem = ItemRepository.save(item);
+
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
         return "redirect:/item/items/{itemId}";
