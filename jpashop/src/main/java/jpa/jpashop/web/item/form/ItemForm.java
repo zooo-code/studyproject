@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 @Getter @Setter
 public class ItemForm {
 
+    private Long id;
+
     @NotEmpty
     private String name;
     @NotNull

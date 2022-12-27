@@ -2,6 +2,7 @@ package jpa.jpashop.domain.item.service;
 
 import jpa.jpashop.domain.item.Item;
 import jpa.jpashop.domain.item.repository.ItemRepository;
+import jpa.jpashop.web.item.form.ItemForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,12 +33,17 @@ public class ItemServiceJPA implements ItemService{
         return itemRepository.findOne(itemId);
     }
 
+
+    @Override
     @Transactional
-    public void updateItem(Long itemId, String name, int price, int stockQuantity) {
-        Item item = itemRepository.findOne(itemId);
-        item.setName(name);
-        item.setPrice(price);
-        item.setStockQuantity(stockQuantity);
+    public void updateItem(Long itemId, ItemForm itemForm) {
+        itemRepository.update(itemId, itemForm);
     }
+
+//    @Override
+//    @Transactional
+//    public Item deleteItem(Long id) {
+//        return itemRepository.deleteItem(id);
+//    }
 
 }

@@ -74,11 +74,20 @@ public class ItemController {
      */
     @PostMapping(value = "/{itemId}/edit")
     public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") ItemForm form) {
-
-        itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
-
+        itemService.updateItem(itemId, form);
         return "redirect:/items";
     }
+
+//
+//    @GetMapping(value = "/{itemId}/delete")
+//    public String deleteItem(@PathVariable Long itemId, Model model){
+//        Item item = itemService.deleteItem(itemId);
+//        model.addAttribute("deleteItem", item);
+//        return "items/itemDeleteForm";
+//
+//    }
+
+
 
 //    @GetMapping(value = "/category")
 //    public String selectItem(Model model){

@@ -8,7 +8,7 @@
 
     <form th:object="${form}" method="post">
         <!-- id -->
-<!--        <input type="hidden" th:field="*{id}" />-->
+        <input type="hidden" th:field="*{id}" />
 
         <div class="form-group">
             <label th:for="name">상품명</label>
@@ -23,6 +23,12 @@
             <input type="number" th:field="*{stockQuantity}" class="form-control" placeholder="수량을 입력하세요" />
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+
+
+<!--        <button class="btn btn-primary"-->
+<!--                onclick="location.href='delete'"-->
+<!--                th:href="@{/items/{id}/edit (id=*{id})}"-->
+<!--                type="button" >아이템 삭제</button>-->
         <button class="btn btn-primary" onclick="location.href='home.html'"
                 th:onclick="|location.href='@{/}'|" type="button">홈으로</button>
     </form>
