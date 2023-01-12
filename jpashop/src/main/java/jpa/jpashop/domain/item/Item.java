@@ -22,6 +22,8 @@ public class Item {
 
     private int stockQuantity;
 
+
+
     /**
      * stockQuantity가 이 class 에 있기 때문에 add, remove 를 여기에 만든다.
      */

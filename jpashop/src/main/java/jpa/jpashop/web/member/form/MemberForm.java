@@ -17,7 +17,10 @@ public class MemberForm {
     @NotEmpty(message = "비밀 번호는 필수 입니다.")
     private String password;
 
+    @NotEmpty(message = "주소는 필수 입니다.")
     private String city;
+    @NotEmpty(message = "주소는 필수 입니다.")
     private String street;
+    @NotEmpty(message = "주소는 필수 입니다.")
     private String zipcode;
 }

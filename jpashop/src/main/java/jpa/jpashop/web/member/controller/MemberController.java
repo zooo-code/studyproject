@@ -46,6 +46,8 @@ public class MemberController {
         member.setPassword(form.getPassword());
         member.setAddress(address);
         memberService.join(member);
+
+
         return "redirect:/";
     }
 

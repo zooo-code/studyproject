@@ -1,6 +1,7 @@
 package jpa.jpashop.domain.member;
 
 import jpa.jpashop.domain.delivery.Address;
+import jpa.jpashop.domain.item.Item;
 import jpa.jpashop.domain.order.Order;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +26,13 @@ public class Member {
 
     @Embedded
     private Address address;
-//    연관관계의 주인은 외래 키가 있는 곳에 있다. 따라서 member를 타고 들어가면
+
+    //연관관계의 주인은 외래 키가 있는 곳에 있다. 따라서 member 를 타고 들어가면
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "member")
+//    private List<Item> items = new ArrayList<>();
 
 
 

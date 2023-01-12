@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<link th:href="@{/css/bootstrap.min.css}"
+      href="../css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .container {
+        max-width: 560px;
+    }
+    .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+</style>
+
+
+<div class="container">
+    <div th:replace="fragments/loginBodyHeader :: loginBodyHeader"/>
+
+    <form role="form"  method="post" >
+
+
+        <div class="form-group" th:object="${loginMember}">
+            <label th:for="name">주문자 이름</label>
+            <input type="text" th:field="*{name}" class="form-control" th:readonly="*{name}" th:value="*{name}"
+                   th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+
+            <input type="hidden" th:field="*{id}" />
+            <label th:for="address.city">도시</label>
+            <input type="text" th:field="*{address.city}" class="form-control" placeholder="도시를 입력하세요"
+                   th:class="${#fields.hasErrors('address.city')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}">Incorrect date</p>
+
+            <label th:for="address.street">거리</label>
+            <input type="text" th:field="*{address.street}" class="form-control" placeholder="거리를 입력하세요"
+                   th:class="${#fields.hasErrors('address.street')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}">Incorrect date</p>
+
+            <label th:for="address.zipcode">우편번호</label>
+            <input type="text" th:field="*{address.zipcode}" class="form-control" placeholder="우편번호를 입력하세요"
+                   th:class="${#fields.hasErrors('address.zipcode')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('address.zipcode')}" th:errors="*{address.zipcode}">Incorrect date</p>
+        </div>
+
+        <div class="form-group" th:object="${form}">
+            <input type="hidden" th:field="*{id}" />
+            <label th:for="name">상품 이름</label>
+            <input type="text" th:field="*{itemName}" class="form-control" th:readonly="*{itemName}" th:value="*{itemName}"
+                   th:class="${#fields.hasErrors('itemName')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}">Incorrect date</p>
+
+            <label th:for="가격">상품 가격</label>
+            <input type="text"  th:field="*{itemPrice}" class="form-control" th:readonly="*{itemPrice}" th:value="*{itemPrice}"
+                   th:class="${#fields.hasErrors('itemPrice')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('itemPrice')}" th:errors="*{itemPrice}">Incorrect date</p>
+
+            <label th:for="count">주문 수량</label>
+            <input type="number" th:field="*{count}" class="form-control" placeholder="주문 수량을 입력하세요"
+                   th:class="${#fields.hasErrors('count')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('count')}" th:errors="*{count}">Incorrect date</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <button class="btn btn-primary" onclick="location.href='home.html'"
+                th:onclick="|location.href='@{/}'|" type="button">취소</button>
+
+
+    </form>
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+
+</body>
+</html>

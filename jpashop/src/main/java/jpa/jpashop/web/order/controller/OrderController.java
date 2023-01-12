@@ -7,24 +7,21 @@ import jpa.jpashop.domain.member.service.MemberService;
 import jpa.jpashop.domain.order.Order;
 import jpa.jpashop.domain.order.OrderSearch;
 import jpa.jpashop.domain.order.service.OrderService;
-import jpa.jpashop.web.order.form.OrderForm;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 @Slf4j
-@Controller
-@Validated
+//@Controller
 @RequiredArgsConstructor
-@RequestMapping("/order")
+//@RequestMapping("/order")
 public class OrderController {
 
     private final OrderService orderService;
@@ -40,16 +37,14 @@ public class OrderController {
         return "order/orderForm";
     }
 
-    @PostMapping
-    public String order(@RequestParam("memberId")  Long memberId,
-                        @RequestParam("itemId")  Long itemId,
-                        @RequestParam("count")  @Min(value = 1) int count,
-                        BindingResult result) {
 
-        if (result.hasErrors()){
-            log.info("errors={} ", result);
-            return "order/orderForm";
-        }
+    @PostMapping
+    @Validated
+    public String order(@RequestParam("memberId") @NotNull Long memberId,
+                        @RequestParam("itemId") @NotNull Long itemId,
+                        @RequestParam("count")  @NotNull @Min(value = 1,message = "최소 1 이상이어야 합니다." ) int count
+                        ) {
+
         log.info("memberId = {}, itemId = {}, count = {}",memberId,itemId,count);
         orderService.order(memberId, itemId, count);
         return "redirect:/order/orders";
