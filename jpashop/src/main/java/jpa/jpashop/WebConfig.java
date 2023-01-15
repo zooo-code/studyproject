@@ -26,6 +26,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/", "/members/new", "/login", "/logout",
                         "/css/**", "/*.ico", "/error",
                         "/api/v1/members", "/api/v2/members","/api/v2/members/{id}"
+                        ,"/api/v1/simple-orders", "/api/v2/simple-orders","/api/v3/simple-orders"
+                        ,"/api/v2/orders"
                 );
     }
 
