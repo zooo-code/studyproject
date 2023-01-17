@@ -11,6 +11,7 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
+        default_batch_fetch_size: 1000
 #        옵션은 System.out 에 하이버네이트 실행 SQL을 남긴다. sout으로 남긴다.
       # show_sql: true
         format_sql: true
