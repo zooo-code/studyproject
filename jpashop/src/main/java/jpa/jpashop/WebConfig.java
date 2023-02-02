@@ -28,6 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/api/v1/members", "/api/v2/members","/api/v2/members/{id}"
                         ,"/api/v1/simple-orders", "/api/v2/simple-orders","/api/v3/simple-orders"
                         ,"/api/v2/orders", "/api/v3/orders","/api/v3.1/orders", "/api/v4/orders"
+                        ,"/api/v5/orders"
                 );
     }
 
