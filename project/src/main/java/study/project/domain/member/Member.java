@@ -4,6 +4,7 @@ package study.project.domain.member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@ToString(of = {"id", "username", "loginId","password"})
 public class Member {
 
     @Id @GeneratedValue
