@@ -10,5 +10,5 @@ public interface MemberService {
     Optional<Member> findByIdMember(Long memberId);
 
     Member deleteMember(Member member);
-    long countMember();
+    Long countMember();
 }

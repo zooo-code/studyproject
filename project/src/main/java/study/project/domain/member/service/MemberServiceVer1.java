@@ -17,8 +17,7 @@ public class MemberServiceVer1 implements MemberService{
 
     @Override
     public Member join(Member member) {
-        Member saveMember = memberRepository.save(member);
-        return saveMember;
+        return memberRepository.save(member);
     }
 
     @Override
@@ -34,9 +33,8 @@ public class MemberServiceVer1 implements MemberService{
     }
 
     @Override
-    public long countMember() {
-        long count = memberRepository.count();
-        return count;
+    public Long countMember() {
+        return memberRepository.count();
     }
 
 

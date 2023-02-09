@@ -5,11 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import study.project.domain.item.Item;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -21,6 +21,8 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    @OneToMany(mappedBy = "member")
+    private List<Item> items =new ArrayList<>();
     private String username;
     private String loginId;
     private String password;
