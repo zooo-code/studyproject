@@ -34,10 +34,7 @@ public class Item {
         this.createItemTime = LocalDateTime.now();
     }
 
-    public void setMember(Member member){
+    public void setMember(Member member) {
         this.member = member;
-        member.getItems().add(this);
     }
-
-
 }

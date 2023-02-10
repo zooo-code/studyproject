@@ -27,7 +27,7 @@ public class ItemServiceVer1 implements ItemService{
     }
 
     @Override
-    public void updateItem() {
+    public void updateItem(Long id) {
 
     }
 }

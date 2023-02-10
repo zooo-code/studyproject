@@ -4,37 +4,40 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.item.Item;
 import study.project.domain.member.Member;
+import study.project.domain.member.repository.MemberRepository;
+
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
+@Rollback(value = false)
 class ItemServiceVer1Test {
     @Autowired
     ItemService itemService;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     public void CRUDItem() {
         Member member = new Member("kim", "test", "123");
+        Member saveMember = memberRepository.save(member);
         //given
-        Item test = new Item(member,"test", 10,1000);
-        LocalDateTime createItemTime = test.getCreateItemTime();
-
+        for (int i= 1 ;  i<=10 ;  i++ ){
+            Item item = itemService.saveItem(new Item(saveMember,"test"+i, 10,1000));
+            member.addItem(item);
+        }
         //when
-        Item item = itemService.saveItem(test);
-        Item findItem = itemService.findByIdItem(item.getId()).get();
+        Optional<Member> byId = memberRepository.findById(saveMember.getId());
+        List<Item> items = byId.get().getItems();
         //then
-        assertThat(findItem).isEqualTo(item);
-        assertThat(findItem.getMember()).isEqualTo(test.getMember());
-        System.out.println("findItem.getMember() = " + findItem.getMember());
-
-        itemService.deleteItem(findItem);
-        Optional<Item> byIdItem = itemService.findByIdItem(item.getId());
-        assertThat(byIdItem).isEmpty();
+        assertThat(items.size()).isEqualTo(10);
     }
 
 }
