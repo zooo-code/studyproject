@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.item.Item;
 import study.project.domain.member.Member;
 import study.project.domain.member.repository.MemberRepository;
+import study.project.domain.member.service.MemberService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,19 +23,19 @@ class ItemServiceVer1Test {
     @Autowired
     ItemService itemService;
     @Autowired
-    MemberRepository memberRepository;
+    MemberService memberService;
 
     @Test
     public void CRUDItem() {
         Member member = new Member("kim", "test", "123");
-        Member saveMember = memberRepository.save(member);
+        Member saveMember = memberService.join(member);
         //given
         for (int i= 1 ;  i<=10 ;  i++ ){
             Item item = itemService.saveItem(new Item(saveMember,"test"+i, 10,1000));
             member.addItem(item);
         }
         //when
-        Optional<Member> byId = memberRepository.findById(saveMember.getId());
+        Optional<Member> byId = memberService.findByIdMember(saveMember.getId());
         List<Item> items = byId.get().getItems();
         //then
         assertThat(items.size()).isEqualTo(10);

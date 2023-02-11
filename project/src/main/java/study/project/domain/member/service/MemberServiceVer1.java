@@ -9,6 +9,7 @@ import study.project.domain.member.repository.MemberRepository;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MemberServiceVer1 implements MemberService{
 

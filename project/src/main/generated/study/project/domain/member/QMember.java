@@ -28,6 +28,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath loginId = createString("loginId");
 
+    public final ListPath<study.project.domain.order.Order, study.project.domain.order.QOrder> orders = this.<study.project.domain.order.Order, study.project.domain.order.QOrder>createList("orders", study.project.domain.order.Order.class, study.project.domain.order.QOrder.class, PathInits.DIRECT2);
+
     public final StringPath password = createString("password");
 
     public final StringPath username = createString("username");

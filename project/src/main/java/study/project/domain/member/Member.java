@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import study.project.domain.item.Item;
+import study.project.domain.order.Order;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,6 +29,10 @@ public class Member {
     private String loginId;
     private String password;
     private LocalDateTime createMemberTime;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+
     public Member(String username, String loginId, String password) {
         this.username = username;
         this.loginId = loginId;

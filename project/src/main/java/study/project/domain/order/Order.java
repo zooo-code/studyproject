@@ -3,9 +3,12 @@ package study.project.domain.order;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import study.project.domain.member.Member;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,5 +21,13 @@ public class Order {
     private Long id;
 
     private LocalDateTime createOrder;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
 
 }

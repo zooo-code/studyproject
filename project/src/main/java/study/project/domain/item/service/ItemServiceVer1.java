@@ -2,12 +2,14 @@ package study.project.domain.item.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.item.Item;
 import study.project.domain.item.repository.ItemRepository;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ItemServiceVer1 implements ItemService{
 
