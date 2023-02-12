@@ -24,4 +24,8 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order; //주문
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
