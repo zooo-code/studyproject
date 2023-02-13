@@ -3,6 +3,7 @@ package study.project.domain.item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import study.project.domain.exception.NotEnoughStockException;
 import study.project.domain.member.Member;
 import study.project.domain.order.OrderItem;
 
@@ -30,7 +31,12 @@ public class Item {
 
     private LocalDateTime createItemTime;
 
-    public Item(Member member, String itemName, int stockQuantity,  int price) {
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public Item(Member member, String itemName, int stockQuantity, int price) {
         this.member = member;
         this.itemName = itemName;
         this.stockQuantity = stockQuantity;
@@ -38,7 +44,17 @@ public class Item {
         this.createItemTime = LocalDateTime.now();
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    //비지니스 로직
+    public void addStock(int quantity){
+        this.stockQuantity += quantity;
+    }
+
+    public void removeStock(int quantity){
+        int restStock = this.stockQuantity - quantity;
+        if (restStock < 0) {
+
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.stockQuantity = restStock;
     }
 }

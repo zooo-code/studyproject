@@ -22,11 +22,15 @@ public class QOrderItem extends EntityPathBase<OrderItem> {
 
     public static final QOrderItem orderItem = new QOrderItem("orderItem");
 
+    public final NumberPath<Integer> count = createNumber("count", Integer.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final study.project.domain.item.QItem item;
 
     public final QOrder order;
+
+    public final NumberPath<Integer> orderPrice = createNumber("orderPrice", Integer.class);
 
     public QOrderItem(String variable) {
         this(OrderItem.class, forVariable(variable), INITS);

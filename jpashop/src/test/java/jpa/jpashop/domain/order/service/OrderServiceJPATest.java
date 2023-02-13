@@ -41,8 +41,7 @@ class OrderServiceJPATest {
         Item item = createBook("시골 JPA", 10000, 10); //이름, 가격, 재고
         int orderCount = 2;
         //When
-        Long orderId = orderServiceJPA.order(member.getId(), item.getId(),
-                orderCount);
+        Long orderId = orderServiceJPA.order(member.getId(), item.getId(), orderCount);
         //Then
         Order getOrder = orderRepository.findOne(orderId);
 

@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.member.Member;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -32,5 +33,14 @@ class MemberServiceVer1Test {
         long countMember = memberService.countMember();
         assertThat(countMember).isEqualTo(0);
 
+    }
+    @Test
+    public void type_test() {
+        //given
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println("localDateTime = " + localDateTime.getClass().getName());
+        //when
+
+        //then
     }
 }
