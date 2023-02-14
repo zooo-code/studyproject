@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div class="header" th:fragment="loginBodyHeader">
+<div class="header" th:fragment="loginBodyHeader (member)">
     <ul class="nav nav-pills pull-right">
         <li><a href="/">Home</a></li>
     </ul>
-    <a href="/"><h3 class="text-muted">HELLO SHOP</h3></a>
-
+    <a href="/"><h3 class="text-muted" >HELLO SHOP</h3></a>
+    <a th:text="|안녕하세요 : ${member.username} 님|"></a>
 </div>
