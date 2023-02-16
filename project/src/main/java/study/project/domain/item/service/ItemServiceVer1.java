@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.item.Item;
 import study.project.domain.item.repository.ItemRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,5 +32,10 @@ public class ItemServiceVer1 implements ItemService{
     @Override
     public void updateItem(Long id) {
 
+    }
+
+    @Override
+    public List<Item> findAllItems() {
+        return itemRepository.findAll();
     }
 }
