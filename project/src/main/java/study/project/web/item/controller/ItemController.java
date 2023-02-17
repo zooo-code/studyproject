@@ -13,6 +13,7 @@ import study.project.domain.member.Member;
 import study.project.domain.member.service.MemberService;
 import study.project.web.argumentResolver.Login;
 import study.project.web.item.dto.ItemForm;
+import study.project.web.item.dto.MemberItemDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,46 +34,57 @@ public class ItemController {
     @GetMapping("/create")
     public String createItem(@Login Member loginMember , Model model){
         ItemForm itemForm = new ItemForm();
-        itemForm.setUserLoginId(loginMember.getLoginId());
+
         itemForm.setUserId(loginMember.getId());
         model.addAttribute("member",loginMember);
         model.addAttribute("itemForm",itemForm);
         return "items/createItemForm";
     }
     @PostMapping("/create")
-    public String createItem(@Validated ItemForm form, BindingResult result, RedirectAttributes redirectAttributes){
+    public String createItem(@ModelAttribute Member loginMember, @Validated ItemForm itemForm,
+                             BindingResult result,
+                             RedirectAttributes redirectAttributes){
         if (result.hasErrors()){
             return "items/createItemForm";
         }
-      
-        Member member = memberService.findByIdMember(form.getUserId()).get();
-
-        Item item = new Item(member, form.getName(), form.getStockQuantity(), form.getPrice());
+        System.out.println("loginMember.getId() = " + loginMember.getId());
+        Item item = new Item(loginMember, itemForm.getName(), itemForm.getStockQuantity(), itemForm.getPrice());
         Item saveItem = itemService.saveItem(item);
-        redirectAttributes.addFlashAttribute("itemId",saveItem.getId());
+        redirectAttributes.addAttribute("itemId",saveItem.getId());
+        redirectAttributes.addAttribute("memberId",loginMember.getId());
         redirectAttributes.addAttribute("status",true);
         return "redirect:/items/{memberId}/{itemId}";
     }
     @GetMapping("/{memberId}/{itemId}")
-    public String item(@PathVariable Long memberId,
+    public String item(@Login Member loginMember,
+                       @PathVariable Long memberId,
                        @PathVariable Long itemId,
                        Model model){
-
         Optional<Item> findByIdItem = itemService.findByIdItem(itemId);
         model.addAttribute("item",findByIdItem.get());
+        model.addAttribute("member",loginMember);
         return "items/item";
     }
 
-//    @GetMapping("/{memberId}/{itemId}/Item")
-//    public String Item(@PathVariable("itemId") Long itemId, @PathVariable("memberId") Long memberId,
-//                       Model model){
-//        itemService
-//        model.addAttribute("myItems");
-//        return ;
-//    }
+    @GetMapping("/{memberId}/{itemId}/Item")
+    public String editItem(@PathVariable("itemId") Long itemId, @PathVariable("memberId") Long memberId,
+                       Model model){
+        Member member = memberService.findByIdMember(memberId).get();
+        Optional<Item> byIdItem = itemService.findByIdItem(itemId);
+        model.addAttribute("member",member);
+        model.addAttribute("myItems",byIdItem.get());
+        return "items/editItem";
+    }
 //    @GetMapping("/{memberId}/itemList")
 //    public String MyItemList(@PathVariable("memberId") Long memberId){
 //
 //    }
 
+    @GetMapping("/{memberId}")
+    public String myItemList(@Login Member loginMember,
+                             @PathVariable Long memberId, Model model){
+        List<MemberItemDto> memberItems = itemService.myItemList(loginMember.getId());
+        model.addAttribute("items",memberItems);
+        return "items/MyItemList";
+    }
 }

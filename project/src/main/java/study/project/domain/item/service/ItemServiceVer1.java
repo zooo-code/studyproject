@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.item.Item;
 import study.project.domain.item.repository.ItemRepository;
+import study.project.web.item.dto.MemberItemDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,5 +38,10 @@ public class ItemServiceVer1 implements ItemService{
     @Override
     public List<Item> findAllItems() {
         return itemRepository.findAll();
+    }
+
+    @Override
+    public List<MemberItemDto> myItemList(Long memberId) {
+        return itemRepository.myItemList(memberId);
     }
 }

@@ -11,8 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter @Setter
 public class ItemForm {
 
-    @NotEmpty
-    private String userLoginId;
+
     private Long userId;
     private Long itemId;
 

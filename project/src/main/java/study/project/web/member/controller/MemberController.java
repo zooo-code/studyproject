@@ -5,13 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import study.project.domain.member.Member;
 import study.project.domain.member.service.MemberService;
+import study.project.web.argumentResolver.Login;
 import study.project.web.member.form.MemberForm;
+import study.project.web.member.form.UpdateMemberForm;
 
 @Controller
 @RequestMapping("/members")
@@ -27,12 +27,39 @@ public class MemberController {
     }
 
     @PostMapping("/new")
-    public String create(@Validated MemberForm form, BindingResult result){
+    public String create(@Validated MemberForm form, BindingResult result,
+                         RedirectAttributes redirectAttributes){
         if (result.hasErrors()) {
             return "members/createMemberForm";
         }
         Member member = new Member(form.getUsername(),form.getLoginId(),form.getPassword());
         memberService.join(member);
+        redirectAttributes.addAttribute("status",true);
         return "redirect:/";
+    }
+
+    @GetMapping("/{memberId}")
+    public String myInfo(@Login Member loginMember,
+                         @PathVariable Long memberId, Model model){
+        model.addAttribute("member",loginMember);
+        return "members/memberInfo";
+    }
+    @GetMapping("/edit/{memberId}")
+    public String edit(@Login Member loginMember, @PathVariable Long memberId, Model model){
+        UpdateMemberForm updateMemberForm = new UpdateMemberForm(loginMember.getId(), loginMember.getLoginId(), loginMember.getUsername(), loginMember.getPassword());
+        model.addAttribute("member", updateMemberForm);
+
+        return "members/editMemberInfo";
+    }
+    @PostMapping("/edit/{memberId}")
+    public String editMember(@Login Member loginMember, @ModelAttribute("member")@Validated UpdateMemberForm form, BindingResult result,
+                             @PathVariable Long memberId,
+                             RedirectAttributes redirectAttributes){
+        if (result.hasErrors()){
+            return "/members/editMemberInfo";
+        }
+        memberService.edit(memberId,form.getUsername(),form.getPassword());
+        redirectAttributes.addAttribute("memberId",loginMember.getId());
+        return "redirect:/members/{memberId}";
     }
 }

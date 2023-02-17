@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ItemRepositoryCustom {
 
-    List<MemberItemDto> myItemList();
+    List<MemberItemDto> myItemList(Long memberId);
 }

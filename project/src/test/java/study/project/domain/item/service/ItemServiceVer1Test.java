@@ -12,6 +12,7 @@ import study.project.domain.item.Item;
 import study.project.domain.member.Member;
 import study.project.domain.member.repository.MemberRepository;
 import study.project.domain.member.service.MemberService;
+import study.project.web.item.dto.MemberItemDto;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
@@ -59,6 +60,22 @@ class ItemServiceVer1Test {
         System.out.println("items = " + items);
         //then
         assertThat(items.size()).isEqualTo(10);
+    }
+    @Test
+    public void itemMember() {
+        Member member = new Member("kim", "test1", "123");
+        Member saveMember = memberService.join(member);
+        for (int i= 1 ;  i<=10 ;  i++ ){
+            Item item = itemService.saveItem(new Item(saveMember,"test"+i, 10,1000));
+        }
+        List<MemberItemDto> memberItem = itemService.myItemList(saveMember.getId());
+        //given
+
+        System.out.println(memberItem.size());
+
+        //when
+
+        //then
     }
 
 }

@@ -38,5 +38,12 @@ public class MemberServiceVer1 implements MemberService{
         return memberRepository.count();
     }
 
+    @Transactional
+    @Override
+    public Member edit(Long id, String name, String password) {
+        Member member = memberRepository.findById(id).get();
+        member.update(name,password);
+        return member;
+    }
 
 }

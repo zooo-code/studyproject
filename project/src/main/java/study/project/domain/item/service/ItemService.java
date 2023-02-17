@@ -1,6 +1,7 @@
 package study.project.domain.item.service;
 
 import study.project.domain.item.Item;
+import study.project.web.item.dto.MemberItemDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,4 +15,6 @@ public interface ItemService {
     void updateItem(Long Id);
 
     List<Item> findAllItems();
+
+    List<MemberItemDto> myItemList(Long memberId);
 }

@@ -11,4 +11,6 @@ public interface MemberService {
 
     Member deleteMember(Member member);
     Long countMember();
+    Member edit(Long id, String name, String password);
+
 }

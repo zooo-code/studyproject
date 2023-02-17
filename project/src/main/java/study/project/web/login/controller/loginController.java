@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import study.project.domain.login.LoginService;
 import study.project.domain.member.Member;
 import study.project.web.interceptor.SessionConst;
@@ -35,11 +36,12 @@ public class loginController {
         }
         Member loginMember = loginService.login(form.getLoginId(), form.getPassword());
         if (loginMember == null){
-            result.reject("loginFail", "아이디 또는 비밀번호를 찾을 수 없습니다.");
+            result.reject("loginFail", "아이디 또는 비밀번호를 확인해 주세요.");
             return "login/loginForm";
         }
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember);
+
         return "redirect:"+ redirectURL;
     }
     @PostMapping("/logout")

@@ -18,7 +18,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<MemberItemDto> myItemList() {
+    public List<MemberItemDto> myItemList(Long memberId) {
         return queryFactory.select(new QMemberItemDto(
                 member.loginId,
                         item.id,
@@ -28,6 +28,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
                 ))
                 .from(item)
                 .leftJoin(item.member, member)
+                .where(item.member.id.eq(memberId))
                 .fetch();
     }
 }

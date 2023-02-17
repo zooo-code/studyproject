@@ -46,4 +46,10 @@ public class Member {
         items.add(item);
         item.setMember(this);
     }
+
+    //비지니스 매서드
+    public void update(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
 }

@@ -23,7 +23,6 @@
     <table class="table">
       <thead>
       <tr>
-        <th>판매자 ID</th>
         <th>상품명</th>
         <th>가격</th>
         <th>수량</th>
@@ -31,8 +30,7 @@
       </thead>
       <tbody>
       <tr th:each="item : ${items}">
-        <td><a href="item.html" th:href="@{/basic/items/{itemId}(itemId=${item.id})}" th:text="${item.member.loginId}">판매자 ID</a></td>
-        <td><a href="item.html" th:href="@{|/basic/items/${item.id}|}" th:text="${item.itemName}">상품명</a></td>
+        <td><a href="item.html" th:href="@{|/items/${memberId}/${item.itemId}|}" th:text="${item.itemName}">상품명</a></td>
         <td th:text="${item.price}">10000</td>
         <td th:text="${item.stockQuantity}">10</td>
       </tr>
