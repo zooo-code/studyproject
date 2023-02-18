@@ -44,4 +44,13 @@ public class ItemServiceVer1 implements ItemService{
     public List<MemberItemDto> myItemList(Long memberId) {
         return itemRepository.myItemList(memberId);
     }
+
+    @Override
+    public void edit(Long id, String name, int price, int stockQuantity) {
+
+        Item item = itemRepository.findById(id).get();
+        item.update(name,price,stockQuantity);
+
+
+    }
 }

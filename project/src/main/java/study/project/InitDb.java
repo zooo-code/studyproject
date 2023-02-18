@@ -28,11 +28,18 @@ public class InitDb {
         private final ItemService itemService;
         public void dbInit1(){
             Member member = new Member("kim", "test", "123");
-            memberService.join(member);
+            Member member1 = memberService.join(member);
 
             for (int i = 1; i <=10 ; i++){
-                Item item = new Item(member, "test" + i, 10 + i, 1000 * i);
+                Item item = new Item(member1, "kimItem" + i, 10 + i, 1000 * i);
                 itemService.saveItem(item);
+            }
+            Member member2 = new Member("lee", "test12", "123");
+
+            Member member3 = memberService.join(member2);
+            for (int i =1; i<=10; i++){
+                Item item1 = new Item(member3, "leeItem" + i, i + 1, 100 * i);
+                itemService.saveItem(item1);
             }
 
         }

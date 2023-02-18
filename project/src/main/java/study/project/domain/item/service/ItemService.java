@@ -17,4 +17,6 @@ public interface ItemService {
     List<Item> findAllItems();
 
     List<MemberItemDto> myItemList(Long memberId);
+
+    void edit(Long id, String name, int price, int stockQuantity);
 }
