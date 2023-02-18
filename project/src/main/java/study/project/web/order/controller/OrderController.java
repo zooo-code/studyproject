@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping("/Order")
 public class OrderController {
-    
+
 }
