@@ -2,7 +2,6 @@ package study.project.domain.item.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import study.project.web.item.dto.MemberItemDto;
 import study.project.web.item.dto.QMemberItemDto;
 

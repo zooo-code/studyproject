@@ -23,6 +23,7 @@
         <th>상품명</th>
         <th>가격</th>
         <th>수량</th>
+        <th>주문</th>
       </tr>
       </thead>
       <tbody>
@@ -31,6 +32,12 @@
         <td><a href="item.html" th:href="@{|/items/${item.id}|}" th:text="${item.itemName}">상품명</a></td>
         <td th:text="${item.price}">10000</td>
         <td th:text="${item.stockQuantity}">10</td>
+        <td>
+          <button class="w-5 btn btn-primary"
+                onclick="location.href='order/orderForm.html'"
+                th:onclick="|location.href='@{/order/{itemId}/{memberId}(memberId=${member.id},itemId =${item.id})}'|"
+                type="button">상품 주문</button>
+        </td>
       </tr>
       </tbody>
     </table>

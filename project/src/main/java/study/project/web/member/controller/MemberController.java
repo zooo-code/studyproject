@@ -46,7 +46,8 @@ public class MemberController {
     }
     @GetMapping("/edit/{memberId}")
     public String edit(@Login Member loginMember, @PathVariable Long memberId, Model model){
-        UpdateMemberForm updateMemberForm = new UpdateMemberForm(loginMember.getId(), loginMember.getLoginId(), loginMember.getUsername(), loginMember.getPassword());
+        UpdateMemberForm updateMemberForm = new UpdateMemberForm(loginMember.getId(), loginMember.getLoginId(),
+                loginMember.getUsername(), loginMember.getPassword());
         model.addAttribute("member", updateMemberForm);
 
         return "members/editMemberInfo";

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 600px">
+    <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
+    <div class="py-5 text-center">
+        <h2>주문 목록</h2>
+    </div>
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>주문 ID</th>
+                <th>주문 상품 이름</th>
+                <th>수량</th>
+                <th>상품 가격</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orderItems}">
+                <td><a th:href="@{|/order/myOrder/${order.memberId}/${order.orderId}|}" th:text="${order.orderId}"></a></td>
+                <td th:text="${order.itemName}"></td>
+                <td th:text="${order.buyCount}"></td>
+                <td th:text="${order.totalPrice}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>

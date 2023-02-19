@@ -10,8 +10,10 @@ import study.project.domain.member.Member;
 import study.project.domain.member.repository.MemberRepository;
 import study.project.domain.order.Order;
 import study.project.domain.order.OrderItem;
+import study.project.domain.order.dto.MemberOrderDto;
 import study.project.domain.order.repository.OrderRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
@@ -44,5 +46,16 @@ public class OrderServiceVer1 implements OrderService{
     public void cancelOrder(Long orderId){
         Optional<Order> order = orderRepository.findById(orderId);
         order.get().cancel();
+    }
+
+    @Override
+    public Order findById(Long orderId) {
+        Order order = orderRepository.findById(orderId).get();
+        return order;
+    }
+
+    @Override
+    public List<MemberOrderDto> findMyOrderItems(Long memberId) {
+        return orderRepository.myOrderList(memberId);
     }
 }

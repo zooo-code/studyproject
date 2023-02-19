@@ -108,8 +108,4 @@ public class ItemController {
         return "redirect:/items/{memberId}/{itemId}";
     }
 
-    @GetMapping("/order/{itemId}")
-    public String orderItem(@PathVariable Long itemId){
-        return "xx";
-    }
 }
