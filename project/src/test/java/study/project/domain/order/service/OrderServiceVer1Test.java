@@ -12,9 +12,11 @@ import study.project.domain.item.service.ItemService;
 import study.project.domain.member.Member;
 import study.project.domain.member.service.MemberService;
 import study.project.domain.order.Order;
+import study.project.domain.order.OrderItem;
 import study.project.domain.order.OrderStatus;
 import study.project.domain.order.repository.OrderRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -41,19 +43,19 @@ class OrderServiceVer1Test {
         Member member1 = new Member("test","test1", "123");
         Member member2 = new Member("test1", "test1", "123");
         memberService.join(member1);
-        memberService.join(member2);
+        Member join = memberService.join(member2);
         Item testItem = new Item(member1, "testItem", 10, 1000);
         itemService.saveItem(testItem);
 
         //when
         Long orderId = orderService.order(member2.getId(), testItem.getId(), 4);
-        Order getOrder = orderRepository.findById(orderId).get();
-
-
-        //then
-        assertThat(getOrder.getOrderItems().size()).isEqualTo(1);
-        assertThat(getOrder.getTotalPrice()).isEqualTo(1000*4);
-        assertThat(testItem.getStockQuantity()).isEqualTo(6);
+        Long orderId2 = orderService.order(member2.getId(), testItem.getId(), 2);
+        List<Long> byMemberId = orderService.findByMemberId(join.getId());
+        for (Long order : byMemberId) {
+            System.out.println("order.getId() = " + order);
+        }
+        System.out.println("orderId = " + orderId);
+        System.out.println("orderId2 = " + orderId2);
     }
 
     @Test

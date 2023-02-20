@@ -28,9 +28,14 @@ public class MemberController {
 
     @PostMapping("/new")
     public String create(@Validated MemberForm form, BindingResult result,
-                         RedirectAttributes redirectAttributes){
+                         RedirectAttributes redirectAttributes,Model model){
         if (result.hasErrors()) {
             return "members/createMemberForm";
+        }
+        Boolean findByLoginId = memberService.findByLoginId(form.getLoginId());
+        if (findByLoginId){
+            redirectAttributes.addAttribute("status",true);
+            return "redirect:/members/new";
         }
         Member member = new Member(form.getUsername(),form.getLoginId(),form.getPassword());
         memberService.join(member);
@@ -38,29 +43,27 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/{memberId}")
+    @GetMapping("/myInfo")
     public String myInfo(@Login Member loginMember,
-                         @PathVariable Long memberId, Model model){
+                          Model model){
         model.addAttribute("member",loginMember);
         return "members/memberInfo";
     }
-    @GetMapping("/edit/{memberId}")
-    public String edit(@Login Member loginMember, @PathVariable Long memberId, Model model){
+    @GetMapping("/edit")
+    public String edit(@Login Member loginMember, Model model){
         UpdateMemberForm updateMemberForm = new UpdateMemberForm(loginMember.getId(), loginMember.getLoginId(),
                 loginMember.getUsername(), loginMember.getPassword());
         model.addAttribute("member", updateMemberForm);
-
         return "members/editMemberInfo";
     }
-    @PostMapping("/edit/{memberId}")
+    @PostMapping("/edit")
     public String editMember(@Login Member loginMember, @ModelAttribute("member")@Validated UpdateMemberForm form, BindingResult result,
-                             @PathVariable Long memberId,
                              RedirectAttributes redirectAttributes){
         if (result.hasErrors()){
             return "/members/editMemberInfo";
         }
-        memberService.edit(memberId,form.getUsername(),form.getPassword());
+        memberService.edit(loginMember.getId(),form.getUsername(),form.getPassword());
         redirectAttributes.addAttribute("memberId",loginMember.getId());
-        return "redirect:/members/{memberId}";
+        return "redirect:/members/myInfo";
     }
 }

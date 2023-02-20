@@ -20,19 +20,19 @@
     <p class="lead">회원 기능</p>
     <p>
       <a class="btn btn-lg btn-secondary" href="members/memberInfo.html"
-         th:href="@{/members/{memberId}(memberId = ${member.getId()})}">나의 정보</a>
+         th:href="@{/members/myInfo}">나의 정보</a>
     </p>
     <p class="lead">상품 기능</p>
     <p>
       <a class="btn btn-lg btn-dark" href="/items/create">내 상품 등록</a>
       <a class="btn btn-lg btn-dark" href="/items/"
-         th:href="@{/items/{memberId}(memberId=${member.getId()})}">내 상품 목록</a>
+         th:href="@{/items/myList}">내 상품 목록</a>
       <a class="btn btn-lg btn-dark" href="/items">모든 상품 목록</a>
     </p>
     <p class="lead">주문 기능</p>
     <p>
       <a class="btn btn-lg btn-info" href="/order/MyOrderList/{memberId}"
-         th:href="@{/order/MyOrderList/{memberId}(memberId=${member.getId()})}">나의 주문 내역</a>
+         th:href="@{/order/MyOrderList}">나의 주문 내역</a>
     </p>
   </p>
 

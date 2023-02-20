@@ -7,6 +7,7 @@ import study.project.domain.item.Item;
 import study.project.domain.item.repository.ItemRepository;
 import study.project.web.item.dto.MemberItemDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +31,7 @@ public class ItemServiceVer1 implements ItemService{
         return itemRepository.findById(itemId);
     }
 
-    @Override
-    public void updateItem(Long id) {
 
-    }
 
     @Override
     public List<Item> findAllItems() {
@@ -52,5 +50,15 @@ public class ItemServiceVer1 implements ItemService{
         item.update(name,price,stockQuantity);
 
 
+    }
+
+    @Override
+    public List<Long> myItem(Long memberId) {
+        List<Item> byMemberId = itemRepository.findByMemberId(memberId);
+        List<Long> itemId = new ArrayList<>();
+        for (Item item : byMemberId) {
+            itemId.add(item.getId());
+        }
+        return itemId;
     }
 }

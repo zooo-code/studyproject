@@ -16,6 +16,7 @@
 
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <h2 th:if="${param.status}" th:text="'중복된 아이디 입니다.'"></h2>
     <form role="form" action="/members/new" th:object="${memberForm}" method="post">
         <div class="form-group">
             <label th:for="name">이름</label>

@@ -35,6 +35,14 @@ public class ItemController {
         model.addAttribute("items",allItems);
         return "items/allItemList";
     }
+    @GetMapping("/myList")
+    public String myItemList(@Login Member loginMember,Model model){
+        List<MemberItemDto> memberItems = itemService.myItemList(loginMember.getId());
+
+        model.addAttribute("items",memberItems);
+        model.addAttribute("member",loginMember);
+        return "items/MyItemList";
+    }
     @GetMapping("/create")
     public String createItem(@Login Member loginMember , Model model){
         ItemForm itemForm = new ItemForm();
@@ -47,8 +55,9 @@ public class ItemController {
     @PostMapping("/create")
     public String createItem(@Login Member loginMember, @Validated ItemForm itemForm,
                              BindingResult result,
-                             RedirectAttributes redirectAttributes){
+                             RedirectAttributes redirectAttributes, Model model){
         if (result.hasErrors()){
+            model.addAttribute("member",loginMember);
             return "items/createItemForm";
         }
         Optional<Member> byIdMember = memberService.findByIdMember(loginMember.getId());
@@ -56,56 +65,53 @@ public class ItemController {
         Item item = new Item(byIdMember.get(), itemForm.getName(), itemForm.getStockQuantity(), itemForm.getPrice());
         Item saveItem = itemService.saveItem(item);
         redirectAttributes.addAttribute("itemId",saveItem.getId());
-        redirectAttributes.addAttribute("memberId",loginMember.getId());
         redirectAttributes.addAttribute("status",true);
-        return "redirect:/items/{memberId}/{itemId}";
+        return "redirect:/items/{itemId}";
     }
-    @GetMapping("/{memberId}/{itemId}")
+
+    @GetMapping("/{itemId}")
     public String item(@Login Member loginMember,
-                       @PathVariable Long memberId,
                        @PathVariable Long itemId,
-                       Model model){
+                       Model model,RedirectAttributes redirectAttributes){
+
+        List<Long> Items = itemService.myItem(loginMember.getId());
+        if (!Items.contains(itemId)){
+            redirectAttributes.addAttribute("status",true);
+            return "redirect:/items/myList";
+        }
         Optional<Item> findByIdItem = itemService.findByIdItem(itemId);
         model.addAttribute("item",findByIdItem.get());
         model.addAttribute("member",loginMember);
         return "items/item";
     }
 
-    @GetMapping("/{memberId}")
-    public String myItemList(@Login Member loginMember,
-                             @PathVariable Long memberId, Model model){
-        List<MemberItemDto> memberItems = itemService.myItemList(loginMember.getId());
-        Member member = memberService.findByIdMember(memberId).get();
-        model.addAttribute("items",memberItems);
-        model.addAttribute("member",member);
-        return "items/MyItemList";
-    }
-
-    @GetMapping("/{memberId}/{itemId}/edit")
+    @GetMapping("/{itemId}/edit")
     public String editItem(@Login Member loginMember,
-                           @PathVariable("itemId") Long itemId, @PathVariable("memberId") Long memberId,
-                           Model model){
-        log.info("editForm");
-        Member member = memberService.findByIdMember(memberId).get();
+                           @PathVariable("itemId") Long itemId,
+                           Model model,RedirectAttributes redirectAttributes){
+        List<Long> Items = itemService.myItem(loginMember.getId());
+        if (!Items.contains(itemId)){
+            redirectAttributes.addAttribute("status",true);
+            return "redirect:/items/myList";
+        }
         Item item = itemService.findByIdItem(itemId).get();
-        model.addAttribute("member",member);
+        model.addAttribute("member",loginMember);
         model.addAttribute("item",item);
         return "items/editItem";
     }
 
-    @PostMapping("/{memberId}/{itemId}/edit")
-    public String edit(@PathVariable Long memberId, @PathVariable Long itemId,
+    @PostMapping("/{itemId}/edit")
+    public String edit(@Login Member loginMember, @PathVariable Long itemId,
                        @ModelAttribute("item")@Validated EditItemForm itemForm,
                        BindingResult result,
-                       RedirectAttributes redirectAttributes){
+                       RedirectAttributes redirectAttributes, Model model){
         if(result.hasErrors()){
+            model.addAttribute("member",loginMember);
             return "items/editItem";
         }
         itemService.edit(itemId,itemForm.getItemName(),itemForm.getPrice(),itemForm.getStockQuantity());
-        redirectAttributes.addAttribute("memberId",memberId);
         redirectAttributes.addAttribute("itemId",itemId);
-
-        return "redirect:/items/{memberId}/{itemId}";
+        return "redirect:/items/{itemId}";
     }
 
 }

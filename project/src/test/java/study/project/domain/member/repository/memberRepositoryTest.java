@@ -21,5 +21,6 @@ class memberRepositoryTest {
         System.out.println("save = " + save);
         Optional<Member> findById = memberRepository.findById(save.getId());
         assertThat(member.getId()).isEqualTo(findById.get().getId());
+
     }
 }

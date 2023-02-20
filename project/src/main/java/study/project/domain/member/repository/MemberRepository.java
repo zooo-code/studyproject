@@ -6,5 +6,5 @@ import study.project.domain.member.Member;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member,Long>, MemberRepositoryCustom{
-    Optional<Member> findByLoginId(String LoginId) ;
+    Optional<Member> findByLoginId(String LoginId);
 }

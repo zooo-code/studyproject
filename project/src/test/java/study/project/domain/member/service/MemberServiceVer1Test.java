@@ -1,5 +1,6 @@
 package study.project.domain.member.service;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,5 +43,14 @@ class MemberServiceVer1Test {
         //when
 
         //then
+    }
+    @Test
+    public void testMember () {
+        //given
+
+        //when
+        Boolean test = memberService.findByLoginId("test");
+        //then
+        Assertions.assertThat(test).isTrue();
     }
 }

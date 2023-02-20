@@ -20,6 +20,7 @@
 
   <!-- 추가 -->
       <h2 th:if="${param.status}" th:text="'주문 완료'"></h2>
+      <h2 th:if="${param.impossible}" th:text="'주문 ID를 확인하세요'"></h2>
 
   <div>
     <label for="loginId">주문 회원 ID</label>
@@ -45,15 +46,13 @@
   <hr class="my-4">
 
   <div class="row">
-    <div class="col">
+    <div class="col" >
       <button class="w-100 btn btn-primary btn-lg"
-              onclick="location.href='editForm.html'"
-              th:onclick="|location.href='@{/members/edit/{memberId}(memberId=${member.id})}'|"
+              th:onclick="|location.href='@{/order/cancel/{orderId}(orderId =${order.order.id})}'|"
               type="button">주문 취소</button>
     </div>
     <div class="col">
       <button class="w-100 btn btn-secondary btn-lg"
-              onclick="location.href='items.html'"
               th:onclick="|location.href='@{/}'|"
               type="button">홈으로</button>
     </div>

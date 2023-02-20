@@ -13,6 +13,7 @@ import study.project.domain.order.OrderItem;
 import study.project.domain.order.dto.MemberOrderDto;
 import study.project.domain.order.repository.OrderRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,5 +58,15 @@ public class OrderServiceVer1 implements OrderService{
     @Override
     public List<MemberOrderDto> findMyOrderItems(Long memberId) {
         return orderRepository.myOrderList(memberId);
+    }
+
+    @Override
+    public ArrayList<Long> findByMemberId(Long memberId) {
+        List<Order> byMemberId = orderRepository.findByMemberId(memberId);
+        ArrayList<Long> Orders = new ArrayList<Long>();
+        for (Order order : byMemberId) {
+            Orders.add(order.getId());
+        }
+        return Orders;
     }
 }

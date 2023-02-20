@@ -18,6 +18,7 @@
 
 <div class="container">
     <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
+    <h2 th:if="${param.over}" th:text="'주문 수량이 초과했습니다.'"></h2>
     <div class="py-5 text-center">
         <h2>주문 정보</h2>
     </div>

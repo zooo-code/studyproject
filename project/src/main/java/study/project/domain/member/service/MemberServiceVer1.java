@@ -46,4 +46,10 @@ public class MemberServiceVer1 implements MemberService{
         return member;
     }
 
+    @Override
+    public Boolean findByLoginId(String LoginId) {
+        Optional<Member> byLoginId = memberRepository.findByLoginId(LoginId);
+        return byLoginId.isPresent();
+    }
+
 }

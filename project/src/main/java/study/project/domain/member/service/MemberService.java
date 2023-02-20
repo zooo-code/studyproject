@@ -13,4 +13,6 @@ public interface MemberService {
     Long countMember();
     Member edit(Long id, String name, String password);
 
+    Boolean findByLoginId(String LoginId);
+
 }

@@ -1,12 +1,7 @@
 package study.project.domain.order.service;
 
-
-import org.springframework.stereotype.Service;
-import study.project.domain.item.Item;
 import study.project.domain.order.Order;
-import study.project.domain.order.OrderItem;
 import study.project.domain.order.dto.MemberOrderDto;
-
 import java.util.List;
 
 
@@ -18,5 +13,6 @@ public interface OrderService {
 
     List<MemberOrderDto> findMyOrderItems(Long memberId);
 
+    List<Long> findByMemberId(Long memberId);
 
 }

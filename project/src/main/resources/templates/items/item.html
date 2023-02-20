@@ -45,7 +45,7 @@
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editItem.html'"
-                    th:onclick="|location.href='@{/items/{memberId}/{itemId}/edit(memberId=${member.id},itemId =${item.id})}'|"
+                    th:onclick="|location.href='@{/items/{itemId}/edit(itemId =${item.id})}'|"
                     type="button">상품 수정</button>
         </div>
         <div class="col">
