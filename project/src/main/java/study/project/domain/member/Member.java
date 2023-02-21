@@ -4,7 +4,6 @@ package study.project.domain.member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import study.project.domain.item.Item;
 import study.project.domain.order.Order;
 
@@ -16,7 +15,6 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@ToString(of = {"id", "username", "loginId","password"})
 public class Member {
 
     @Id @GeneratedValue

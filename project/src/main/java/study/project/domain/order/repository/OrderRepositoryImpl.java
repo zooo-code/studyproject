@@ -25,8 +25,10 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
                         order.id,
                 order.member.id,
                 orderItem.item.itemName,
-                orderItem.count, orderItem.orderPrice,
-                order.status
+                orderItem.count,
+                        orderItem.orderPrice,
+                order.orderDate
+                        ,order.status
                 ))
                 .from(orderItem)
                 .leftJoin(orderItem.order,order)

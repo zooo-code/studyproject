@@ -36,8 +36,7 @@ public class Order {
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
-    private int orderPrice; //주문 가격
-    private int count; //주문 수량
+
     //== 연관관계 메서드==//
     public void setMember(Member member) {
         this.member = member;

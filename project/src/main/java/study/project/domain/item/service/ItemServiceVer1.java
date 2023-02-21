@@ -12,12 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemServiceVer1 implements ItemService{
 
     private final ItemRepository itemRepository;
     @Override
+    @Transactional
     public Item saveItem(Item item){
         return itemRepository.save(item);
     }
@@ -44,12 +45,10 @@ public class ItemServiceVer1 implements ItemService{
     }
 
     @Override
+    @Transactional
     public void edit(Long id, String name, int price, int stockQuantity) {
-
         Item item = itemRepository.findById(id).get();
         item.update(name,price,stockQuantity);
-
-
     }
 
     @Override

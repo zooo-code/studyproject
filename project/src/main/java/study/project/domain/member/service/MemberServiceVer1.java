@@ -17,6 +17,7 @@ public class MemberServiceVer1 implements MemberService{
 
 
     @Override
+    @Transactional
     public Member join(Member member) {
         return memberRepository.save(member);
     }
