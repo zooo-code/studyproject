@@ -2,6 +2,7 @@ package study.project.domain.member.service;
 
 import study.project.domain.member.Member;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberService {
@@ -14,5 +15,7 @@ public interface MemberService {
     Member edit(Long id, String name, String password);
 
     Boolean findByLoginId(String LoginId);
+
+    List<Member> findMembers();
 
 }

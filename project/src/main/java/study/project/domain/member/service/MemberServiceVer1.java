@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.member.Member;
 import study.project.domain.member.repository.MemberRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,6 +52,11 @@ public class MemberServiceVer1 implements MemberService{
     public Boolean findByLoginId(String LoginId) {
         Optional<Member> byLoginId = memberRepository.findByLoginId(LoginId);
         return byLoginId.isPresent();
+    }
+
+    @Override
+    public List<Member> findMembers() {
+        return memberRepository.findAll();
     }
 
 }

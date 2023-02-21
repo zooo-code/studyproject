@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 public class UpdateMemberRequest {
 
     @NotNull
-    private String name;
+    private String username;
     @NotNull
     private String password;
 }
