@@ -2,6 +2,8 @@ package study.project.domain.order.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.item.Item;
@@ -69,4 +71,17 @@ public class OrderServiceVer1 implements OrderService{
         }
         return Orders;
     }
+
+    @Override
+    public List<Order> finaAll() {
+        return orderRepository.findAll();
+    }
+
+    @Override
+    public List<Order> findAllWithMember() {
+        return orderRepository.findAllWithMember();
+    }
+
+
+
 }

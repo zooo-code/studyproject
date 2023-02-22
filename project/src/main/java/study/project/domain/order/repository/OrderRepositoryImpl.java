@@ -1,14 +1,20 @@
 package study.project.domain.order.repository;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import study.project.domain.order.QOrder;
-import study.project.domain.order.QOrderItem;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import study.project.domain.member.QMember;
+import study.project.domain.order.Order;
+
 import study.project.domain.order.dto.MemberOrderDto;
 import study.project.domain.order.dto.QMemberOrderDto;
 
 import java.util.List;
 
+import static study.project.domain.member.QMember.*;
 import static study.project.domain.order.QOrder.*;
 import static study.project.domain.order.QOrderItem.*;
 
@@ -35,4 +41,24 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
                 .where(order.member.id.eq(memberId))
                 .fetch();
     }
+
+    @Override
+    public List<Order> findAllWithMember( ) {
+        return queryFactory.selectFrom(order)
+                .join(order.member,member).fetchJoin()
+                .fetch();
+    }
+
+    @Override
+    public List<Order> findAllWithItem() {
+        queryFactory.selectDistinct()
+                .from(order)
+                .join(order.member).join(member)
+                .join(order.orderItems)
+                .join(orderItem.item)
+                .fetchJoin().fetch();
+
+    }
+
+
 }

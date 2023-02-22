@@ -4,42 +4,44 @@
   <title>Hello</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-
 <body>
-
 <div class="container">
   <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
+  <a class="btn btn-dark" href="/members/setting">나의 주문 정보</a>
+  <a class="btn btn-dark" href="/items/create">내 상품 등록</a>
   <div class="jumbotron">
-    <h1>HELLO SHOP</h1>
-    <p class="row">
-      <form th:action="@{/logout}" method="post">
-        <button class="10 btn btn-dark btn-lg" onclick="location.href='items.html'" type="submit">
-          로그아웃
-        </button>
-      </form>
-    <p class="lead">회원 기능</p>
-    <p>
-      <a class="btn btn-lg btn-secondary" href="members/memberInfo.html"
-         th:href="@{/members/myInfo}">나의 정보</a>
-    </p>
-    <p class="lead">상품 기능</p>
-    <p>
-      <a class="btn btn-lg btn-dark" href="/items/create">내 상품 등록</a>
-      <a class="btn btn-lg btn-dark" href="/items/"
-         th:href="@{/items/myList}">내 상품 목록</a>
-      <a class="btn btn-lg btn-dark" href="/items">모든 상품 목록</a>
-    </p>
-    <p class="lead">주문 기능</p>
-    <p>
-      <a class="btn btn-lg btn-info" href="/order/MyOrderList/{memberId}"
-         th:href="@{/order/MyOrderList}">나의 주문 내역</a>
-    </p>
-  </p>
-
+    <div class="py-5 text-center">
+      <h2>상품 목록</h2>
+    </div>
+    <hr class="my-4">
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>판매자 ID</th>
+          <th>상품명</th>
+          <th>가격</th>
+          <th>수량</th>
+          <th>주문</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+          <td><a th:text="${item.member.loginId}">판매자 ID</a></td>
+          <td><a th:text="${item.itemName}">상품명</a></td>
+          <td th:text="${item.price}">10000</td>
+          <td th:text="${item.stockQuantity}">10</td>
+          <td>
+            <button class="w-5 btn btn-primary"
+                    onclick="location.href='order/orderForm.html'"
+                    th:onclick="|location.href='@{/order/{itemId}(itemId =${item.id})}'|"
+                    type="button">상품 주문</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   <div th:replace="fragments/footer :: footer" />
-
   </div> <!-- /container -->
-
 </body>
-
 </html>

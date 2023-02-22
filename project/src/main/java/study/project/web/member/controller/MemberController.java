@@ -66,4 +66,10 @@ public class MemberController {
         redirectAttributes.addAttribute("memberId",loginMember.getId());
         return "redirect:/members/myInfo";
     }
+
+    @GetMapping("/setting")
+    public String setting(@Login Member loginMember, Model model){
+        model.addAttribute("member", loginMember);
+        return "MySetting";
+    }
 }
