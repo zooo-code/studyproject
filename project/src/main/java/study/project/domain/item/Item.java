@@ -9,6 +9,7 @@ import study.project.domain.order.OrderItem;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static javax.persistence.FetchType.*;
@@ -29,7 +30,7 @@ public class Item {
     private int stockQuantity;
     private int price;
 
-    private LocalDateTime createItemTime;
+    private String createItemTime;
 
 
     public void setMember(Member member) {
@@ -41,7 +42,8 @@ public class Item {
         this.itemName = itemName;
         this.stockQuantity = stockQuantity;
         this.price = price;
-        this.createItemTime = LocalDateTime.now();
+        this.createItemTime = LocalDateTime.now().format(DateTimeFormatter
+                        .ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     //비지니스 로직

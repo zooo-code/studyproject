@@ -3,13 +3,24 @@
 <head th:replace="fragments/header :: header">
   <title>Hello</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <style>
+    .container {
+      max-width: 560px;
+    }
+
+  </style>
+
 </head>
 <body>
 <div class="container">
   <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
-  <a class="btn btn-dark" href="/members/setting">나의 주문 정보</a>
-  <a class="btn btn-dark" href="/items/create">내 상품 등록</a>
-  <div class="jumbotron">
+  <a class="btn btn-primary" style="background-color: darkorange; border-color: darkorange;" href="/members/setting">나의 주문 정보</a>
+  <a class="btn btn-primary" style="background-color: orangered; border-color: orangered;" href="/items/create">내 상품 등록</a>
+  <div class="jumbotron" >
     <div class="py-5 text-center">
       <h2>상품 목록</h2>
     </div>
@@ -19,6 +30,7 @@
         <thead>
         <tr>
           <th>판매자 ID</th>
+          <td>등록 시간</td>
           <th>상품명</th>
           <th>가격</th>
           <th>수량</th>
@@ -28,11 +40,12 @@
         <tbody>
         <tr th:each="item : ${items}">
           <td><a th:text="${item.member.loginId}">판매자 ID</a></td>
+          <td><a th:text="${item.getCreateItemTime()}"></a></td>
           <td><a th:text="${item.itemName}">상품명</a></td>
           <td th:text="${item.price}">10000</td>
           <td th:text="${item.stockQuantity}">10</td>
           <td>
-            <button class="w-5 btn btn-primary"
+            <button class="btn-primary" style="background-color: orange; border-color: orange;"
                     onclick="location.href='order/orderForm.html'"
                     th:onclick="|location.href='@{/order/{itemId}(itemId =${item.id})}'|"
                     type="button">상품 주문</button>
@@ -40,6 +53,40 @@
         </tr>
         </tbody>
       </table>
+<!--     paging button-->
+      <nav aria-label="Page navigation example " class="nav justify-content-center bg-light">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" th:href="@{/?page=1}" aria-label="Previous">
+              <span aria-hidden="true">처음</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" th:href="@{|/?page=${pagination.prevBlock}|}" aria-label="Previous">
+              <span aria-hidden="true">이전</span>
+            </a>
+          </li>
+          <th:block  th:with="start = ${pagination.startPage}, end = ${pagination.endPage}">
+            <li class="page-item"
+                th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
+                th:each="pageButton : ${#numbers.sequence(start, end)}">
+              <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:if="${pageButton eq page}" style="color: #fd7e14;" th:text="${pageButton}"></a>
+              <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:unless="${pageButton eq page}" th:text="${pageButton}"></a>
+            </li>
+          </th:block>
+          <li class="page-item">
+            <a class="page-link" th:href="@{|/?page=${pagination.nextBlock}|}" aria-label="Next">
+              <span aria-hidden="true">다음</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" th:href="@{|/?page=${pagination.totalPageCnt}|}" aria-label="Previous">
+              <span aria-hidden="true">끝</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
     </div>
   <div th:replace="fragments/footer :: footer" />
   </div> <!-- /container -->

@@ -21,5 +21,7 @@ public interface OrderService {
 
     List<Order> findAllWithMember();
 
+    List<Order> findAllWithItem();
 
+    List<Order> findAllWithMember(int offset, int limit);
 }

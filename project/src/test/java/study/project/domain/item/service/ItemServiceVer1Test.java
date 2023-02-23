@@ -16,6 +16,7 @@ import study.project.web.item.dto.MemberItemDto;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
@@ -76,6 +77,21 @@ class ItemServiceVer1Test {
         //when
 
         //then
+    }
+    @Test
+    public void allItem() {
+        //given
+        int allCnt = itemService.findAllCnt();
+        //when
+        List<Item> itemPaging = itemService.findItemPaging(0, 10);
+//        Collections.reverse(itemPaging);
+        for (Item item : itemPaging) {
+            System.out.println("item = " + item.getItemName() +"create time" + item.getCreateItemTime());
+        }
+
+
+
+
     }
 
 }

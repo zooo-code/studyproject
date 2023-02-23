@@ -14,8 +14,9 @@
   </div>
 
   <hr class="my-4">
-  <div>
 
+  <div>
+    <a class="btn btn-dark" style="background-color: darkorange; border-color: darkorange;" href="/members/setting">뒤로</a>
     <table class="table">
       <thead>
       <tr>
@@ -36,7 +37,7 @@
           <button class="w-5 btn btn-primary"
                 onclick="location.href='order/orderForm.html'"
                 th:onclick="|location.href='@{/order/{itemId}(itemId =${item.id})}'|"
-                type="button">상품 주문</button>
+                type="button" style="background-color: orange; border-color: orange;">상품 주문</button>
         </td>
       </tr>
       </tbody>

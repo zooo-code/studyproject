@@ -12,6 +12,8 @@ import study.project.domain.order.Order;
 import study.project.domain.order.dto.MemberOrderDto;
 import study.project.domain.order.dto.QMemberOrderDto;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static study.project.domain.member.QMember.*;
@@ -22,7 +24,8 @@ import static study.project.domain.order.QOrderItem.*;
 @RequiredArgsConstructor
 public class OrderRepositoryImpl implements OrderRepositoryCustom{
 
-
+    @PersistenceContext
+    private EntityManager em;
     private final JPAQueryFactory queryFactory;
 
     @Override
@@ -51,13 +54,20 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
 
     @Override
     public List<Order> findAllWithItem() {
-        queryFactory.selectDistinct()
-                .from(order)
-                .join(order.member).join(member)
-                .join(order.orderItems)
-                .join(orderItem.item)
-                .fetchJoin().fetch();
+        return em.createQuery("select distinct o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.orderItems oi" +
+                " join fetch oi.item i",Order.class)
+                .getResultList();
+    }
 
+    @Override
+    public List<Order> findAllWithMember(int offset, int limit) {
+        return em.createQuery("select o from Order o" +
+                        " join fetch o.member m",Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
     }
 
 

@@ -15,5 +15,7 @@ public interface OrderRepositoryCustom {
 
     List<Order> findAllWithItem();
 
+    List<Order> findAllWithMember(int offset, int limit);
+
 
 }

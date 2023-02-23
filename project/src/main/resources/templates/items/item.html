@@ -40,19 +40,19 @@
     </div>
 
     <hr class="my-4">
-
+    <p></p>
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editItem.html'"
-                    th:onclick="|location.href='@{/items/{itemId}/edit(itemId =${item.id})}'|"
+                    th:onclick="|location.href='@{/items/{itemId}/edit(itemId =${item.id})}'|" style="background-color: orangered; border-color: orangered;"
                     type="button">상품 수정</button>
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='items.html'"
-                    th:onclick="|location.href='@{/}'|"
-                    type="button">홈으로</button>
+                    th:onclick="|location.href='@{/members/setting}'|" style="background-color: darkorange; border-color: darkorange;"
+                    type="button">취소</button>
         </div>
     </div>
 

@@ -9,20 +9,19 @@
 
 <div class="container">
   <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
-  <a class="btn btn-dark" href="/">홈으로</a>
+  <a class="btn btn-dark" style="background-color: darkorange; border-color: darkorange;" href="/">홈으로</a>
   <div class="jumbotron">
 
     <p class="lead">상품 기능</p>
     <p>
-      <a class="btn btn-lg btn-dark" href="/items/create">내 상품 등록</a>
-      <a class="btn btn-lg btn-dark" href="/items/"
+      <a class="btn btn-primary " href="/items/" style="background-color: orangered; border-color: orangered;"
          th:href="@{/items/myList}">내 상품 목록</a>
-      <a class="btn btn-lg btn-dark" href="/items">모든 상품 목록</a>
+      <a class="btn btn-primary" href="/items" style="background-color: orange; border-color: orange;">모든 상품 목록</a>
     </p>
     <p class="lead">주문 기능</p>
     <p>
-      <a class="btn btn-lg btn-info" href="/order/MyOrderList/{memberId}"
-         th:href="@{/order/MyOrderList}">나의 주문 내역</a>
+      <a class="btn btn-primary" href="/order/MyOrderList/{memberId}"
+         th:href="@{/order/MyOrderList}" style="background-color: orangered; border-color: orangered;">나의 주문 내역</a>
     </p>
     </p>
 

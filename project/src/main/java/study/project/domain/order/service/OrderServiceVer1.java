@@ -65,7 +65,7 @@ public class OrderServiceVer1 implements OrderService{
     @Override
     public ArrayList<Long> findByMemberId(Long memberId) {
         List<Order> byMemberId = orderRepository.findByMemberId(memberId);
-        ArrayList<Long> Orders = new ArrayList<Long>();
+        ArrayList<Long> Orders = new ArrayList<>();
         for (Order order : byMemberId) {
             Orders.add(order.getId());
         }
@@ -82,6 +82,15 @@ public class OrderServiceVer1 implements OrderService{
         return orderRepository.findAllWithMember();
     }
 
+    @Override
+    public List<Order> findAllWithItem() {
+        return orderRepository.findAllWithItem();
+    }
+
+    @Override
+    public List<Order> findAllWithMember(int offset, int limit) {
+        return orderRepository.findAllWithMember(offset,limit);
+    }
 
 
 }

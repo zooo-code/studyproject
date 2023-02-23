@@ -22,7 +22,7 @@ public class QItem extends EntityPathBase<Item> {
 
     public static final QItem item = new QItem("item");
 
-    public final DateTimePath<java.time.LocalDateTime> createItemTime = createDateTime("createItemTime", java.time.LocalDateTime.class);
+    public final StringPath createItemTime = createString("createItemTime");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

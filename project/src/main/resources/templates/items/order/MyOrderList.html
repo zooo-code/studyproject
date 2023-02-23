@@ -11,10 +11,12 @@
     <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
     <h2 th:if="${param.status}" th:text="'잘못된 주문 Id 입니다.'"></h2>
     <h2 th:if="${param.possible}" th:text="'주문이 취소 되었습니다.'"></h2>
+
     <div class="py-5 text-center">
         <h2>주문 목록</h2>
     </div>
     <hr class="my-4">
+    <a class="btn btn-dark" style="background-color: darkorange; border-color: darkorange;" href="/members/setting">뒤로</a>
     <div>
         <table class="table">
             <thead>
@@ -40,6 +42,40 @@
             </tbody>
         </table>
     </div>
+
+    <!--     paging button-->
+    <nav aria-label="Page navigation example " class="nav justify-content-center bg-light">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/?page=1}" aria-label="Previous">
+                    <span aria-hidden="true">처음</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{|/?page=${pagination.prevBlock}|}" aria-label="Previous">
+                    <span aria-hidden="true">이전</span>
+                </a>
+            </li>
+            <th:block  th:with="start = ${pagination.startPage}, end = ${pagination.endPage}">
+                <li class="page-item"
+                    th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
+                    th:each="pageButton : ${#numbers.sequence(start, end)}">
+                    <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:if="${pageButton eq page}" style="color: #fd7e14;" th:text="${pageButton}"></a>
+                    <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:unless="${pageButton eq page}" th:text="${pageButton}"></a>
+                </li>
+            </th:block>
+            <li class="page-item">
+                <a class="page-link" th:href="@{|/?page=${pagination.nextBlock}|}" aria-label="Next">
+                    <span aria-hidden="true">다음</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" th:href="@{|/?page=${pagination.totalPageCnt}|}" aria-label="Previous">
+                    <span aria-hidden="true">끝</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div> <!-- /container -->
 </body>
 </html>

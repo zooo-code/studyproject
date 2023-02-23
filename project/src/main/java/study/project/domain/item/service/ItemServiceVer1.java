@@ -60,4 +60,14 @@ public class ItemServiceVer1 implements ItemService{
         }
         return itemId;
     }
+
+    @Override
+    public int findAllCnt() {
+        return itemRepository.findAll().size();
+    }
+
+    @Override
+    public List<Item> findItemPaging(int startIndex, int pageSize) {
+        return itemRepository.findItemPaging(startIndex,pageSize);
+    }
 }

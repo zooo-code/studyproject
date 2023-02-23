@@ -29,7 +29,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/","/members/new","/login","/logout",
-                        "/api/member/join","/api/member/update/{id}","/api/members","/api/order","/api/v2/orders"
+                        "/api/member/join","/api/member/update/{id}","/api/members","/api/order","/api/v2/orders",
+                        "/api/v3/orders", "/api/v3.1/orders"
                         ,"/css/**","/*.ico","/error");
     }
 }
