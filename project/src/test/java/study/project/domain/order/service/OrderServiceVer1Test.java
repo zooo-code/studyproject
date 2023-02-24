@@ -14,6 +14,7 @@ import study.project.domain.member.service.MemberService;
 import study.project.domain.order.Order;
 import study.project.domain.order.OrderItem;
 import study.project.domain.order.OrderStatus;
+import study.project.domain.order.dto.MemberOrderDto;
 import study.project.domain.order.repository.OrderRepository;
 
 import java.util.List;
@@ -95,5 +96,18 @@ class OrderServiceVer1Test {
         assertEquals(10,item.getStockQuantity());
     }
 
+    @Test
+    public void myOrderList() {
+
+
+        //given
+        List<MemberOrderDto> memberOrderDtos = orderService.myOrderListPaging(1L, 0, 10);
+
+        //when
+        for (MemberOrderDto memberOrderDto : memberOrderDtos) {
+            System.out.println("memberOrderDto = " + memberOrderDto.getOrderTime());
+        }
+        //then
+    }
 
 }

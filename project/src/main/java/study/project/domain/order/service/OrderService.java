@@ -24,4 +24,6 @@ public interface OrderService {
     List<Order> findAllWithItem();
 
     List<Order> findAllWithMember(int offset, int limit);
+
+    List<MemberOrderDto> myOrderListPaging(Long memberId,int startIndex, int pageSize);
 }

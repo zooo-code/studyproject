@@ -88,10 +88,18 @@ class ItemServiceVer1Test {
         for (Item item : itemPaging) {
             System.out.println("item = " + item.getItemName() +"create time" + item.getCreateItemTime());
         }
-
-
-
-
     }
 
+    @Test
+    public void myItemList () {
+        //given
+        List<MemberItemDto> memberItemDtos = itemService.myItemListPaging(1L, 0, 10);
+
+        //when
+
+        //then
+        for (MemberItemDto memberItemDto : memberItemDtos) {
+            System.out.println("memberItemDto = " + memberItemDto.getCreateItemTime());
+        }
+    }
 }

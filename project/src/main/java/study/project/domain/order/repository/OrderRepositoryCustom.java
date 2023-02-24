@@ -17,5 +17,8 @@ public interface OrderRepositoryCustom {
 
     List<Order> findAllWithMember(int offset, int limit);
 
+    List<MemberOrderDto> myOrderListPaging(Long memberId,int startIndex, int pageSize);
+
+
 
 }

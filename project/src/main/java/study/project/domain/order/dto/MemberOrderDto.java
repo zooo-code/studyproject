@@ -17,7 +17,6 @@ public class MemberOrderDto {
     private LocalDateTime orderTime;
     private OrderStatus status;
     @QueryProjection
-
     public MemberOrderDto(Long orderId, Long memberId, String itemName, int buyCount, int totalPrice, LocalDateTime orderTime, OrderStatus status) {
         this.orderId = orderId;
         this.memberId = memberId;

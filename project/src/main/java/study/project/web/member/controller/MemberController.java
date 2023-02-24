@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import study.project.domain.address.Address;
 import study.project.domain.member.Member;
 import study.project.domain.member.service.MemberService;
 import study.project.web.argumentResolver.Login;
@@ -37,7 +38,8 @@ public class MemberController {
             redirectAttributes.addAttribute("status",true);
             return "redirect:/members/new";
         }
-        Member member = new Member(form.getUsername(),form.getLoginId(),form.getPassword());
+        Address address = new Address(form.getZipCode(), form.getAddress(),form.getDetailAddress(), form.getEtc());
+        Member member = new Member(form.getUsername(),form.getLoginId(),form.getPassword(),address);
         memberService.join(member);
         redirectAttributes.addAttribute("status",true);
         return "redirect:/";

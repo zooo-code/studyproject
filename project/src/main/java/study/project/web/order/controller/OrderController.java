@@ -17,6 +17,7 @@ import study.project.domain.order.OrderItem;
 import study.project.domain.order.dto.MemberOrderDto;
 import study.project.domain.order.service.OrderItemService;
 import study.project.domain.order.service.OrderService;
+import study.project.page.Pagination;
 import study.project.web.argumentResolver.Login;
 import study.project.web.order.form.OrderForm;
 
@@ -83,11 +84,20 @@ public class OrderController {
     }
 
     @GetMapping("/MyOrderList")
-    public String MyOrderList(@Login Member loginMember, Model model ){
-        List<MemberOrderDto> myOrderItems = orderService.findMyOrderItems(loginMember.getId());
+    public String MyOrderList(@Login Member loginMember, Model model,
+                              @RequestParam(defaultValue = "1") int page){
+        int allCnt = orderService.findMyOrderItems(loginMember.getId()).size();
+        //페이지
+        Pagination pagination = new Pagination(allCnt, page);
+        int startIndex = pagination.getStartIndex();
+        int pageSize = pagination.getPageSize();
+        model.addAttribute("page",page);
+        model.addAttribute("pagination",pagination);
 
+        List<MemberOrderDto> myOrderItems = orderService.myOrderListPaging(loginMember.getId(),startIndex,pageSize );
         model.addAttribute("orderItems",myOrderItems);
         model.addAttribute("member",loginMember);
+
         return "/items/order/MyOrderList";
     }
     @GetMapping("/cancel/{orderId}")

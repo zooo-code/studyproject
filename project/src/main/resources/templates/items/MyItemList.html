@@ -21,6 +21,7 @@
         <th>상품명</th>
         <th>가격</th>
         <th>수량</th>
+        <th>생성 날짜</th>
       </tr>
       </thead>
       <tbody>
@@ -28,9 +29,44 @@
         <td><a href="item.html" th:href="@{|/items/${item.itemId}|}" th:text="${item.itemName}">상품명</a></td>
         <td th:text="${item.price}">10000</td>
         <td th:text="${item.stockQuantity}">10</td>
+        <td th:text="${item.getCreateItemTime()}"></td>
       </tr>
       </tbody>
     </table>
+    <!--     paging button-->
+    <nav aria-label="Page navigation example " class="nav justify-content-center bg-light">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" th:href="@{/items/myList?page=1}" aria-label="Previous">
+            <span aria-hidden="true">처음</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" th:href="@{|/items/myList?page=${pagination.prevBlock}|}" aria-label="Previous">
+            <span aria-hidden="true">이전</span>
+          </a>
+        </li>
+        <th:block  th:with="start = ${pagination.startPage}, end = ${pagination.endPage}">
+          <li class="page-item"
+              th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
+              th:each="pageButton : ${#numbers.sequence(start, end)}">
+            <a class="page-link" th:href="@{|/items/myList?page=${pageButton}|}" th:if="${pageButton eq page}" style="color: #fd7e14;" th:text="${pageButton}"></a>
+            <a class="page-link" th:href="@{|/items/myList?page=${pageButton}|}" th:unless="${pageButton eq page}" th:text="(${pageButton}==0)? null:${pageButton}"></a>
+          </li>
+        </th:block>
+        <li class="page-item">
+          <a class="page-link" th:href="@{|/items/myList?page=${pagination.nextBlock}|}" aria-label="Next">
+            <span aria-hidden="true">다음</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" th:href="@{|/items/myList?page=${pagination.totalPageCnt}|}" aria-label="Previous">
+            <span aria-hidden="true">끝</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
   </div>
 </div> <!-- /container -->
 </body>

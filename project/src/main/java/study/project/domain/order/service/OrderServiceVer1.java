@@ -92,5 +92,10 @@ public class OrderServiceVer1 implements OrderService{
         return orderRepository.findAllWithMember(offset,limit);
     }
 
+    @Override
+    public List<MemberOrderDto> myOrderListPaging(Long memberId, int startIndex, int pageSize) {
+        return orderRepository.myOrderListPaging(memberId,startIndex,pageSize);
+    }
+
 
 }

@@ -71,7 +71,7 @@
                 th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
                 th:each="pageButton : ${#numbers.sequence(start, end)}">
               <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:if="${pageButton eq page}" style="color: #fd7e14;" th:text="${pageButton}"></a>
-              <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:unless="${pageButton eq page}" th:text="${pageButton}"></a>
+              <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:unless="${pageButton eq page}" th:text="(${pageButton}==0)? null:${pageButton}"></a>
             </li>
           </th:block>
           <li class="page-item">
@@ -90,5 +90,6 @@
     </div>
   <div th:replace="fragments/footer :: footer" />
   </div> <!-- /container -->
+
 </body>
 </html>

@@ -42,8 +42,8 @@ public class Item {
         this.itemName = itemName;
         this.stockQuantity = stockQuantity;
         this.price = price;
-        this.createItemTime = LocalDateTime.now().format(DateTimeFormatter
-                        .ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.createItemTime = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     //비지니스 로직

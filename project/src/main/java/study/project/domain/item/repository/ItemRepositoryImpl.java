@@ -29,6 +29,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
                         item.id,
                         item.itemName,
                         item.stockQuantity,
+                        item.createItemTime,
                         item.price
                 ))
                 .from(item)
@@ -44,14 +45,23 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
                 .getResultList();
     }
 
-//    public List<Item> findItemPagingDsl(int startIndex, int pageSize){
-//        queryFactory.selectFrom(item)
-//                .orderBy(item.createItemTime.asc())
-//                .offset(startIndex)
-//                .limit(pageSize).fetch;
-//
-//        return null
-//    }
+    @Override
+    public List<MemberItemDto> myItemListPaging(Long memberId, int startIndex, int pageSize) {
 
+        return queryFactory.select(new QMemberItemDto(
+                member.loginId,
+                        item.id,
+                        item.itemName,
+                        item.stockQuantity,
+                        item.createItemTime,
+                        item.price))
+                .from(item)
+                .leftJoin(item.member, member)
+                .where(item.member.id.eq(memberId))
+                .orderBy(item.createItemTime.desc())
+                .offset(startIndex)
+                .limit(pageSize)
+                .fetch();
+    }
 
 }

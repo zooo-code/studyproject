@@ -70,4 +70,9 @@ public class ItemServiceVer1 implements ItemService{
     public List<Item> findItemPaging(int startIndex, int pageSize) {
         return itemRepository.findItemPaging(startIndex,pageSize);
     }
+
+    @Override
+    public List<MemberItemDto> myItemListPaging(Long memberId, int startIndex, int pageSize) {
+        return itemRepository.myItemListPaging(memberId,startIndex,pageSize);
+    }
 }

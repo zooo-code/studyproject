@@ -12,6 +12,7 @@ import study.project.domain.item.Item;
 import study.project.domain.item.service.ItemService;
 import study.project.domain.member.Member;
 import study.project.domain.member.service.MemberService;
+import study.project.page.Pagination;
 import study.project.web.argumentResolver.Login;
 import study.project.web.item.dto.EditItemForm;
 import study.project.web.item.dto.ItemForm;
@@ -36,10 +37,18 @@ public class ItemController {
         return "items/allItemList";
     }
     @GetMapping("/myList")
-    public String myItemList(@Login Member loginMember,Model model){
-        List<MemberItemDto> memberItems = itemService.myItemList(loginMember.getId());
+    public String myItemList(@Login Member loginMember,Model model,
+                             @RequestParam(defaultValue = "1") int page){
+        int allCnt = itemService.myItemList(loginMember.getId()).size();
 
+        //페이지
+        Pagination pagination = new Pagination(allCnt, page);
+        int startIndex = pagination.getStartIndex();
+        int pageSize = pagination.getPageSize();
+        List<MemberItemDto> memberItems = itemService.myItemListPaging(loginMember.getId(), startIndex, pageSize);
         model.addAttribute("items",memberItems);
+        model.addAttribute("page",page);
+        model.addAttribute("pagination",pagination);
         model.addAttribute("member",loginMember);
         return "items/MyItemList";
     }

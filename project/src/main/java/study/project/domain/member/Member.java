@@ -4,6 +4,7 @@ package study.project.domain.member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import study.project.domain.address.Address;
 import study.project.domain.item.Item;
 import study.project.domain.order.Order;
 
@@ -28,8 +29,20 @@ public class Member {
     private String password;
     private LocalDateTime createMemberTime;
 
+    @Embedded
+    private Address address;
+
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+
+
+    public Member(String username, String loginId, String password , Address address) {
+        this.username = username;
+        this.loginId = loginId;
+        this.password = password;
+        this.createMemberTime = LocalDateTime.now();
+        this.address = address;
+    }
 
     public Member(String username, String loginId, String password) {
         this.username = username;

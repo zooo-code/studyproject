@@ -70,5 +70,25 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
                 .getResultList();
     }
 
+    @Override
+    public List<MemberOrderDto> myOrderListPaging(Long memberId,int startIndex, int pageSize) {
+        return queryFactory.select(new QMemberOrderDto(
+                        order.id,
+                        order.member.id,
+                        orderItem.item.itemName,
+                        orderItem.count,
+                        orderItem.orderPrice,
+                        order.orderDate
+                        ,order.status
+                ))
+                .from(orderItem)
+                .leftJoin(orderItem.order,order)
+                .where(order.member.id.eq(memberId))
+                .orderBy(order.orderDate.desc())
+                .offset(startIndex)
+                .limit(pageSize)
+                .fetch();
+    }
+
 
 }
