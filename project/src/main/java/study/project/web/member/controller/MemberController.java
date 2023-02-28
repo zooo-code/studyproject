@@ -74,4 +74,11 @@ public class MemberController {
         model.addAttribute("member", loginMember);
         return "MySetting";
     }
+
+    @PostMapping("/deleteMember")
+    public String deleteMember(@Login Member loginMember, RedirectAttributes redirectAttributes ){
+        memberService.deleteMember(loginMember);
+        redirectAttributes.addAttribute("status",true);
+        return "redirect:/login";
+    }
 }

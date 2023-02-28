@@ -53,6 +53,13 @@
                     th:onclick="|location.href='@{/}'|"
                     type="button" style="background-color: orangered; border-color: orangered;">홈으로</button>
         </div>
+        <div class="col">
+            <form th:action="@{/members/deleteMember}" method="post">
+            <button class="w-100 btn btn-secondary btn-lg" type="submit" th:method="post"
+
+                    style="background-color: red; border-color: red;">회원 탈퇴</button>
+            </form>
+        </div>
     </div>
 
 </div> <!-- /container -->

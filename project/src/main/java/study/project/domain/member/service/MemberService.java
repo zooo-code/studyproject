@@ -10,12 +10,14 @@ public interface MemberService {
 
     Optional<Member> findByIdMember(Long memberId);
 
-    Member deleteMember(Member member);
+    void deleteMember(Member member);
     Long countMember();
     Member edit(Long id, String name, String password);
 
     Boolean findByLoginId(String LoginId);
 
     List<Member> findMembers();
+
+
 
 }

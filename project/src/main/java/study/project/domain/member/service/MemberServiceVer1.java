@@ -30,9 +30,8 @@ public class MemberServiceVer1 implements MemberService{
     }
 
     @Override
-    public Member deleteMember(Member member) {
+    public void deleteMember(Member member) {
         memberRepository.delete(member);
-        return member;
     }
 
     @Override

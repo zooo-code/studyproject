@@ -123,6 +123,15 @@ public class ItemController {
         return "redirect:/items/{itemId}";
     }
 
+    @PostMapping("/{itemId}/delete")
+    public String delete(@PathVariable Long itemId, @Login Member loginMember,RedirectAttributes redirectAttributes){
+        Item item = itemService.findByIdItem(itemId).get();
+        itemService.deleteItem(item);
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/items/myList";
+
+    }
+
 
 
 }
