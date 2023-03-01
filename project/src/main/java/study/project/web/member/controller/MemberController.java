@@ -54,7 +54,8 @@ public class MemberController {
     @GetMapping("/edit")
     public String edit(@Login Member loginMember, Model model){
         UpdateMemberForm updateMemberForm = new UpdateMemberForm(loginMember.getId(), loginMember.getLoginId(),
-                loginMember.getUsername(), loginMember.getPassword());
+                loginMember.getUsername(), loginMember.getPassword(),loginMember.getAddress().getZipCode(),loginMember.getAddress().getAddress(),
+                loginMember.getAddress().getDetailAddress(),loginMember.getAddress().getEtc());
         model.addAttribute("member", updateMemberForm);
         return "members/editMemberInfo";
     }
@@ -64,7 +65,8 @@ public class MemberController {
         if (result.hasErrors()){
             return "/members/editMemberInfo";
         }
-        memberService.edit(loginMember.getId(),form.getUsername(),form.getPassword());
+        Address address = new Address(form.getZipCode(),form.getAddress(),form.getDetailAddress(),form.getEtc());
+        memberService.edit(loginMember.getId(),form.getUsername(),form.getPassword(),address );
         redirectAttributes.addAttribute("memberId",loginMember.getId());
         return "redirect:/members/myInfo";
     }

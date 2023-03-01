@@ -35,7 +35,28 @@
     </div>
     <div>
         <label for="CreateMemberTime">가입 날짜</label>
-        <input type="text" id="CreateMemberTime" name="CreateMemberTime" class="form-control"  th:value="${member.getCreateMemberTime()}" readonly>
+        <input type="text" id="CreateMemberTime" name="CreateMemberTime" class="form-control"
+               th:value="${member.getCreateMemberTime()}" readonly>
+    </div>
+    <div>
+        <label for="zipCode">우편번호</label>
+        <input type="text" id="zipCode" name="zipCode" class="form-control"
+               th:value="${member.address.zipCode}" readonly>
+    </div>
+    <div>
+        <label for="memberAddress">주소</label>
+        <input type="text" id="memberAddress" name="memberAddress" class="form-control"
+               th:value="${member.address.address}" readonly>
+    </div>
+    <div>
+        <label for="detailAddress">상세주소</label>
+        <input type="text" id="detailAddress" name="detailAddress" class="form-control"
+               th:value="${member.address.detailAddress}" readonly>
+    </div>
+    <div>
+        <label for="etc">참고항목</label>
+        <input type="text" id="etc" name="etc" class="form-control"
+               th:value="${member.address.etc}" readonly>
     </div>
 
     <hr class="my-4">

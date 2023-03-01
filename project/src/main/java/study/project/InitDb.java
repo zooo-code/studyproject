@@ -3,6 +3,7 @@ package study.project;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import study.project.domain.address.Address;
 import study.project.domain.item.Item;
 import study.project.domain.item.service.ItemService;
 import study.project.domain.member.Member;
@@ -30,10 +31,11 @@ public class InitDb {
         private final ItemService itemService;
         private final OrderService orderService;
         public void dbInit1(){
-            Member member = new Member("kim", "test", "123");
+            Address address = new Address("08520", "서울 금천구 가산로 99", null, " (가산동, 두산위브아파트)");
+            Member member = new Member("kim", "test", "123",address);
             Member memberA = memberService.join(member);
-
-            Member member2 = new Member("lee", "test12", "123");
+            Address address1 = new Address("08521", "서울 금천구 가산로 99", null, " (가산동, 한라아파트)");
+            Member member2 = new Member("lee", "test12", "123",address1);
             Member memberB = memberService.join(member2);
             for (int i = 1; i <=30 ; i++){
                 Item item = new Item(memberA, "kimItem" + i, 100 + i, 1000 * i);

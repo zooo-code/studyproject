@@ -59,8 +59,9 @@ public class Member {
     }
 
     //비지니스 매서드
-    public void update(String username, String password){
+    public void update(String username, String password, Address address){
         this.username = username;
         this.password = password;
+        this.address = address;
     }
 }

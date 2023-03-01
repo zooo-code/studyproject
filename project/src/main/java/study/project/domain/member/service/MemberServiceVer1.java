@@ -3,6 +3,7 @@ package study.project.domain.member.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.project.domain.address.Address;
 import study.project.domain.member.Member;
 import study.project.domain.member.repository.MemberRepository;
 
@@ -41,9 +42,9 @@ public class MemberServiceVer1 implements MemberService{
 
     @Transactional
     @Override
-    public Member edit(Long id, String name, String password) {
+    public Member edit(Long id, String name, String password, Address address) {
         Member member = memberRepository.findById(id).get();
-        member.update(name,password);
+        member.update(name,password,address);
         return member;
     }
 

@@ -1,5 +1,6 @@
 package study.project.domain.member.service;
 
+import study.project.domain.address.Address;
 import study.project.domain.member.Member;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface MemberService {
 
     void deleteMember(Member member);
     Long countMember();
-    Member edit(Long id, String name, String password);
+    Member edit(Long id, String name, String password, Address address);
 
     Boolean findByLoginId(String LoginId);
 
