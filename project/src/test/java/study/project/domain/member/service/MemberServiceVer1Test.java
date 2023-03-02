@@ -51,6 +51,9 @@ class MemberServiceVer1Test {
         //when
         Boolean test = memberService.findByLoginId("test");
         //then
-        Assertions.assertThat(test).isTrue();
+
+        Boolean aBoolean = memberService.checkOrderAndItem(1L);
+
+        Assertions.assertThat(aBoolean).isFalse();
     }
 }

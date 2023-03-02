@@ -12,6 +12,7 @@ import study.project.domain.item.Item;
 import study.project.domain.item.service.ItemService;
 import study.project.domain.member.Member;
 import study.project.domain.member.service.MemberService;
+import study.project.domain.order.service.OrderItemService;
 import study.project.page.Pagination;
 import study.project.web.argumentResolver.Login;
 import study.project.web.item.dto.EditItemForm;
@@ -27,6 +28,8 @@ import java.util.Optional;
 public class ItemController {
     private final ItemService itemService;
     private final MemberService memberService;
+
+    private final OrderItemService orderItemService;
 
     @GetMapping
     public String items(@Login Member loginMember, Model model){
@@ -69,9 +72,9 @@ public class ItemController {
             model.addAttribute("member",loginMember);
             return "items/createItemForm";
         }
-        Optional<Member> byIdMember = memberService.findByIdMember(loginMember.getId());
+        Member byIdMember = memberService.findByIdMember(loginMember.getId()).get();
 
-        Item item = new Item(byIdMember.get(), itemForm.getName(), itemForm.getStockQuantity(), itemForm.getPrice());
+        Item item = new Item(byIdMember, itemForm.getName(), itemForm.getStockQuantity(), itemForm.getPrice());
         Item saveItem = itemService.saveItem(item);
         redirectAttributes.addAttribute("itemId",saveItem.getId());
         redirectAttributes.addAttribute("status",true);
@@ -123,15 +126,30 @@ public class ItemController {
         return "redirect:/items/{itemId}";
     }
 
-    @PostMapping("/{itemId}/delete")
-    public String delete(@PathVariable Long itemId, @Login Member loginMember,RedirectAttributes redirectAttributes){
+
+    @GetMapping("/{itemId}/delete")
+    public String deleteItem(@PathVariable Long itemId, @Login Member loginMember,
+                         RedirectAttributes redirectAttributes,Model model){
+        List<Long> Items = itemService.myItem(loginMember.getId());
+//        다른 회원의 아이템 삭제 하려 할때 금지
+        if (!Items.contains(itemId)){
+            redirectAttributes.addAttribute("status",true);
+            return "redirect:/items/myList";
+        }
+//        이 아이템이 주문된 아이템인지 확인
+        boolean items = orderItemService.findItems(itemId);
+        if (items){
+            redirectAttributes.addAttribute("noDelete",true);
+            redirectAttributes.addAttribute("itemId",itemId);
+            return "redirect:/items/{itemId}";
+        }
+
         Item item = itemService.findByIdItem(itemId).get();
         itemService.deleteItem(item);
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:/items/myList";
-
+        model.addAttribute("delete", true);
+        model.addAttribute("item",item);
+        model.addAttribute("member",loginMember);
+        return "items/deleteItem";
     }
-
-
 
 }

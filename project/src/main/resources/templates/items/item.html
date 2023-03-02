@@ -20,7 +20,7 @@
 
     <!-- 추가 -->
     <h2 th:if="${param.status}" th:text="'저장 완료'"></h2>
-
+    <h2 th:if="${param.noDelete}" th:text="'주문된 상품은 정리 후 삭제 가능합니다.'"></h2>
     <div>
         <label for="itemId">상품 ID</label>
         <input type="text" id="itemId" name="itemId"
@@ -56,9 +56,18 @@
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
-                    th:onclick="|location.href='@{/members/setting}'|" style="background-color: darkorange; border-color: darkorange;"
+                    th:onclick="|location.href='@{/items/{itemId}/delete(itemId = ${item.id})}'|"
+                    style="background-color: darkorange; border-color: darkorange;"
                     type="button">삭제</button>
         </div>
+<!--        <div class="col">-->
+<!--            <form method="post" th:action="@{/items/${itemId}/delete}">-->
+<!--                <button class="w-100 btn btn-secondary btn-lg"-->
+<!--                        th:onclick="|location.href='@{/items/{itemId}/delete(itemId = ${item.id})}'|"-->
+<!--                        style="background-color: darkorange; border-color: darkorange;"-->
+<!--                        th:method="post" type="submit">삭제</button>-->
+<!--            </form>-->
+<!--        </div>-->
     </div>
 
 </div> <!-- /container -->

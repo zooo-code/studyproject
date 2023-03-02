@@ -79,6 +79,11 @@ public class MemberController {
 
     @PostMapping("/deleteMember")
     public String deleteMember(@Login Member loginMember, RedirectAttributes redirectAttributes ){
+         if (memberService.checkOrderAndItem(loginMember.getId())){
+             redirectAttributes.addAttribute("check", true);
+             return "redirect:/members/myInfo";
+         }
+
         memberService.deleteMember(loginMember);
         redirectAttributes.addAttribute("status",true);
         return "redirect:/login";

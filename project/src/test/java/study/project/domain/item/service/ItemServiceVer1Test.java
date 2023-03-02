@@ -32,19 +32,18 @@ class ItemServiceVer1Test {
     MemberService memberService;
     @Test
     public void CRUDItem() {
-        Member member = new Member("kim", "test", "123");
+        Member member = new Member("kim", "test123123", "123");
         Member saveMember = memberService.join(member);
         //given
-        for (int i= 1 ;  i<=10 ;  i++ ){
+        for (int i= 1 ;  i<=5 ;  i++ ){
             Item item = itemService.saveItem(new Item(saveMember,"test"+i, 10,1000));
             member.addItem(item);
+            itemService.deleteItem(item);
         }
+
         //when
-        Optional<Member> byId = memberService.findByIdMember(saveMember.getId());
-        List<Item> items = byId.get().getItems();
-        System.out.println("items = " + items);
-        //then
-        assertThat(items.size()).isEqualTo(10);
+        List<Item> items = saveMember.getItems();
+        assertThat(items.size()).isEqualTo(0);
     }
     @Test
     public void MemberItem() {
@@ -56,8 +55,8 @@ class ItemServiceVer1Test {
             member.addItem(item);
         }
         //when
-        Optional<Member> byId = memberService.findByIdMember(saveMember.getId());
-        List<Item> items = byId.get().getItems();
+        Member byId = memberService.findByIdMember(saveMember.getId()).get();
+        List<Item> items = byId.getItems();
         System.out.println("items = " + items);
         //then
         assertThat(items.size()).isEqualTo(10);

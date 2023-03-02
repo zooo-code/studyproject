@@ -19,9 +19,7 @@ public interface ItemService {
     void edit(Long id, String name, int price, int stockQuantity);
 
     List<Long> myItem(Long memberId);
-
     int findAllCnt();
-
     List<Item> findItemPaging(int startIndex, int pageSize);
     List<MemberItemDto> myItemListPaging(Long memberId, int startIndex, int pageSize);
 }

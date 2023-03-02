@@ -19,6 +19,8 @@ public interface MemberService {
 
     List<Member> findMembers();
 
+    Boolean checkOrderAndItem(Long memberId);
+
 
 
 }

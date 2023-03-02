@@ -48,17 +48,21 @@
         </div>
 
         <div>
+            <label for="sample6_postcode">우편 번호</label>
             <input type="text" id="sample6_postcode" placeholder="우편번호" th:field="${member.zipCode}"
                    th:class="${#fields.hasErrors('member.zipCode')}? 'form-control field-error' : 'form-control'" >
             <p th:errorclass="field-error" th:if="${#fields.hasErrors('member.zipCode')}"
                th:errors="${member.zipCode}">Incorrect date</p>
             <input style="background-color: orangered; border-color: orangered;"
                    type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+            <label for="sample6_address">주소</label>
             <input type="text" id="sample6_address" th:field="${member.address}"
                    th:class="${#fields.hasErrors('member.address')}? 'form-control field-error' : 'form-control'" placeholder="주소"><br>
             <p th:errorclass="field-error" th:if="${#fields.hasErrors('member.address')}"
                th:errors="${member.address}">Incorrect date</p>
+            <label for="sample6_detailAddress">상세주소</label>
             <input type="text" id="sample6_detailAddress" th:field="${member.detailAddress}" placeholder="상세주소">
+            <label for="sample6_extraAddress">참고항목</label>
             <input type="text" id="sample6_extraAddress" th:field="${member.etc}" placeholder="참고항목">
 
             <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

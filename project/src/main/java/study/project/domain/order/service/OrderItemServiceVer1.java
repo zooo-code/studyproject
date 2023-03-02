@@ -16,4 +16,10 @@ public class OrderItemServiceVer1 implements OrderItemService{
     public OrderItem findOrderItem(Long OrderId) {
         return orderItemRepository.findByOrderId(OrderId);
     }
+
+    @Override
+    public boolean findItems(Long itemId) {
+        int size = orderItemRepository.findByItemId(itemId).size();
+        return size != 0;
+    }
 }

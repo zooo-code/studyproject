@@ -37,6 +37,9 @@ public class InitDb {
             Address address1 = new Address("08521", "서울 금천구 가산로 99", null, " (가산동, 한라아파트)");
             Member member2 = new Member("lee", "test12", "123",address1);
             Member memberB = memberService.join(member2);
+            Address address3 = new Address("08520", "서울 금천구 가산로 99", null, " (가산동, 두산위브아파트)");
+            Member member3 = new Member("young", "test1", "123",address3);
+            Member join = memberService.join(member3);
             for (int i = 1; i <=30 ; i++){
                 Item item = new Item(memberA, "kimItem" + i, 100 + i, 1000 * i);
                 Item item1 = itemService.saveItem(item);
@@ -48,9 +51,17 @@ public class InitDb {
                 Item item3 = itemService.saveItem(item2);
                 orderService.order(memberA.getId(),item3.getId(),i+1);
             }
+            for (int i = 1; i <=3 ; i++){
+                Item item = new Item(join, "young" + i, 100 + i, 1000 * i);
+                Item item1 = itemService.saveItem(item);
+                orderService.order(join.getId(),item1.getId(),i+1);
+            }
 
         }
         public void dbInit2(){
+
+
+
 
         }
     }
