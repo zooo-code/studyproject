@@ -7,10 +7,11 @@
 
 </head>
 <body>
-<div class="container" style="max-width: 600px">
+<div class="container" style="max-width: 900px">
     <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
     <h2 th:if="${param.status}" th:text="'잘못된 주문 Id 입니다.'"></h2>
     <h2 th:if="${param.possible}" th:text="'주문이 취소 되었습니다.'"></h2>
+    <h2 th:text="${param.delete}"></h2>
 
     <div class="py-5 text-center">
         <h2>주문 목록</h2>
@@ -27,6 +28,7 @@
                 <th>상품 가격</th>
                 <th>주문 일자</th>
                 <th>주문 상태</th>
+                <th>주문 삭제</th>
             </tr>
             </thead>
             <tbody>
@@ -38,6 +40,15 @@
                 <td th:text="${order.totalPrice}"></td>
                 <td th:text="${order.getOrderTime()}"></td>
                 <td th:text="${order.status}"></td>
+                <td>
+                    <div class="col" th:if="${order.status eq order.status.CANCEL} ">
+                        <form method="post" th:action="@{/order/delete/{param} (param = ${order.orderId})}" >
+                            <button class="w-75 btn btn-secondary "
+                                style="background-color: darkorange; border-color: darkorange;"
+                                th:method="post" type="submit">주문 삭제</button>
+                        </form>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -58,8 +69,10 @@
                     <li class="page-item"
                         th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
                         th:each="pageButton : ${#numbers.sequence(start, end)}">
-                        <a class="page-link" th:href="@{|/order/MyOrderList?page=${pageButton}|}" th:if="${pageButton eq page}" style="color: #fd7e14;" th:text="${pageButton}"></a>
-                        <a class="page-link" th:href="@{|/order/MyOrderList?page=${pageButton}|}" th:unless="${pageButton eq page}" th:text="(${pageButton}==0)? null:${pageButton}"></a>
+                        <a class="page-link" th:href="@{|/order/MyOrderList?page=${pageButton}|}"
+                           th:if="${pageButton eq page}" style="color: #fd7e14;" th:text="${pageButton}"></a>
+                        <a class="page-link" th:href="@{|/order/MyOrderList?page=${pageButton}|}"
+                           th:unless="${pageButton eq page}" th:text="(${pageButton}==0)? null:${pageButton}"></a>
                     </li>
                 </th:block>
                 <li class="page-item">

@@ -22,9 +22,17 @@ public class ItemServiceVer1 implements ItemService{
     public Item saveItem(Item item){
         return itemRepository.save(item);
     }
+
+    @Transactional
     @Override
-    public void deleteItem(Item item){
-        itemRepository.delete(item);
+    public String deleteItem(Long itemId){
+        Optional<Item> item = itemRepository.findById(itemId);
+        if (item.isPresent()){
+            itemRepository.delete(item.get());
+            return "삭제 완료";
+        }
+        return "잘못된 명령";
+
     }
 
     @Override

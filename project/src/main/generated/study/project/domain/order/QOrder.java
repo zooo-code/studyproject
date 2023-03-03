@@ -50,7 +50,7 @@ public class QOrder extends EntityPathBase<Order> {
 
     public QOrder(Class<? extends Order> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new study.project.domain.member.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new study.project.domain.member.QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }

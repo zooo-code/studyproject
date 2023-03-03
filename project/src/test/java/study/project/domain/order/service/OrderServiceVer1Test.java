@@ -14,6 +14,7 @@ import study.project.domain.member.service.MemberService;
 import study.project.domain.order.Order;
 import study.project.domain.order.OrderItem;
 import study.project.domain.order.OrderStatus;
+import study.project.domain.order.dto.CustomerOrderList;
 import study.project.domain.order.dto.MemberOrderDto;
 import study.project.domain.order.repository.OrderRepository;
 
@@ -109,5 +110,15 @@ class OrderServiceVer1Test {
         }
         //then
     }
-
+    @Test
+    public void customerOrderList() {
+        //given
+        List<CustomerOrderList> customerOrderLists = orderService.customerOrderListPaging(1L, 0, 10);
+        //when
+        //then
+        List<Long> longs = orderService.customerOrderId(1L);
+        for (Long aLong : longs) {
+            System.out.println("aLong = " + aLong);
+        }
+    }
 }

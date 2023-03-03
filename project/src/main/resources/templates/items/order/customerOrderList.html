@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container" style="max-width: 1000px">
+  <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
+  <h2 th:if="${param.status}" th:text="'잘못된 접근'"></h2>
+  <h2 th:if="${param.cancel}" th:text="'주문자 주문 취소'"></h2>
+  <div class="py-5 text-center">
+    <h2>주문 목록</h2>
+  </div>
+  <hr class="my-4">
+  <a class="btn btn-dark" style="background-color: darkorange; border-color: darkorange;" href="/members/setting">뒤로</a>
+  <div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>주문 ID</th>
+        <th>주문자 아이디</th>
+        <th>주문 상품 이름</th>
+        <th>수량</th>
+        <th>상품 가격</th>
+        <th>주문 일자</th>
+        <th>주문 상태</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="order : ${customerOrderList}">
+        <td><a th:text="${order.orderId}"
+               th:href="@{|/order/customerOrder/${order.orderId}|}"></a></td>
+        <td th:text="${order.customerId}"></td>
+        <td th:text="${order.itemName}"></td>
+        <td th:text="${order.buyCount}"></td>
+        <td th:text="${order.totalPrice}"></td>
+        <td th:text="${order.getOrderTime()}"></td>
+        <td th:text="${order.status}"></td>
+      </tr>
+      </tbody>
+    </table>
+    <!--     paging button-->
+    <nav aria-label="Page navigation example " class="nav justify-content-center bg-light">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" th:href="@{/order/customerOrderList?page=1}" aria-label="Previous">
+            <span aria-hidden="true">처음</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" th:href="@{|/order/customerOrderList?page=${pagination.prevBlock}|}" aria-label="Previous">
+            <span aria-hidden="true">이전</span>
+          </a>
+        </li>
+        <th:block  th:with="start = ${pagination.startPage}, end = ${pagination.endPage}">
+          <li class="page-item"
+              th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
+              th:each="pageButton : ${#numbers.sequence(start, end)}">
+            <a class="page-link" th:href="@{|/order/customerOrderList?page=${pageButton}|}"
+               th:if="${pageButton eq page}" style="color: #fd7e14;" th:text="${pageButton}"></a>
+            <a class="page-link" th:href="@{|/order/customerOrderList?page=${pageButton}|}"
+               th:unless="${pageButton eq page}" th:text="(${pageButton}==0)? null:${pageButton}"></a>
+          </li>
+        </th:block>
+        <li class="page-item">
+          <a class="page-link" th:href="@{|/order/customerOrderList?page=${pagination.nextBlock}|}" aria-label="Next">
+            <span aria-hidden="true">다음</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" th:href="@{|/order/customerOrderList?page=${pagination.totalPageCnt}|}" aria-label="Previous">
+            <span aria-hidden="true">끝</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+
+</div> <!-- /container -->
+</body>
+</html>

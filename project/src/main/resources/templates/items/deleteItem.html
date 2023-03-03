@@ -41,9 +41,9 @@
     <div class="row">
 
         <div class="col">
-            <form method="post" th:action="@{/items/${item.id}/delete}">
+            <form method="post" th:action="@{/items/{param}/delete (param =${item.id})}">
                 <button class="w-100 btn btn-secondary btn-lg"
-                        th:onclick="|location.href='@{/items/{itemId}/delete(itemId = ${item.id})}'|"
+
                         style="background-color: darkorange; border-color: darkorange;"
                         th:method="post" type="submit">삭제</button>
             </form>

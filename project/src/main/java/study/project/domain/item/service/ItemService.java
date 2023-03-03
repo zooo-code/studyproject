@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ItemService {
 
     Item saveItem(Item item);
-    void deleteItem(Item item);
+    String deleteItem(Long itemId);
     Optional<Item> findByIdItem(Long itemId);
 
     List<Item> findAllItems();

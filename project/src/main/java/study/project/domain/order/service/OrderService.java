@@ -2,7 +2,9 @@ package study.project.domain.order.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import study.project.domain.member.Member;
 import study.project.domain.order.Order;
+import study.project.domain.order.dto.CustomerOrderList;
 import study.project.domain.order.dto.MemberOrderDto;
 import java.util.List;
 
@@ -26,4 +28,14 @@ public interface OrderService {
     List<Order> findAllWithMember(int offset, int limit);
 
     List<MemberOrderDto> myOrderListPaging(Long memberId,int startIndex, int pageSize);
+
+    String deleteOrder(Long orderId);
+
+    List<CustomerOrderList> customerOrderList(Long memberId);
+
+    List<CustomerOrderList> customerOrderListPaging(Long memberId,int startIndex, int pageSize);
+
+    Member findMember(Long orderId);
+
+    List<Long> customerOrderId(Long memberId);
 }

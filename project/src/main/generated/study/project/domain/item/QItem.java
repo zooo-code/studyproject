@@ -52,7 +52,7 @@ public class QItem extends EntityPathBase<Item> {
 
     public QItem(Class<? extends Item> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new study.project.domain.member.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new study.project.domain.member.QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }

@@ -14,13 +14,17 @@
 
     <p class="lead">상품 기능</p>
     <p>
-      <a class="btn btn-primary " href="/items/" style="background-color: orangered; border-color: orangered;" th:href="@{/items/myList}">내 상품 목록</a>
+      <a class="btn btn-primary " href="/items/" style="background-color: orangered; border-color: orangered;"
+         th:href="@{/items/myList}">내 상품 목록</a>
     </p>
     <p class="lead">주문 기능</p>
     <p>
       <a class="btn btn-primary" href="/order/MyOrderList/{memberId}"
          th:href="@{/order/MyOrderList}" style="background-color: orangered; border-color: orangered;">나의 주문 내역</a>
+      <a class="btn btn-primary" href="/order/customerOrderList"
+         th:href="@{/order/customerOrderList}" style="background-color: darkorange; border-color: darkorange;">나에게 들어온 주문 내역</a>
     </p>
+
     </p>
 
     <div th:replace="fragments/footer :: footer" />

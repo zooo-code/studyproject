@@ -1,15 +1,15 @@
 package study.project.domain.order.repository;
 
-import com.querydsl.core.Tuple;
+
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import study.project.domain.item.QItem;
 import study.project.domain.member.QMember;
 import study.project.domain.order.Order;
 
+import study.project.domain.order.dto.CustomerOrderList;
 import study.project.domain.order.dto.MemberOrderDto;
+import study.project.domain.order.dto.QCustomerOrderList;
 import study.project.domain.order.dto.QMemberOrderDto;
 
 import javax.persistence.EntityManager;
@@ -84,6 +84,52 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
                 .from(orderItem)
                 .leftJoin(orderItem.order,order)
                 .where(order.member.id.eq(memberId))
+                .orderBy(order.orderDate.desc())
+                .offset(startIndex)
+                .limit(pageSize)
+                .fetch();
+    }
+
+    @Override
+    public List<CustomerOrderList> customerOrderList(Long memberId) {
+        return queryFactory.select(new QCustomerOrderList(
+                    order.id,
+    //                내 아이디
+                    QItem.item.member.id,
+    //                주문 고객 아이디
+                    order.member.loginId,
+                    orderItem.item.itemName,
+                    orderItem.count,
+                    orderItem.orderPrice,
+                    order.orderDate
+                    ,order.status
+                    ))
+                    .from(orderItem)
+                .leftJoin(orderItem.order,order)
+                .leftJoin(orderItem.item,QItem.item)
+                .where(QItem.item.member.id.eq(memberId))
+                .orderBy(order.orderDate.desc())
+                .fetch();
+    }
+
+    @Override
+    public List<CustomerOrderList> customerOrderListPaging(Long memberId, int startIndex, int pageSize) {
+        return queryFactory.select(new QCustomerOrderList(
+                        order.id,
+                        //                내 아이디
+                        QItem.item.member.id,
+                        //                주문 고객 아이디
+                        order.member.loginId,
+                        orderItem.item.itemName,
+                        orderItem.count,
+                        orderItem.orderPrice,
+                        order.orderDate
+                        ,order.status
+                ))
+                .from(orderItem)
+                .leftJoin(orderItem.order,order)
+                .leftJoin(orderItem.item,QItem.item)
+                .where(QItem.item.member.id.eq(memberId))
                 .orderBy(order.orderDate.desc())
                 .offset(startIndex)
                 .limit(pageSize)

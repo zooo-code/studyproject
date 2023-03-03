@@ -12,6 +12,8 @@ import study.project.domain.member.Member;
 import study.project.domain.member.repository.MemberRepository;
 import study.project.domain.order.Order;
 import study.project.domain.order.OrderItem;
+import study.project.domain.order.OrderStatus;
+import study.project.domain.order.dto.CustomerOrderList;
 import study.project.domain.order.dto.MemberOrderDto;
 import study.project.domain.order.repository.OrderRepository;
 
@@ -95,6 +97,50 @@ public class OrderServiceVer1 implements OrderService{
     @Override
     public List<MemberOrderDto> myOrderListPaging(Long memberId, int startIndex, int pageSize) {
         return orderRepository.myOrderListPaging(memberId,startIndex,pageSize);
+    }
+
+    @Transactional
+    @Override
+    public String deleteOrder(Long orderId) {
+        Optional<Order> order = orderRepository.findById(orderId);
+        if (order.isPresent()){
+            if (order.get().getStatus() == OrderStatus.CANCEL){
+                orderRepository.delete(order.get());
+                return "삭제 완료";
+            }else {
+                return "주문을 취소후 진행해 주세요";
+            }
+        }else {
+            return "존재하지 않는 주문입니다.";
+        }
+    }
+
+    @Override
+    public List<CustomerOrderList> customerOrderList(Long memberId) {
+        return orderRepository.customerOrderList(memberId);
+    }
+
+    @Override
+    public List<CustomerOrderList> customerOrderListPaging(Long memberId, int startIndex, int pageSize) {
+        return orderRepository.customerOrderListPaging(memberId, startIndex, pageSize);
+    }
+
+    @Override
+    public Member findMember(Long orderId) {
+        Optional<Order> order = orderRepository.findById(orderId);
+        return order.map(Order::getMember).orElse(null);
+    }
+
+    @Override
+    public List<Long> customerOrderId(Long memberId) {
+
+        List<CustomerOrderList> customerOrderLists = orderRepository.customerOrderList(memberId);
+
+        List<Long> customerOrderIds = new ArrayList<>();
+        for (CustomerOrderList customerOrderList : customerOrderLists) {
+            customerOrderIds.add(customerOrderList.getOrderId());
+        }
+        return customerOrderIds;
     }
 
 

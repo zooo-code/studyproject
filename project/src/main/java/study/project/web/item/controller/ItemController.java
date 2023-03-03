@@ -127,9 +127,9 @@ public class ItemController {
     }
 
 
-    @GetMapping("/{itemId}/delete")
+    @PostMapping("/{itemId}/delete")
     public String deleteItem(@PathVariable Long itemId, @Login Member loginMember,
-                         RedirectAttributes redirectAttributes,Model model){
+                         RedirectAttributes redirectAttributes ){
         List<Long> Items = itemService.myItem(loginMember.getId());
 //        다른 회원의 아이템 삭제 하려 할때 금지
         if (!Items.contains(itemId)){
@@ -144,12 +144,11 @@ public class ItemController {
             return "redirect:/items/{itemId}";
         }
 
-        Item item = itemService.findByIdItem(itemId).get();
-        itemService.deleteItem(item);
-        model.addAttribute("delete", true);
-        model.addAttribute("item",item);
-        model.addAttribute("member",loginMember);
-        return "items/deleteItem";
+        String possible = itemService.deleteItem(itemId);
+
+        redirectAttributes.addAttribute("possible",possible);
+        redirectAttributes.addAttribute("delete", true);
+        return "redirect:/items/myList";
     }
 
 }

@@ -14,6 +14,7 @@ import study.project.domain.item.service.ItemService;
 import study.project.domain.member.Member;
 
 import study.project.domain.order.OrderItem;
+import study.project.domain.order.dto.CustomerOrderList;
 import study.project.domain.order.dto.MemberOrderDto;
 import study.project.domain.order.service.OrderItemService;
 import study.project.domain.order.service.OrderService;
@@ -103,7 +104,7 @@ public class OrderController {
     @GetMapping("/cancel/{orderId}")
     public String cancel(@Login Member loginMember, @PathVariable Long orderId,
                          RedirectAttributes redirectAttributes){
-        System.out.println("orderId = " + orderId);
+
         List<Long> OrderByMemberId = orderService.findByMemberId(loginMember.getId());
 
         if (!OrderByMemberId.contains(orderId)){
@@ -115,4 +116,66 @@ public class OrderController {
         return "redirect:/order/MyOrderList";
     }
 
+    @PostMapping("/delete/{orderId}")
+    public String delete(@Login Member loginMember, @PathVariable Long orderId,RedirectAttributes redirectAttributes){
+        String deleteOrder = orderService.deleteOrder(orderId);
+        redirectAttributes.addAttribute("delete", deleteOrder);
+
+        return "redirect:/order/MyOrderList";
+    }
+
+    @GetMapping("/customerOrderList")
+    public String customerOrderList(@Login Member loginMember, Model model,
+
+                                    @RequestParam(defaultValue = "1") int page){
+        int allCnt = orderService.customerOrderList(loginMember.getId()).size();
+        //페이지
+        Pagination pagination = new Pagination(allCnt, page);
+
+        int startIndex = pagination.getStartIndex();
+        int pageSize = pagination.getPageSize();
+
+        model.addAttribute("page",page);
+        model.addAttribute("pagination",pagination);
+
+        List<CustomerOrderList> customerOrderLists = orderService.customerOrderListPaging(loginMember.getId(), startIndex, pageSize);
+        model.addAttribute("customerOrderList",customerOrderLists);
+        model.addAttribute("member",loginMember);
+
+        return "/items/order/customerOrderList";
+    }
+
+    @GetMapping("/customerOrder/{orderId}")
+    public String customerOrder(@Login Member loginMember,
+                                @PathVariable Long orderId, Model model,RedirectAttributes redirectAttributes){
+        OrderItem orderItem = orderItemService.findOrderItem(orderId);
+        Member customer = orderService.findMember(orderId);
+        if (customer == null){
+            redirectAttributes.addAttribute("status", true);
+            return "redirect:/order/customerOrderList";
+        }
+        List<Long> customerOrderIds = orderService.customerOrderId(loginMember.getId());
+        if (!customerOrderIds.contains(orderId)){
+            redirectAttributes.addAttribute("status",true);
+            return "redirect:/order/customerOrderList";
+        }
+        model.addAttribute("orderItem",orderItem);
+        model.addAttribute("member",loginMember);
+        model.addAttribute("customer",customer);
+        return "/items/order/customerOrder";
+    }
+
+    @GetMapping("/cancel/customer/{orderId}")
+    public String cancelCustomerOrder(@PathVariable Long orderId, @Login Member loginMember,
+                                      RedirectAttributes redirectAttributes){
+        List<Long> customerOrderIds = orderService.customerOrderId(loginMember.getId());
+        if (!customerOrderIds.contains(orderId)){
+            redirectAttributes.addAttribute("status",true);
+            return "redirect:/order/customerOrderList";
+        }
+        orderService.cancelOrder(orderId);
+        redirectAttributes.addAttribute("cancel", true);
+
+        return "redirect:/order/customerOrderList";
+    }
 }

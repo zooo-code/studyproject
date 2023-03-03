@@ -23,7 +23,7 @@ public class Item {
     @Column(name = "item_id")
     private Long id;
 
-    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
     private String itemName;
@@ -37,6 +37,15 @@ public class Item {
         this.member = member;
     }
 
+    public Item(Long id,Member member, String itemName, int stockQuantity, int price) {
+        this.id = id;
+        this.member = member;
+        this.itemName = itemName;
+        this.stockQuantity = stockQuantity;
+        this.price = price;
+        this.createItemTime = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
     public Item(Member member, String itemName, int stockQuantity, int price) {
         this.member = member;
         this.itemName = itemName;

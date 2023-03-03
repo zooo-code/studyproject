@@ -22,7 +22,7 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<Item> items =new ArrayList<>();
     private String username;
     private String loginId;
@@ -32,7 +32,7 @@ public class Member {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
 
