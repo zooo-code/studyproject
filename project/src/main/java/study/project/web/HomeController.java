@@ -2,11 +2,14 @@ package study.project.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import study.project.domain.item.Item;
+import study.project.domain.item.search.ItemSearch;
 import study.project.domain.item.service.ItemService;
 import study.project.domain.member.Member;
 import study.project.page.Pagination;
@@ -20,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HomeController {
     private final ItemService itemService;
-    @GetMapping("/")
+//    @GetMapping("/")
     public String Home(@Login Member loginMember, Model model,
                        @RequestParam(defaultValue = "1") int page){
 
@@ -46,6 +49,32 @@ public class HomeController {
         //끝
         return "loginHome";
     }
+    @GetMapping("/")
+    public String Home(@Login Member loginMember,
+                       @RequestParam(defaultValue = "1") int page,
+                       @ModelAttribute("itemSearch") ItemSearch itemSearch , Model model){
 
+        if (loginMember == null){
+            return "home";
+        }
+        log.info("{} itemName 받아오나?",itemSearch.getItemName());
+        model.addAttribute("member",loginMember);
+//        List<Item> allItems = itemService.findAllItems();
+
+        //페이지
+        int allCnt = itemService.findAllCnt();
+        Pagination pagination = new Pagination(allCnt, page);
+        int startIndex = pagination.getStartIndex();
+        int pageSize = pagination.getPageSize();
+
+        List<Item> items = itemService.itemSearchPageable(itemSearch, startIndex, pageSize);
+
+        model.addAttribute("items",items);
+        model.addAttribute("pagination",pagination);
+        model.addAttribute("page",page);
+
+        //끝
+        return "loginHome";
+    }
 
 }

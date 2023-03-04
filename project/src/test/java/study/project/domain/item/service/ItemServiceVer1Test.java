@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.item.Item;
+import study.project.domain.item.search.ItemSearch;
 import study.project.domain.member.Member;
 import study.project.domain.member.service.MemberService;
 import study.project.web.item.dto.MemberItemDto;
@@ -94,4 +95,11 @@ class ItemServiceVer1Test {
             System.out.println("memberItemDto = " + memberItemDto.getCreateItemTime());
         }
     }
+    @Test
+    public void itemSearch () {
+
+        //then
+    }
+
+
 }

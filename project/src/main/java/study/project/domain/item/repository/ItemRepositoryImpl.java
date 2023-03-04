@@ -1,8 +1,16 @@
 package study.project.domain.item.repository;
 
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import study.project.domain.item.Item;
+import study.project.domain.item.QItem;
+import study.project.domain.item.search.ItemSearch;
 import study.project.web.item.dto.MemberItemDto;
 import study.project.web.item.dto.QMemberItemDto;
 
@@ -62,6 +70,40 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
                 .offset(startIndex)
                 .limit(pageSize)
                 .fetch();
+    }
+
+//    @Override
+//    public Page<Item> itemSearchPaging(String itemName , Pageable pageable) {
+//
+//        List<Item> content = queryFactory.selectFrom(item)
+//                .where(itemNameContain(itemName))
+//                .orderBy(item.createItemTime.desc())
+//                .offset(pageable.getOffset()) // 시작 인덱스
+//                .limit(pageable.getPageSize())
+//                .fetch();
+//
+//        JPAQuery<Item> countQuery = queryFactory.selectFrom(item)
+//                .where(itemNameContain(itemName));
+//
+//        return PageableExecutionUtils.getPage(content,pageable,() -> countQuery.fetch().size());
+//    }
+
+    @Override
+    public List<Item> itemSearchPaging(ItemSearch itemSearch , int startIndex, int pageSize) {
+
+        return queryFactory.selectFrom(item)
+                .where(itemNameContain(itemSearch.getItemName()))
+                .orderBy(item.createItemTime.desc())
+                .offset(startIndex) // 시작 인덱스
+                .limit(pageSize)
+                .fetch();
+    }
+
+    private BooleanExpression itemNameContain(String itemName) {
+        if (itemName == null){
+            return null;
+        }
+        return item.itemName.contains(itemName);
     }
 
 }

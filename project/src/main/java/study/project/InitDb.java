@@ -40,7 +40,7 @@ public class InitDb {
             Address address3 = new Address("08520", "서울 금천구 가산로 99", null, " (가산동, 두산위브아파트)");
             Member member3 = new Member("young", "test1", "123",address3);
             Member join = memberService.join(member3);
-            for (int i = 1; i <=3 ; i++){
+            for (int i = 1; i <=30 ; i++){
                 Item item = new Item(memberA, "kimItem" + i, 100 + i, 1000 * i);
                 Item item1 = itemService.saveItem(item);
                 orderService.order(memberB.getId(),item1.getId(),i+1);

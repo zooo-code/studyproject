@@ -2,6 +2,8 @@ package study.project.web.item.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,7 +42,7 @@ public class ItemController {
         return "items/allItemList";
     }
     @GetMapping("/myList")
-    public String myItemList(@Login Member loginMember,Model model,
+    public String myItemList(@Login Member loginMember, Model model,
                              @RequestParam(defaultValue = "1") int page){
         int allCnt = itemService.myItemList(loginMember.getId()).size();
 
@@ -53,8 +55,12 @@ public class ItemController {
         model.addAttribute("page",page);
         model.addAttribute("pagination",pagination);
         model.addAttribute("member",loginMember);
+
+
+
         return "items/MyItemList";
     }
+
     @GetMapping("/create")
     public String createItem(@Login Member loginMember , Model model){
         ItemForm itemForm = new ItemForm();

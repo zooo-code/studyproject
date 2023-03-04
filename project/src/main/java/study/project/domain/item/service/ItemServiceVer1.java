@@ -1,10 +1,13 @@
 package study.project.domain.item.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.item.Item;
 import study.project.domain.item.repository.ItemRepository;
+import study.project.domain.item.search.ItemSearch;
 import study.project.web.item.dto.MemberItemDto;
 
 import java.util.ArrayList;
@@ -83,4 +86,11 @@ public class ItemServiceVer1 implements ItemService{
     public List<MemberItemDto> myItemListPaging(Long memberId, int startIndex, int pageSize) {
         return itemRepository.myItemListPaging(memberId,startIndex,pageSize);
     }
+
+    @Override
+    public List<Item> itemSearchPageable(ItemSearch itemSearch , int startIndex, int pageSize) {
+        return itemRepository.itemSearchPaging( itemSearch ,  startIndex,  pageSize);
+    }
+
+
 }
