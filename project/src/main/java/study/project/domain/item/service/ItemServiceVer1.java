@@ -25,7 +25,6 @@ public class ItemServiceVer1 implements ItemService{
     public Item saveItem(Item item){
         return itemRepository.save(item);
     }
-
     @Transactional
     @Override
     public String deleteItem(Long itemId){
@@ -35,15 +34,11 @@ public class ItemServiceVer1 implements ItemService{
             return "삭제 완료";
         }
         return "잘못된 명령";
-
     }
-
     @Override
     public Optional<Item> findByIdItem(Long itemId) {
         return itemRepository.findById(itemId);
     }
-
-
 
     @Override
     public List<Item> findAllItems() {

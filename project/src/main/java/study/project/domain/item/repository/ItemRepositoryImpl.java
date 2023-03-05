@@ -72,21 +72,6 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
                 .fetch();
     }
 
-//    @Override
-//    public Page<Item> itemSearchPaging(String itemName , Pageable pageable) {
-//
-//        List<Item> content = queryFactory.selectFrom(item)
-//                .where(itemNameContain(itemName))
-//                .orderBy(item.createItemTime.desc())
-//                .offset(pageable.getOffset()) // 시작 인덱스
-//                .limit(pageable.getPageSize())
-//                .fetch();
-//
-//        JPAQuery<Item> countQuery = queryFactory.selectFrom(item)
-//                .where(itemNameContain(itemName));
-//
-//        return PageableExecutionUtils.getPage(content,pageable,() -> countQuery.fetch().size());
-//    }
 
     @Override
     public List<Item> itemSearchPaging(ItemSearch itemSearch , int startIndex, int pageSize) {

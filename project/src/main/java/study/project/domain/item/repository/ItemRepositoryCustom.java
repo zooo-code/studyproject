@@ -13,6 +13,5 @@ public interface ItemRepositoryCustom {
     List<MemberItemDto> myItemList(Long memberId);
     List<Item> findItemPaging(int startIndex, int pageSize);
     List<MemberItemDto> myItemListPaging(Long memberId, int startIndex, int pageSize);
-
     List<Item> itemSearchPaging(ItemSearch itemSearch , int startIndex, int pageSize);
 }
