@@ -5,6 +5,7 @@ import lombok.Setter;
 import study.project.domain.address.Address;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,6 +18,8 @@ public class UpdateMemberForm {
     private String username;
 
     @NotEmpty(message = "입력 필수")
+    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}",
+            message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
     private String password;
 
     @NotEmpty(message = "필수 사항입니다.")
