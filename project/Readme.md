@@ -32,9 +32,9 @@ entity order, orderItem
   - 나의 아이템만 보기
   - 나의 상품만 들어온 주문 보기
   - 나의 주문만 보기
+  - 주소 검색 API를 활용
 
 - 차후에 추가 기능 아이템 카테고리
-- 
 
 - dependency
   - thymeleaf
