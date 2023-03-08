@@ -84,6 +84,14 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
                 .fetch();
     }
 
+    @Override
+    public List<Item> itemSearchPaging(ItemSearch itemSearch) {
+        return queryFactory.selectFrom(item)
+                .where(itemNameContain(itemSearch.getItemName()))
+                .orderBy(item.createItemTime.desc())
+                .fetch();
+    }
+
     private BooleanExpression itemNameContain(String itemName) {
         if (itemName == null){
             return null;

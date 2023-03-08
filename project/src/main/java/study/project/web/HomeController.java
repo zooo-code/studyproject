@@ -57,12 +57,11 @@ public class HomeController {
         if (loginMember == null){
             return "home";
         }
-        log.info("{} itemName 받아오나?",itemSearch.getItemName());
+
         model.addAttribute("member",loginMember);
-//        List<Item> allItems = itemService.findAllItems();
 
         //페이지
-        int allCnt = itemService.findAllCnt();
+        int allCnt = itemService.itemSearchPageable(itemSearch).size();
         Pagination pagination = new Pagination(allCnt, page);
         int startIndex = pagination.getStartIndex();
         int pageSize = pagination.getPageSize();

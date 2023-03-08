@@ -37,17 +37,21 @@
             <p th:errorclass="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect date</p>
         </div>
         <div>
+            <label th:for="sample6_postcode">우편 번호</label>
             <input type="text" id="sample6_postcode" placeholder="우편번호" th:field="*{zipCode}"
                    th:class="${#fields.hasErrors('zipCode')}? 'form-control field-error' : 'form-control'" >
             <p th:errorclass="field-error" th:if="${#fields.hasErrors('zipCode')}"
                th:errors="*{zipCode}">Incorrect date</p>
             <input style="background-color: orangered; border-color: orangered;"
                    type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+            <label th:for="sample6_address">주소</label>
             <input type="text" id="sample6_address" th:field="*{address}"
                    th:class="${#fields.hasErrors('address')}? 'form-control field-error' : 'form-control'"placeholder="주소"><br>
             <p th:errorclass="field-error" th:if="${#fields.hasErrors('address')}"
                th:errors="*{address}">Incorrect date</p>
+            <label th:for="sample6_detailAddress">상세 주소</label>
             <input type="text" id="sample6_detailAddress" th:field="*{detailAddress}" placeholder="상세주소">
+            <label th:for="sample6_extraAddress">기타 주소</label>
             <input type="text" id="sample6_extraAddress" th:field="*{etc}" placeholder="참고항목">
 
             <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

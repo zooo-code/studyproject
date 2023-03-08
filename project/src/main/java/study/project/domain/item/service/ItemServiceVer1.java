@@ -87,5 +87,10 @@ public class ItemServiceVer1 implements ItemService{
         return itemRepository.itemSearchPaging( itemSearch ,  startIndex,  pageSize);
     }
 
+    @Override
+    public List<Item> itemSearchPageable(ItemSearch itemSearch) {
+        return itemRepository.itemSearchPaging( itemSearch);
+    }
+
 
 }

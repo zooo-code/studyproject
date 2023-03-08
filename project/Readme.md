@@ -1,7 +1,5 @@
 
-entity order, orderItem 
 중복아이디회원 가입 불가
-아이템 등록
 
 - 구현 기능
   - 회원

@@ -26,4 +26,6 @@ public interface ItemService {
     List<Item> findItemPaging(int startIndex, int pageSize);
     List<MemberItemDto> myItemListPaging(Long memberId, int startIndex, int pageSize);
     List<Item> itemSearchPageable(ItemSearch itemSearch , int startIndex, int pageSize);
+
+    List<Item> itemSearchPageable(ItemSearch itemSearch );
 }
