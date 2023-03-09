@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import study.project.domain.exception.NotEnoughStockException;
+import study.project.domain.item.category.ItemCategory;
 import study.project.domain.member.Member;
 import study.project.domain.order.OrderItem;
 
@@ -32,11 +33,18 @@ public class Item {
 
     private String createItemTime;
 
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "item_category_id")
+    private ItemCategory itemCategory;
+
 
     public void setMember(Member member) {
         this.member = member;
     }
 
+    public void setItemCategory(ItemCategory itemCategory) {
+        this.itemCategory = itemCategory;
+    }
 
     public Item(Member member, String itemName, int stockQuantity, int price) {
         this.member = member;
