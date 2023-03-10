@@ -12,23 +12,7 @@
   <div class="py-5 text-center">
     <h2>상품 목록</h2>
   </div>
-<!--  <div>-->
-<!--    <form th:object="${orderSearch}" class="form-inline">-->
-<!--      <div class="form-group mb-2">-->
-<!--        <input type="text" th:field="*{memberName}" class="form-control" placeholder="상품 이름"/>-->
-<!--      </div>-->
-<!--      <div class="form-group mx-sm-1 mb-2">-->
-<!--        <select th:field="*{orderStatus}" class="form-control">-->
-<!--          <option value="">주문상태</option>-->
-<!--          <option th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"-->
-<!--                  th:value="${status}"-->
-<!--                  th:text="${status}">option-->
-<!--          </option>-->
-<!--        </select>-->
-<!--      </div>-->
-<!--      <button type="submit" class="btn btn-primary mb-2">검색</button>-->
-<!--    </form>-->
-<!--  </div>-->
+
   <hr class="my-4">
 
   <div>
@@ -37,9 +21,9 @@
       <thead>
       <tr>
         <th>판매자 ID</th>
-        <th>상품명</th>
-        <th>가격</th>
-        <th>수량</th>
+        <th th:text=" #{label.item.name}">상품명</th>
+        <th th:text="#{label.item.price}">가격</th>
+        <th th:text="#{label.item.quantity}">수량</thth>
         <th>주문</th>
       </tr>
       </thead>
