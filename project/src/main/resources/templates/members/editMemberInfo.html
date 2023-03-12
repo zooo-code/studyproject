@@ -31,35 +31,32 @@
         </div>
         <div>
             <label for="password">비밀 번호</label>
-            <input type="password" id="password" name="password" class="form-control field-error"
+            <input type="password" id="password" name="password" class="form-control"
                    th:field="${member.password}" th:value="${member.password}"
-                   th:class="${#fields.hasErrors('member.password')}? 'form-control field-error' : 'form-control'">
-            <p th:errorclass="field-error" th:if="${#fields.hasErrors('member.password')}"
-               th:errors="${member.password}">Incorrect date</p>
+                   th:errorclass="field-error" >
+            <div th:errorclass="field-error" th:errors="${member.password}">Incorrect date</div>
 
         </div>
         <div>
             <label for="username">회원 이름</label>
-            <input type="text" id="username" name="username" class="form-control field-error"
+            <input type="text" id="username" name="username" class="form-control"
                    th:field="${member.username}" th:value="${member.username}"
-                   th:class="${#fields.hasErrors('member.username')}? 'form-control field-error' : 'form-control'">
-            <p th:errorclass="field-error" th:if="${#fields.hasErrors('member.username')}"
-               th:errors="${member.username}">Incorrect date</p>
+                   th:errorclass="field-error">
+            <div th:errorclass="field-error" th:errors="${member.username}">Incorrect date</div>
         </div>
 
         <div>
             <label for="sample6_postcode">우편 번호</label>
             <input type="text" id="sample6_postcode" placeholder="우편번호" th:field="${member.zipCode}"
-                   th:class="${#fields.hasErrors('member.zipCode')}? 'form-control field-error' : 'form-control'" >
-            <p th:errorclass="field-error" th:if="${#fields.hasErrors('member.zipCode')}"
-               th:errors="${member.zipCode}">Incorrect date</p>
+                   class="form-control" th:errorclass="field-error" >
+            <div th:errorclass="field-error" th:errors="${member.zipCode}">Incorrect date</div>
             <input style="background-color: orangered; border-color: orangered;"
                    type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
             <label for="sample6_address">주소</label>
             <input type="text" id="sample6_address" th:field="${member.address}"
-                   th:class="${#fields.hasErrors('member.address')}? 'form-control field-error' : 'form-control'" placeholder="주소"><br>
-            <p th:errorclass="field-error" th:if="${#fields.hasErrors('member.address')}"
-               th:errors="${member.address}">Incorrect date</p>
+                   class="form-control"
+                   th:errorclass="field-error" placeholder="주소"><br>
+            <p th:errorclass="field-error" th:errors="${member.address}">Incorrect date</p>
             <label for="sample6_detailAddress">상세주소</label>
             <input type="text" id="sample6_detailAddress" th:field="${member.detailAddress}" placeholder="상세주소">
             <label for="sample6_extraAddress">참고항목</label>

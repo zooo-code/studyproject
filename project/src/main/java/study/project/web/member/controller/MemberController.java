@@ -28,15 +28,16 @@ public class MemberController {
     }
 
     @PostMapping("/new")
-    public String create(@Validated MemberForm form, BindingResult result,
+    public String create(@ModelAttribute("memberForm") @Validated MemberForm form, BindingResult result,
                          RedirectAttributes redirectAttributes,Model model){
+
         if (result.hasErrors()) {
             return "members/createMemberForm";
         }
         Boolean findByLoginId = memberService.findByLoginId(form.getLoginId());
         if (findByLoginId){
-            redirectAttributes.addAttribute("status",true);
-            return "redirect:/members/new";
+            result.reject("sameLoginId","중복된 아이디 입니다.");
+            return "members/createMemberForm";
         }
         Address address = new Address(form.getZipCode(), form.getAddress(),form.getDetailAddress(), form.getEtc());
         Member member = new Member(form.getUsername(),form.getLoginId(),form.getPassword(),address);

@@ -30,7 +30,9 @@
   - 나의 아이템만 보기
   - 나의 상품만 들어온 주문 보기
   - 나의 주문만 보기
-  - 주소 검색 API를 활용
+  - 주소 검색 API 를 활용
+  - messages.properties
+  - errors.properties
 
 - 차후에 추가 기능 아이템 카테고리
 
@@ -44,3 +46,5 @@
   - p6spy-spring-boot-starter 쿼리 확인용
 
 - 데이터 H2
+
+- controller 예외 상황 수정 해야함

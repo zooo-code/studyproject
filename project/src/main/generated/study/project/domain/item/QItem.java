@@ -26,6 +26,8 @@ public class QItem extends EntityPathBase<Item> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final study.project.domain.item.category.QItemCategory itemCategory;
+
     public final StringPath itemName = createString("itemName");
 
     public final study.project.domain.member.QMember member;
@@ -52,6 +54,7 @@ public class QItem extends EntityPathBase<Item> {
 
     public QItem(Class<? extends Item> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.itemCategory = inits.isInitialized("itemCategory") ? new study.project.domain.item.category.QItemCategory(forProperty("itemCategory")) : null;
         this.member = inits.isInitialized("member") ? new study.project.domain.member.QMember(forProperty("member"), inits.get("member")) : null;
     }
 

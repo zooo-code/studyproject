@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import study.project.domain.exception.NotEnoughStockException;
@@ -50,11 +51,12 @@ public class OrderController {
     @PostMapping("/{itemId}")
     public String orderItem(@Login Member loginMember,
                             @PathVariable Long itemId,
-                            @ModelAttribute("order") @Valid OrderForm form, BindingResult result,
+                            @ModelAttribute("order") @Validated OrderForm form, BindingResult result,
                             RedirectAttributes redirectAttributes, Model model){
 
         if (result.hasErrors()){
             model.addAttribute("member",loginMember);
+            model.addAttribute("order",form);
             return "/items/order/orderForm";
         }
         try {
@@ -76,6 +78,7 @@ public class OrderController {
         List<Long> OrderByMemberId = orderService.findByMemberId(loginMember.getId());
         if (!OrderByMemberId.contains(orderId)){
             redirectAttributes.addAttribute("status",true);
+
             return "redirect:/order/MyOrderList";
         }
         OrderItem orderItem = orderItemService.findOrderItem(orderId);

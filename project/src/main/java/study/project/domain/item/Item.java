@@ -28,8 +28,8 @@ public class Item {
     @JoinColumn(name = "member_id")
     private Member member;
     private String itemName;
-    private int stockQuantity;
-    private int price;
+    private Integer stockQuantity;
+    private Integer price;
 
     private String createItemTime;
 
@@ -46,7 +46,7 @@ public class Item {
         this.itemCategory = itemCategory;
     }
 
-    public Item(Member member, String itemName, int stockQuantity, int price) {
+    public Item(Member member, String itemName, Integer stockQuantity, Integer price) {
         this.member = member;
         this.itemName = itemName;
         this.stockQuantity = stockQuantity;
@@ -56,11 +56,11 @@ public class Item {
     }
 
     //비지니스 로직
-    public void addStock(int quantity){
+    public void addStock(Integer quantity){
         this.stockQuantity += quantity;
     }
 
-    public void removeStock(int quantity){
+    public void removeStock(Integer quantity){
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {
 
@@ -69,7 +69,7 @@ public class Item {
         this.stockQuantity = restStock;
     }
 
-    public void update(String name, int price, int stockQuantity) {
+    public void update(String name, Integer price, Integer stockQuantity) {
         this.itemName = name;
         this.price = price;
         this.stockQuantity = stockQuantity;

@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
   <style>
     .container {
-      max-width: 560px;
+      max-width: 1000px;
     }
 
   </style>
@@ -41,9 +41,9 @@
           <tr>
             <th>판매자 ID</th>
             <td>등록 시간</td>
-            <th>상품명</th>
-            <th>가격</th>
-            <th>수량</th>
+            <th th:text="#{label.item.name}">상품명</th>
+            <th th:text="#{label.item.price}">가격</th>
+            <th th:text="#{label.item.quantity}">수량</th>
             <th>주문</th>
           </tr>
           </thead>
