@@ -23,6 +23,7 @@ public class ItemCategory {
     @OneToMany(mappedBy = "itemCategory")
     private List<Item> items = new ArrayList<>();
 
+
 //  양방향 연관관계 매서드
     public void addItem(Item item){
         items.add(item);

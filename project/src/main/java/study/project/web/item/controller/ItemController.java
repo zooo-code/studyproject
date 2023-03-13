@@ -33,14 +33,7 @@ public class ItemController {
 
     private final OrderItemService orderItemService;
 
-    @GetMapping
-    public String items(@Login Member loginMember, Model model){
-        List<Item> allItems = itemService.findAllItems();
-        Member member = memberService.findByIdMember(loginMember.getId()).get();
-        model.addAttribute("member",member);
-        model.addAttribute("items",allItems);
-        return "items/allItemList";
-    }
+
     @GetMapping("/myList")
     public String myItemList(@Login Member loginMember, Model model,
                              @RequestParam(defaultValue = "1") int page){

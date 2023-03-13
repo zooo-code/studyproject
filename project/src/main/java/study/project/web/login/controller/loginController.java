@@ -39,6 +39,7 @@ public class loginController {
             result.reject("loginFail", "아이디 또는 비밀번호를 확인해 주세요.");
             return "login/loginForm";
         }
+//       member 객체를 담는것 보다는 핏하게 넣어야함
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember);
 
@@ -46,7 +47,7 @@ public class loginController {
     }
     @PostMapping("/logout")
     public String logout(HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         if (session != null){
             session.invalidate();
         }

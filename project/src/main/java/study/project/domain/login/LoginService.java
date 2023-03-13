@@ -15,10 +15,10 @@ public class LoginService {
     private final MemberRepository memberRepository;
 
     public Member login(String loginId, String password){
-        Optional<Member> findMember = memberRepository.findByLoginId(loginId);
-        if (findMember.isPresent() && findMember.get().getPassword().equals(password)){
-            return findMember.get();
-        }
-        return null;
+
+        return memberRepository.findByLoginId(loginId)
+                .filter(m -> m.getPassword().equals(password))
+                .orElse(null);
+
     }
 }
