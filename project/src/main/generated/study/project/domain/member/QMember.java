@@ -26,6 +26,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final DateTimePath<java.time.LocalDateTime> createMemberTime = createDateTime("createMemberTime", java.time.LocalDateTime.class);
 
+    public final EnumPath<Grade> grade = createEnum("grade", Grade.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final ListPath<study.project.domain.item.Item, study.project.domain.item.QItem> items = this.<study.project.domain.item.Item, study.project.domain.item.QItem>createList("items", study.project.domain.item.Item.class, study.project.domain.item.QItem.class, PathInits.DIRECT2);

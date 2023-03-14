@@ -7,13 +7,16 @@
 
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
-        <h2>404 오류 화면 스프링 부트 제공</h2>
+        <h2>404 오류 화면</h2>
     </div>
 
     <div>
-        <p>오류 화면 입니다.</p>
+        <p>존재하지 않는 오류 화면 입니다.</p>
     </div>
-
+    <div>
+        <button th:type="button" th:text="홈으로"
+                th:onclick="|location.href='@{/}'|"></button>
+    </div>
     <hr class="my-4">
 
 </div> <!-- /container -->

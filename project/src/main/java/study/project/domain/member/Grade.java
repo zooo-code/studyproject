@@ -1,6 +1,6 @@
 package study.project.domain.member;
 
-public enum grade {
-    ADMIN,
+public enum Grade {
+    ADMIN, CUSTOMER
 
 }

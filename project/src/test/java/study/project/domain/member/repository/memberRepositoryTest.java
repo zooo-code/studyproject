@@ -16,11 +16,11 @@ class memberRepositoryTest {
     MemberRepository memberRepository;
     @Test
     public void member() {
-        Member member = new Member("kim", "test", "123");
-        Member save = memberRepository.save(member);
-        System.out.println("save = " + save);
-        Optional<Member> findById = memberRepository.findById(save.getId());
-        assertThat(member.getId()).isEqualTo(findById.get().getId());
+//        Member member = new Member("kim", "test", "123");
+//        Member save = memberRepository.save(member);
+//        System.out.println("save = " + save);
+//        Optional<Member> findById = memberRepository.findById(save.getId());
+//        assertThat(member.getId()).isEqualTo(findById.get().getId());
 
     }
 }

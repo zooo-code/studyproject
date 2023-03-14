@@ -29,6 +29,8 @@ public class Member {
     private String password;
     private LocalDateTime createMemberTime;
 
+    @Enumerated(EnumType.STRING)
+    private Grade grade;
     @Embedded
     private Address address;
 
