@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1000px;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
+    <div class="jumbotron" >
+
+        <div class="py-5 text-center">
+            <h2>상품 목록</h2>
+        </div>
+        <hr class="my-4">
+        <div>
+            <div>
+                <form  class="form-inline" th:object="${itemSearch}">
+                    <div class="form-group mb-2">
+                        <input type="text" th:field="*{itemName}" class="form-control" placeholder="상품 이름"/>
+                    </div>
+                    <button type="submit" style="background-color: darkorange; border-color: darkorange;"
+                            class="btn-primary mb-2">검색</button>
+                </form>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>판매자 ID</th>
+                    <td>등록 시간</td>
+                    <th th:text="#{label.item.name}">상품명</th>
+                    <th th:text="#{label.item.price}">가격</th>
+                    <th th:text="#{label.item.quantity}">수량</th>
+                    <th>주문</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${items}">
+                    <td><a th:text="${item.member.loginId}">판매자 ID</a></td>
+                    <td><a th:text="${item.getCreateItemTime()}"></a></td>
+                    <td><a th:text="${item.itemName}">상품명</a></td>
+                    <td th:text="${item.price}">10000</td>
+                    <td th:text="${item.stockQuantity}">10</td>
+                    <td>
+                        <button class="btn-primary" style="background-color: orange; border-color: orange;"
+                                onclick="location.href='order/orderForm.html'"
+                                th:onclick="|location.href='@{/order/{itemId}(itemId =${item.id})}'|"
+                                type="button">상품 주문</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--     paging button-->
+            <nav aria-label="Page navigation example " class="nav justify-content-center bg-light">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/?page=1}" aria-label="Previous">
+                            <span aria-hidden="true">처음</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{|/?page=${pagination.prevBlock}|}" aria-label="Previous">
+                            <span aria-hidden="true">이전</span>
+                        </a>
+                    </li>
+                    <th:block  th:with="start = ${pagination.startPage}, end = ${pagination.endPage}">
+                        <li class="page-item"
+                            th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
+                            th:each="pageButton : ${#numbers.sequence(start, end)}">
+                            <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:if="${pageButton eq page}" style="color: #fd7e14;" th:text="${pageButton}"></a>
+                            <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:unless="${pageButton eq page}" th:text="(${pageButton}==0)? null:${pageButton}"></a>
+                        </li>
+                    </th:block>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{|/?page=${pagination.nextBlock}|}" aria-label="Next">
+                            <span aria-hidden="true">다음</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{|/?page=${pagination.totalPageCnt}|}" aria-label="Previous">
+                            <span aria-hidden="true">끝</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+        <div th:replace="fragments/footer :: footer" />
+    </div> <!-- /container -->
+</body>
+
+</html>

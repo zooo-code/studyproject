@@ -72,7 +72,7 @@ public class HomeController {
         model.addAttribute("pagination",pagination);
         model.addAttribute("page",page);
 
-        //끝
+        
         return "loginHome";
     }
 

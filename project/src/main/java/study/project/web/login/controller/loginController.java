@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/admin")
 public class loginController {
 
     private final LoginService loginService;
@@ -51,6 +52,6 @@ public class loginController {
         if (session != null){
             session.invalidate();
         }
-        return "redirect:/";
+        return "redirect:/admin";
     }
 }
