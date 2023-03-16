@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admin")
 public class loginController {
 
     private final LoginService loginService;

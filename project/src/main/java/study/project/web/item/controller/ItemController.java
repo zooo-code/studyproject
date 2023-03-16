@@ -2,6 +2,8 @@ package study.project.web.item.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import study.project.domain.item.FileStore;
 import study.project.domain.item.Item;
+import study.project.domain.item.UploadFile;
 import study.project.domain.item.service.ItemService;
 import study.project.domain.member.Member;
 import study.project.domain.member.service.MemberService;
@@ -21,6 +25,8 @@ import study.project.web.item.dto.EditItemForm;
 import study.project.web.item.dto.ItemForm;
 import study.project.web.item.dto.MemberItemDto;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Optional;
 @Slf4j
@@ -32,6 +38,8 @@ public class ItemController {
     private final MemberService memberService;
 
     private final OrderItemService orderItemService;
+
+    private final FileStore fileStore;
 
 
     @GetMapping("/myList")
@@ -66,14 +74,16 @@ public class ItemController {
     @PostMapping("/create")
     public String createItem(@Login Member loginMember, @Validated ItemForm itemForm,
                              BindingResult result,
-                             RedirectAttributes redirectAttributes, Model model){
+                             RedirectAttributes redirectAttributes, Model model) throws IOException {
         if (result.hasErrors()){
             model.addAttribute("member",loginMember);
             return "items/createItemForm";
         }
         Member byIdMember = memberService.findByIdMember(loginMember.getId()).get();
+        UploadFile imageFile = fileStore.storeFile(itemForm.getImageFile());
 
-        Item item = new Item(byIdMember, itemForm.getName(), itemForm.getStockQuantity(), itemForm.getPrice());
+
+        Item item = new Item(byIdMember, itemForm.getName(), itemForm.getStockQuantity(), itemForm.getPrice(),imageFile);
         Item saveItem = itemService.saveItem(item);
         redirectAttributes.addAttribute("itemId",saveItem.getId());
         redirectAttributes.addAttribute("status",true);
@@ -94,6 +104,12 @@ public class ItemController {
         model.addAttribute("item",findByIdItem.get());
         model.addAttribute("member",loginMember);
         return "items/item";
+    }
+
+    @ResponseBody
+    @GetMapping("/images/{filename}")
+    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+        return new UrlResource("file:" + fileStore.getFullPath(filename));
     }
 
     @GetMapping("/{itemId}/edit")

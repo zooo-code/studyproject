@@ -11,6 +11,7 @@ import study.project.domain.order.OrderItem;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.*;
@@ -37,6 +38,11 @@ public class Item {
     @JoinColumn(name = "item_category_id")
     private ItemCategory itemCategory;
 
+    @OneToOne(fetch = LAZY ,cascade = CascadeType.ALL)
+    @JoinColumn(name = "uploadFile_id")
+    private UploadFile imageFile;
+
+
 
     public void setMember(Member member) {
         this.member = member;
@@ -44,6 +50,16 @@ public class Item {
 
     public void setItemCategory(ItemCategory itemCategory) {
         this.itemCategory = itemCategory;
+    }
+
+    public Item(Member member, String itemName, Integer stockQuantity, Integer price, UploadFile imageFile) {
+        this.member = member;
+        this.itemName = itemName;
+        this.stockQuantity = stockQuantity;
+        this.price = price;
+        this.createItemTime = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.imageFile = imageFile;
     }
 
     public Item(Member member, String itemName, Integer stockQuantity, Integer price) {

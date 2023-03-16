@@ -3,6 +3,7 @@ package study.project.web.item.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -25,6 +26,8 @@ public class ItemForm {
     @NotNull
     @Min(value = 1, message = "최소 1개 이상이어야 합니다.")
     private int stockQuantity;
+
+    private MultipartFile imageFile;
 
 
 }

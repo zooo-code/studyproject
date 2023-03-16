@@ -19,15 +19,15 @@ public class AdminLoginController {
 
     private final LoginService loginService;
 
-    @GetMapping("/login")
-    public String loginForm(Model model){
-        model.addAttribute("loginForm",new loginForm());
-        return "login/adminLoginForm";
-    }
-    @PostMapping("/login")
-    public String login(@Validated @ModelAttribute loginForm form){
-        
-
-        return "redirect:";
-    }
+//    @GetMapping("/login")
+//    public String loginForm(Model model){
+//        model.addAttribute("loginForm",new loginForm());
+//        return "login/adminLoginForm";
+//    }
+//    @PostMapping("/login")
+//    public String login(@Validated @ModelAttribute loginForm form){
+//
+//
+//        return "redirect:";
+//    }
 }

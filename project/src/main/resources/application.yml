@@ -19,6 +19,13 @@ spring:
         default_batch_fetch_size: 100
         #        show_sql: true
         format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 10MB
+
+file:
+  dir: C:/Users/kyj20/Documents/GitHub/studyproject/project/photo/
 
 #세션을 쿠키에 넣어서 보내준다.
 server:
