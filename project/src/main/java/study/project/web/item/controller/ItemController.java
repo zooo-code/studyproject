@@ -100,7 +100,10 @@ public class ItemController {
             redirectAttributes.addAttribute("status",true);
             return "redirect:/items/myList";
         }
+
+
         Optional<Item> findByIdItem = itemService.findByIdItem(itemId);
+        log.info("{} 파일 존재 유무 확인",findByIdItem.get().getImageFile());
         model.addAttribute("item",findByIdItem.get());
         model.addAttribute("member",loginMember);
         return "items/item";
@@ -131,12 +134,14 @@ public class ItemController {
     public String edit(@Login Member loginMember, @PathVariable Long itemId,
                        @ModelAttribute("item")@Validated EditItemForm itemForm,
                        BindingResult result,
-                       RedirectAttributes redirectAttributes, Model model){
+                       RedirectAttributes redirectAttributes, Model model) throws IOException {
         if(result.hasErrors()){
             model.addAttribute("member",loginMember);
             return "items/editItem";
         }
-        itemService.edit(itemId,itemForm.getItemName(),itemForm.getPrice(),itemForm.getStockQuantity());
+
+        UploadFile imageFile = fileStore.storeFile(itemForm.getImageFile());
+        itemService.edit(itemId,itemForm.getItemName(),itemForm.getPrice(),itemForm.getStockQuantity(),imageFile);
         redirectAttributes.addAttribute("itemId",itemId);
         return "redirect:/items/{itemId}";
     }

@@ -33,6 +33,7 @@
   - 주소 검색 API 를 활용
   - messages.properties
   - errors.properties
+  - 상품 이미지 업로드
 
 - 차후에 추가 기능 아이템 카테고리
 
@@ -50,4 +51,4 @@
 - controller 예외 상황 수정 해야함
 - 해야할것
   - admin 만들기
-  - 파일 이미지 업로드 만들기 item
+  - 수정 이미지 업로드 item

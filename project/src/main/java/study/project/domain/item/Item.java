@@ -85,9 +85,10 @@ public class Item {
         this.stockQuantity = restStock;
     }
 
-    public void update(String name, Integer price, Integer stockQuantity) {
+    public void update(String name, Integer price, Integer stockQuantity,UploadFile imageFile) {
         this.itemName = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
+        this.imageFile =imageFile;
     }
 }

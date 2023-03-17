@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.item.Item;
+import study.project.domain.item.UploadFile;
 import study.project.domain.item.repository.ItemRepository;
 import study.project.domain.item.search.ItemSearch;
 import study.project.web.item.dto.MemberItemDto;
@@ -50,9 +51,9 @@ public class ItemServiceVer1 implements ItemService{
 
     @Override
     @Transactional
-    public void edit(Long id, String name, int price, int stockQuantity) {
+    public void edit(Long id, String name, int price, int stockQuantity, UploadFile imageFile) {
         Item item = itemRepository.findById(id).get();
-        item.update(name,price,stockQuantity);
+        item.update(name,price,stockQuantity,imageFile);
     }
 
     @Override

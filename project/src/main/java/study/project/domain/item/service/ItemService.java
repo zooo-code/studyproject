@@ -3,6 +3,7 @@ package study.project.domain.item.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import study.project.domain.item.Item;
+import study.project.domain.item.UploadFile;
 import study.project.domain.item.search.ItemSearch;
 import study.project.web.item.dto.MemberItemDto;
 
@@ -19,7 +20,7 @@ public interface ItemService {
 
     List<MemberItemDto> myItemList(Long memberId);
 
-    void edit(Long id, String name, int price, int stockQuantity);
+    void edit(Long id, String name, int price, int stockQuantity, UploadFile imageFile);
 
     List<Long> myItem(Long memberId);
     int findAllCnt();
