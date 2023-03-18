@@ -22,6 +22,8 @@ public class QOrder extends EntityPathBase<Order> {
 
     public static final QOrder order = new QOrder("order1");
 
+    public final study.project.domain.delivery.QDelivery delivery;
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final study.project.domain.member.QMember member;
@@ -50,6 +52,7 @@ public class QOrder extends EntityPathBase<Order> {
 
     public QOrder(Class<? extends Order> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.delivery = inits.isInitialized("delivery") ? new study.project.domain.delivery.QDelivery(forProperty("delivery"), inits.get("delivery")) : null;
         this.member = inits.isInitialized("member") ? new study.project.domain.member.QMember(forProperty("member"), inits.get("member")) : null;
     }
 

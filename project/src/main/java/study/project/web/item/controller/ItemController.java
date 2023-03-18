@@ -36,11 +36,8 @@ import java.util.Optional;
 public class ItemController {
     private final ItemService itemService;
     private final MemberService memberService;
-
     private final OrderItemService orderItemService;
-
     private final FileStore fileStore;
-
 
     @GetMapping("/myList")
     public String myItemList(@Login Member loginMember, Model model,
