@@ -1,13 +1,14 @@
 package study.project.domain.delivery;
 
 import lombok.Getter;
+import lombok.Setter;
 import study.project.domain.address.Address;
 import study.project.domain.order.Order;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Delivery {
 
 
@@ -23,4 +24,8 @@ public class Delivery {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

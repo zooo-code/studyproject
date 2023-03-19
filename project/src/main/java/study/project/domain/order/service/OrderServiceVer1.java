@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.project.domain.delivery.Delivery;
+import study.project.domain.delivery.DeliveryStatus;
 import study.project.domain.item.Item;
 import study.project.domain.item.repository.ItemRepository;
 import study.project.domain.member.Member;
@@ -38,9 +40,11 @@ public class OrderServiceVer1 implements OrderService{
         Optional<Item> item = itemRepository.findById(itemId);
         //주문상품 생성
         OrderItem orderItem = OrderItem.createOrderItem(item.get(), item.get().getPrice(), count);
-
+        Delivery delivery = new Delivery();
+        delivery.setAddress(member.get().getAddress());
+        delivery.setStatus(DeliveryStatus.READY);
         //주문 생성
-        Order order = Order.createOrder(member.get(), orderItem);
+        Order order = Order.createOrder(member.get(),delivery, orderItem);
         orderRepository.save(order);
         return order.getId();
     }

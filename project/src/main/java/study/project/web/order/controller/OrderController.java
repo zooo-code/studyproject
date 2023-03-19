@@ -181,4 +181,12 @@ public class OrderController {
 
         return "redirect:/order/customerOrderList";
     }
+
+    @PostMapping("/delivery/customer/{orderId}")
+    public String deliveryCustomerOrder(@PathVariable Long orderId, @Login Member loginMember,
+                                        RedirectAttributes redirectAttributes){
+        List<Long> customerOrderIds = orderService.customerOrderId(loginMember.getId());
+
+        return "xx";
+    }
 }
