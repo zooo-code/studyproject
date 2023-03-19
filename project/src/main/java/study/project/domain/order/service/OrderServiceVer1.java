@@ -49,6 +49,24 @@ public class OrderServiceVer1 implements OrderService{
         return order.getId();
     }
 
+    @Override
+    public Order startDelivery(Long memberId, Long orderId) {
+
+        List<CustomerOrderList> customerOrderLists = orderRepository.customerOrderList(memberId);
+        List<Long> customerOrderId = new ArrayList<>();
+        for (CustomerOrderList customerOrderList : customerOrderLists) {
+            customerOrderId.add(customerOrderList.getOrderId());
+        }
+        boolean contains = customerOrderId.contains(orderId);
+        if (!contains){
+            return null;
+        }
+        Optional<Order> order = orderRepository.findById(orderId);
+        Delivery delivery = order.get().getDelivery();
+        delivery.setStatus(DeliveryStatus.COMP);
+        return order.get();
+    }
+
     //주문 취소
     @Override
     @Transactional
@@ -83,10 +101,7 @@ public class OrderServiceVer1 implements OrderService{
         return orderRepository.findAll();
     }
 
-    @Override
-    public List<Order> findAllWithMember() {
-        return orderRepository.findAllWithMember();
-    }
+
 
     @Override
     public List<Order> findAllWithItem() {

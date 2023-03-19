@@ -11,6 +11,9 @@ import java.util.List;
 
 public interface OrderService {
     Long order(Long memberId, Long itemId, int count);
+
+    Order startDelivery(Long memberId, Long orderId);
+
     void cancelOrder(Long orderId);
 
     Order findById(Long orderId);
@@ -21,7 +24,6 @@ public interface OrderService {
 
     List<Order> finaAll();
 
-    List<Order> findAllWithMember();
 
     List<Order> findAllWithItem();
 

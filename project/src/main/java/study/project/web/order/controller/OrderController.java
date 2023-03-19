@@ -9,11 +9,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import study.project.domain.delivery.DeliveryStatus;
 import study.project.domain.exception.NotEnoughStockException;
 import study.project.domain.item.Item;
 import study.project.domain.item.service.ItemService;
 import study.project.domain.member.Member;
 
+import study.project.domain.order.Order;
 import study.project.domain.order.OrderItem;
 import study.project.domain.order.dto.CustomerOrderList;
 import study.project.domain.order.dto.MemberOrderDto;
@@ -185,8 +187,13 @@ public class OrderController {
     @PostMapping("/delivery/customer/{orderId}")
     public String deliveryCustomerOrder(@PathVariable Long orderId, @Login Member loginMember,
                                         RedirectAttributes redirectAttributes){
-        List<Long> customerOrderIds = orderService.customerOrderId(loginMember.getId());
-
-        return "xx";
+        Order order = orderService.startDelivery(loginMember.getId(), orderId);
+        if (order==null){
+            redirectAttributes.addAttribute("rejectAccess",true);
+            return "redirect:/";
+        }
+        order.getDelivery().setStatus(DeliveryStatus.COMP);
+//        q배송 ㄱ완료 된거 방식 추가 
+        return "redirect:";
     }
 }
