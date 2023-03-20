@@ -50,5 +50,5 @@
 
 - controller 예외 상황 수정 해야함
 - 해야할것
-  - admin 만들기
   - 수정 이미지 업로드 item
+  - deliveryUpdate

@@ -193,7 +193,7 @@ public class OrderController {
             return "redirect:/";
         }
         order.getDelivery().setStatus(DeliveryStatus.COMP);
-//        q배송 ㄱ완료 된거 방식 추가 
+//        q배송 ㄱ완료 된거 방식 추가
         return "redirect:";
     }
 }
