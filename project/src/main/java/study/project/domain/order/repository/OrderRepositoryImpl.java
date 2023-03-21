@@ -36,8 +36,9 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
                 orderItem.item.itemName,
                 orderItem.count,
                         orderItem.orderPrice,
-                order.orderDate
-                        ,order.status
+                order.orderDate,
+                        order.status,
+                order.delivery
                 ))
                 .from(orderItem)
                 .leftJoin(orderItem.order,order)
@@ -78,8 +79,9 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
                         orderItem.item.itemName,
                         orderItem.count,
                         orderItem.orderPrice,
-                        order.orderDate
-                        ,order.status
+                        order.orderDate,
+                        order.status,
+                        order.delivery
                 ))
                 .from(orderItem)
                 .leftJoin(orderItem.order,order)
@@ -101,8 +103,9 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
                     orderItem.item.itemName,
                     orderItem.count,
                     orderItem.orderPrice,
-                    order.orderDate
-                    ,order.status
+                    order.orderDate,
+                        order.status,
+                    order.delivery
                     ))
                     .from(orderItem)
                 .leftJoin(orderItem.order,order)
@@ -123,8 +126,9 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
                         orderItem.item.itemName,
                         orderItem.count,
                         orderItem.orderPrice,
-                        order.orderDate
-                        ,order.status
+                        order.orderDate,
+                        order.status,
+                        order.delivery
                 ))
                 .from(orderItem)
                 .leftJoin(orderItem.order,order)

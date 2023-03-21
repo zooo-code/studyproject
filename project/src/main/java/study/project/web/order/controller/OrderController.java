@@ -170,30 +170,20 @@ public class OrderController {
         return "/items/order/customerOrder";
     }
 
-    @GetMapping("/cancel/customer/{orderId}")
-    public String cancelCustomerOrder(@PathVariable Long orderId, @Login Member loginMember,
-                                      RedirectAttributes redirectAttributes){
-        List<Long> customerOrderIds = orderService.customerOrderId(loginMember.getId());
-        if (!customerOrderIds.contains(orderId)){
-            redirectAttributes.addAttribute("status",true);
-            return "redirect:/order/customerOrderList";
-        }
-        orderService.cancelOrder(orderId);
-        redirectAttributes.addAttribute("cancel", true);
 
-        return "redirect:/order/customerOrderList";
-    }
 
     @PostMapping("/delivery/customer/{orderId}")
     public String deliveryCustomerOrder(@PathVariable Long orderId, @Login Member loginMember,
                                         RedirectAttributes redirectAttributes){
+
         Order order = orderService.startDelivery(loginMember.getId(), orderId);
         if (order==null){
-            redirectAttributes.addAttribute("rejectAccess",true);
-            return "redirect:/";
+            redirectAttributes.addAttribute("status",true);
+            return "redirect:/order/customerOrderList";
         }
-        order.getDelivery().setStatus(DeliveryStatus.COMP);
+
 //        q배송 ㄱ완료 된거 방식 추가
+        redirectAttributes.addFlashAttribute("successDelivery", true);
         return "redirect:";
     }
 }

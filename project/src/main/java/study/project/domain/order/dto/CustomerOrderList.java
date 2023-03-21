@@ -2,6 +2,7 @@ package study.project.domain.order.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
+import study.project.domain.delivery.Delivery;
 import study.project.domain.order.OrderStatus;
 
 import java.time.LocalDateTime;
@@ -19,10 +20,12 @@ public class CustomerOrderList {
     private LocalDateTime orderTime;
     private OrderStatus status;
 
-    @QueryProjection
+    private Delivery delivery;
 
+
+    @QueryProjection
     public CustomerOrderList(Long orderId, Long memberId, String customerId, String itemName,
-                             int buyCount, int totalPrice, LocalDateTime orderTime, OrderStatus status) {
+                             int buyCount, int totalPrice, LocalDateTime orderTime, OrderStatus status, Delivery delivery) {
         this.orderId = orderId;
         this.memberId = memberId;
         this.customerId = customerId;
@@ -31,5 +34,6 @@ public class CustomerOrderList {
         this.totalPrice = totalPrice;
         this.orderTime = orderTime;
         this.status = status;
+        this.delivery = delivery;
     }
 }

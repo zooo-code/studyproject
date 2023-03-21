@@ -29,6 +29,7 @@
                 <th>주문 일자</th>
                 <th>주문 상태</th>
                 <th>주문 삭제</th>
+                <th>배송 상태</th>
             </tr>
             </thead>
             <tbody>
@@ -49,6 +50,7 @@
                         </form>
                     </div>
                 </td>
+                <td th:text="${order.delivery.status}"></td>
             </tr>
             </tbody>
         </table>

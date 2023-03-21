@@ -50,6 +50,7 @@ public class OrderServiceVer1 implements OrderService{
     }
 
     @Override
+    @Transactional
     public Order startDelivery(Long memberId, Long orderId) {
 
         List<CustomerOrderList> customerOrderLists = orderRepository.customerOrderList(memberId);
@@ -63,7 +64,7 @@ public class OrderServiceVer1 implements OrderService{
         }
         Optional<Order> order = orderRepository.findById(orderId);
         Delivery delivery = order.get().getDelivery();
-        delivery.setStatus(DeliveryStatus.COMP);
+        delivery.setStatus(DeliveryStatus.START);
         return order.get();
     }
 

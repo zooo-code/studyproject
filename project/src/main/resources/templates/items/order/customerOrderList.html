@@ -11,6 +11,7 @@
   <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
   <h2 th:if="${param.status}" th:text="'잘못된 접근'"></h2>
   <h2 th:if="${param.cancel}" th:text="'주문자 주문 취소'"></h2>
+  <h2 th:if="${param.successDelivery}" th:text="'배송시작'"></h2>
   <div class="py-5 text-center">
     <h2>고객 주문 목록</h2>
   </div>
@@ -27,6 +28,7 @@
         <th>상품 가격</th>
         <th>주문 일자</th>
         <th>주문 상태</th>
+        <th>배송 상태</th>
       </tr>
       </thead>
       <tbody>
@@ -39,6 +41,17 @@
         <td th:text="${order.totalPrice}"></td>
         <td th:text="${order.getOrderTime()}"></td>
         <td th:text="${order.status}"></td>
+        <td>
+          <div class="col" th:if="${order.status eq order.status.ORDER && order.delivery.status eq order.delivery.status.READY}">
+            <form method="post" th:action="@{/order/delivery/customer/{param}(param =${order.orderId})}">
+              <button class="w-75 btn btn-secondary "
+                      style="background-color: darkorange; border-color: darkorange;"
+                      th:method="post" type="submit">배송 출발</button>
+            </form>
+          </div>
+          <div class="col" th:if="${order.delivery.status eq order.delivery.status.START}">
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>
