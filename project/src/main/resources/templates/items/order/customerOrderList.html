@@ -50,6 +50,7 @@
             </form>
           </div>
           <div class="col" th:if="${order.delivery.status eq order.delivery.status.START}">
+            <span th:text="배송중"></span>
           </div>
         </td>
       </tr>

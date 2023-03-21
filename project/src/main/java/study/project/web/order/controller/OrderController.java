@@ -183,7 +183,7 @@ public class OrderController {
         }
 
 //        q배송 ㄱ완료 된거 방식 추가
-        redirectAttributes.addFlashAttribute("successDelivery", true);
-        return "redirect:";
+        redirectAttributes.addAttribute("successDelivery", true);
+        return "redirect:/order/customerOrderList";
     }
 }
