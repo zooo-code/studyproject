@@ -20,7 +20,7 @@
 
   <!-- 추가 -->
       <h2 th:if="${param.status}" th:text="'주문 완료'"></h2>
-      <h2 th:if="${param.impossible}" th:text="'주문 ID를 확인하세요'"></h2>
+      <h2 th:if="${param.impossible}" th:text="'배송 중이거나 잘못된 접근으로 취소 할 수 없습니다.'"></h2>
 
   <div>
     <label for="loginId">주문 회원 ID</label>
@@ -46,7 +46,7 @@
   <hr class="my-4">
 
   <div class="row">
-    <div class="col" >
+    <div class="col" th:if="${order.order.status eq order.order.status.ORDER}">
       <button class="w-100 btn btn-primary btn-lg"
               th:onclick="|location.href='@{/order/cancel/{orderId}(orderId =${order.order.id})}'|"
               style="background-color: darkorange; border-color: darkorange;"

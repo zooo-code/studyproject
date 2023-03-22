@@ -14,7 +14,7 @@ public interface OrderService {
 
     Order startDelivery(Long memberId, Long orderId);
 
-    void cancelOrder(Long orderId);
+    Boolean cancelOrder(Long orderId);
 
     Order findById(Long orderId);
 

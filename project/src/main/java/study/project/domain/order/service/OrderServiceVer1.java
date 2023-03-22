@@ -2,6 +2,7 @@ package study.project.domain.order.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.Optional;
 
 @Transactional(readOnly = true)
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class OrderServiceVer1 implements OrderService{
 
@@ -71,9 +73,11 @@ public class OrderServiceVer1 implements OrderService{
     //주문 취소
     @Override
     @Transactional
-    public void cancelOrder(Long orderId){
+    public Boolean cancelOrder(Long orderId){
         Optional<Order> order = orderRepository.findById(orderId);
+        DeliveryStatus status = order.get().getDelivery().getStatus();
         order.get().cancel();
+        return true;
     }
 
     @Override

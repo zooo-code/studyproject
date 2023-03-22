@@ -116,7 +116,12 @@ public class OrderController {
             redirectAttributes.addAttribute("impossible",true);
             return "redirect:/order/myOrder/{orderId}";
         }
-        orderService.cancelOrder(orderId);
+
+        Boolean orderStatus = orderService.cancelOrder(orderId);
+        if (orderStatus ){
+            redirectAttributes.addAttribute("impossible",true);
+            return "redirect:/order/myOrder/{orderId}";
+        }
         redirectAttributes.addAttribute("possible",true);
         return "redirect:/order/MyOrderList";
     }
@@ -181,8 +186,6 @@ public class OrderController {
             redirectAttributes.addAttribute("status",true);
             return "redirect:/order/customerOrderList";
         }
-
-//        q배송 ㄱ완료 된거 방식 추가
         redirectAttributes.addAttribute("successDelivery", true);
         return "redirect:/order/customerOrderList";
     }
