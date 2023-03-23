@@ -118,7 +118,7 @@ public class OrderController {
         }
 
         Boolean orderStatus = orderService.cancelOrder(orderId);
-        if (orderStatus ){
+        if (!orderStatus){
             redirectAttributes.addAttribute("impossible",true);
             return "redirect:/order/myOrder/{orderId}";
         }
@@ -169,12 +169,23 @@ public class OrderController {
             redirectAttributes.addAttribute("status",true);
             return "redirect:/order/customerOrderList";
         }
+        log.info("orderItem Delivery {}",orderItem.getOrder().getDelivery().getStatus());
         model.addAttribute("orderItem",orderItem);
         model.addAttribute("member",loginMember);
         model.addAttribute("customer",customer);
         return "/items/order/customerOrder";
     }
 
+    @GetMapping("/customerOrder/{orderId}/cancel")
+    public String customerOrderCancel(
+                                @PathVariable Long orderId,RedirectAttributes redirectAttributes){
+        Boolean orderCancel = orderService.cancelOrder(orderId);
+        if (!orderCancel){
+            redirectAttributes.addAttribute("param",true);
+            return "redirect:/order/customerOrder/{orderId}";
+        }
+        return "redirect:/order/customerOrderList";
+    }
 
 
     @PostMapping("/delivery/customer/{orderId}")

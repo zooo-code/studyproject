@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -122,6 +120,7 @@ public class ItemController {
             return "redirect:/items/myList";
         }
         Item item = itemService.findByIdItem(itemId).get();
+        log.info("imageFile {}", item.getImageFile());
         model.addAttribute("member",loginMember);
         model.addAttribute("item",item);
         return "items/editItem";

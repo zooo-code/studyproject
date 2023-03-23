@@ -76,6 +76,10 @@ public class OrderServiceVer1 implements OrderService{
     public Boolean cancelOrder(Long orderId){
         Optional<Order> order = orderRepository.findById(orderId);
         DeliveryStatus status = order.get().getDelivery().getStatus();
+
+        if (status == DeliveryStatus.START || status == DeliveryStatus.COMP){
+            return false;
+        }
         order.get().cancel();
         return true;
     }

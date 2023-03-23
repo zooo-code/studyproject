@@ -14,10 +14,11 @@
 
 <div class="container">
   <div th:replace="fragments/loginBodyHeader :: loginBodyHeader(${member})"></div>
+  <h2 th:if="${param.status}" th:text="'주문 취소 불가'"></h2>
+
   <div class="py-5 text-center">
     <h2>고객 주문 정보</h2>
   </div>
-
 
   <div>
     <label for="loginId">주문 회원 ID</label>
@@ -39,9 +40,9 @@
   <hr class="my-4">
 
   <div class="row">
-    <div class="col" >
+    <div class="col" th:if="${orderItem.order.status eq orderItem.order.status.ORDER}">
       <button class="w-100 btn btn-primary btn-lg"
-              th:onclick="|location.href='@{/order/cancel/customer/{orderId}(orderId =${orderItem.order.id})}'|"
+              th:onclick="|location.href='@{/order/customerOrder/{orderId}/cancel(orderId =${orderItem.order.id})}'|"
               style="background-color: darkorange; border-color: darkorange;"
               type="button">주문 취소</button>
     </div>
