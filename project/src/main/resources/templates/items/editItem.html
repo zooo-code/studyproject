@@ -22,40 +22,40 @@
     <h2>상품 수정 폼</h2>
   </div>
 
-  <form th:method="post">
+  <form th:method="post" th:object="${item}" enctype="multipart/form-data">
 
     <div class="form-group">
       <label th:for="fileImage">파일 이미지 등록 </label>
       <img th:if="${item.getImageFile() ne null}"
            th:src="|/items/images/${item.getImageFile().getStoreFileName()}|"  width="300" height="300"/>
       <il th:if="${item.getImageFile() eq null} ">이미지가 존재하지 않습니다.</il>
-      <input th:field="${item.imageFile}" th:type="file"  name="imageFile">
+      <input th:field="*{imageFile}" th:type="file"  name="imageFile">
     </div>
-    <div>
+    <div class="form-group">
       <label for="id">상품 ID</label>
-      <input type="text" id="id" name="id" class="form-control" th:value="${item.id}" readonly>
+      <input type="text" id="id" name="id" class="form-control" th:value="*{id}" readonly>
     </div>
-    <div>
+    <div class="form-group">
       <label for="itemName" th:text="#{label.item.name}">상품명</label>
-      <input type="text" id="itemName" name="itemName" th:field="${item.itemName}"
-             th:value="${item.itemName}" th:errorclass="field-error" class="form-control">
-      <div th:errorclass="field-error" th:errors="${item.itemName}">
+      <input type="text" id="itemName" name="itemName" th:field="*{itemName}"
+             th:value="*{itemName}" th:errorclass="field-error" class="form-control">
+      <div th:errorclass="field-error" th:errors="*{itemName}">
         상품명 오류
       </div>
     </div>
-    <div>
+    <div class="form-group">
       <label for="price" th:text="#{label.item.price}">가격</label>
       <input type="number" id="price" name="price" class="form-control"
-             th:field="${item.price}" th:value="${item.price}" th:errorclass="field-error">
-              <div th:errorclass="field-error" th:errors="${item.price}">
+             th:field="*{price}" th:value="*{price}" th:errorclass="field-error">
+              <div th:errorclass="field-error" th:errors="*{price}">
                 상품 가격 오류
               </div>
     </div>
-    <div>
+    <div class="form-group">
       <label for="quantity" th:text="#{label.item.quantity}">수량</label>
       <input type="number" id="quantity" name="quantity" class="form-control"
-             th:field="${item.stockQuantity}" th:value="${item.stockQuantity}" th:errorclass="field-error">
-      <div th:errorclass="field-error" th:errors="${item.stockQuantity}">
+             th:field="*{stockQuantity}" th:value="*{stockQuantity}" th:errorclass="field-error">
+      <div th:errorclass="field-error" th:errors="*{stockQuantity}">
         상품 수량 오류
       </div>
     </div>

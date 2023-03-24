@@ -9,9 +9,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
+@Getter @Setter
 public class EditItemForm {
+
     private Long id;
     @NotEmpty(message = "입력 필수")
     private String itemName;
@@ -22,6 +22,7 @@ public class EditItemForm {
     @NotNull(message = "입력 필수")
     @Min(value = 1, message = "최소 1개 이상이어야 합니다.")
     private int stockQuantity;
+
 
     private MultipartFile imageFile;
 

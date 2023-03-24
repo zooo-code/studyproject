@@ -4,15 +4,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import study.project.domain.exception.NotEnoughStockException;
+import study.project.domain.file.UploadFile;
 import study.project.domain.item.category.ItemCategory;
 import study.project.domain.member.Member;
-import study.project.domain.order.OrderItem;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import static javax.persistence.FetchType.*;
 

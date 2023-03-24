@@ -1,9 +1,7 @@
 package study.project.domain.item.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import study.project.domain.item.Item;
-import study.project.domain.item.UploadFile;
+import study.project.domain.file.UploadFile;
 import study.project.domain.item.search.ItemSearch;
 import study.project.web.item.dto.MemberItemDto;
 

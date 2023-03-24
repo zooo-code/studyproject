@@ -3,8 +3,9 @@ package study.project.domain.item.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.project.domain.file.repository.FileRepository;
 import study.project.domain.item.Item;
-import study.project.domain.item.UploadFile;
+import study.project.domain.file.UploadFile;
 import study.project.domain.item.repository.ItemRepository;
 import study.project.domain.item.search.ItemSearch;
 import study.project.web.item.dto.MemberItemDto;
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class ItemServiceVer1 implements ItemService{
 
     private final ItemRepository itemRepository;
+
+    private final FileRepository fileRepository;
     @Override
     @Transactional
     public Item saveItem(Item item){
@@ -53,6 +56,7 @@ public class ItemServiceVer1 implements ItemService{
     @Transactional
     public void edit(Long id, String name, int price, int stockQuantity, UploadFile imageFile) {
         Item item = itemRepository.findById(id).get();
+        fileRepository.deleteById(item.getImageFile().getId());
         item.update(name,price,stockQuantity,imageFile);
     }
 

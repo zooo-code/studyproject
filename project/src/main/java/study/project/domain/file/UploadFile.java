@@ -1,10 +1,11 @@
-package study.project.domain.item;
+package study.project.domain.file;
 
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import study.project.domain.item.Item;
 
 import javax.persistence.*;
 

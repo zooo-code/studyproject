@@ -21,7 +21,7 @@
   <!-- 추가 -->
       <h2 th:if="${param.status}" th:text="'주문 완료'"></h2>
       <h2 th:if="${param.impossible}" th:text="'배송 중이거나 잘못된 접근으로 취소 할 수 없습니다.'"></h2>
-
+  <a class="btn btn-dark" style="background-color: darkorange; border-color: darkorange;" href="/order/MyOrderList">뒤로</a>
   <div>
     <label for="loginId">주문 회원 ID</label>
     <input type="text" id="loginId" name="loginId" class="form-control" th:value="${member.loginId}" readonly>

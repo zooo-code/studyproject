@@ -19,7 +19,7 @@
   <div class="py-5 text-center">
     <h2>고객 주문 정보</h2>
   </div>
-
+  <a class="btn btn-dark" style="background-color: darkorange; border-color: darkorange;" href="/order/customerOrderList">뒤로</a>
   <div>
     <label for="loginId">주문 회원 ID</label>
     <input type="text" id="loginId" name="loginId" class="form-control" th:value="${customer.loginId}" readonly>
@@ -40,7 +40,7 @@
   <hr class="my-4">
 
   <div class="row">
-    <div class="col" th:if="${orderItem.order.status eq orderItem.order.status.ORDER}">
+    <div class="col" th:if="${orderItem.order.delivery.status eq orderItem.order.delivery.status.READY}">
       <button class="w-100 btn btn-primary btn-lg"
               th:onclick="|location.href='@{/order/customerOrder/{orderId}/cancel(orderId =${orderItem.order.id})}'|"
               style="background-color: darkorange; border-color: darkorange;"

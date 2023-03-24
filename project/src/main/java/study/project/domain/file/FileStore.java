@@ -1,4 +1,4 @@
-package study.project.domain.item;
+package study.project.domain.file;
 
 
 import org.springframework.beans.factory.annotation.Value;

@@ -10,9 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import study.project.domain.item.FileStore;
+import study.project.domain.file.FileStore;
 import study.project.domain.item.Item;
-import study.project.domain.item.UploadFile;
+import study.project.domain.file.UploadFile;
 import study.project.domain.item.service.ItemService;
 import study.project.domain.member.Member;
 import study.project.domain.member.service.MemberService;
@@ -131,6 +131,7 @@ public class ItemController {
                        @ModelAttribute("item")@Validated EditItemForm itemForm,
                        BindingResult result,
                        RedirectAttributes redirectAttributes, Model model) throws IOException {
+
         if(result.hasErrors()){
             model.addAttribute("member",loginMember);
             return "items/editItem";
