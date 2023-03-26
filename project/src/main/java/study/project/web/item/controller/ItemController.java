@@ -69,7 +69,7 @@ public class ItemController {
     @PostMapping("/create")
     public String createItem(@Login Member loginMember, @Validated ItemForm itemForm,
                              BindingResult result,
-                             RedirectAttributes redirectAttributes, Model model) throws IOException {
+                             RedirectAttributes redirectAttributes, Model model)  {
         if (result.hasErrors()){
             model.addAttribute("member",loginMember);
             return "items/createItemForm";
@@ -130,7 +130,7 @@ public class ItemController {
     public String edit(@Login Member loginMember, @PathVariable Long itemId,
                        @ModelAttribute("item")@Validated EditItemForm itemForm,
                        BindingResult result,
-                       RedirectAttributes redirectAttributes, Model model) throws IOException {
+                       RedirectAttributes redirectAttributes, Model model) {
 
         if(result.hasErrors()){
             model.addAttribute("member",loginMember);

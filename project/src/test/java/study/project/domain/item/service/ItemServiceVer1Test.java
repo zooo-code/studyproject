@@ -95,11 +95,7 @@ class ItemServiceVer1Test {
             System.out.println("memberItemDto = " + memberItemDto.getCreateItemTime());
         }
     }
-    @Test
-    public void itemSearch () {
 
-        //then
-    }
 
 
 }

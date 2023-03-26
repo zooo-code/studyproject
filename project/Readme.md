@@ -34,7 +34,7 @@
   - messages.properties
   - errors.properties
   - 상품 이미지 업로드
-
+  - 이미지 예외 처리 runtimeException 으로 변경 해결
 
 - dependency
   - thymeleaf
@@ -50,10 +50,10 @@
 - controller 예외 상황 수정 해야함
 - 해야할것
   - deliveryUpdate
-  - 이미지 예외 처리 runTypeException 으로 변경
   - 카테고리 소분류 대분류
   - 사용자 시뮬레이션 영상?
-  
+  - 테스트 데이터 베이스 설정 격리, 테스트를 반복적으로 할수 있게 실행
+  - 
 - 궁금한거
   - 항상 로그인을 한 회원의 아이디를 불러올때? model 로 넘겨줘야하나? (반복되는 작업을 줄이고 싶다.)
   - 상품 수정에서 이미지를 계속 저장해야하나?
