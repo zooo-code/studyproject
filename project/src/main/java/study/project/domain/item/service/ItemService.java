@@ -14,8 +14,6 @@ public interface ItemService {
     String deleteItem(Long itemId);
     Optional<Item> findByIdItem(Long itemId);
 
-    List<Item> findAllItems();
-
     List<MemberItemDto> myItemList(Long memberId);
 
     void edit(Long id, String name, int price, int stockQuantity, UploadFile imageFile);
@@ -27,4 +25,6 @@ public interface ItemService {
     List<Item> itemSearchPageable(ItemSearch itemSearch , int startIndex, int pageSize);
 
     List<Item> itemSearchPageable(ItemSearch itemSearch );
+
+    Long count();
 }

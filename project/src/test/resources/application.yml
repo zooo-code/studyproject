@@ -1,0 +1,12 @@
+spring:
+
+  datasource:
+    driver-class-name: org.h2.Driver
+
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+file:
+  dir: C:/Users/kyj20/Documents/GitHub/studyproject/project/photo/

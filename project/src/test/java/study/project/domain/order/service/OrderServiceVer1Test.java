@@ -44,20 +44,17 @@ class OrderServiceVer1Test {
         //given
         Member member1 = new Member("test","test1", "123");
         Member member2 = new Member("test1", "test1", "123");
-        memberService.join(member1);
-        Member join = memberService.join(member2);
-        Item testItem = new Item(member1, "testItem", 10, 1000);
-        itemService.saveItem(testItem);
+        Member member1Join = memberService.join(member1);
+        Member member2Join = memberService.join(member2);
+        Item testItem = new Item(member1Join, "testItem", 10, 1000);
+        Item item = itemService.saveItem(testItem);
 
         //when
-        Long orderId = orderService.order(member2.getId(), testItem.getId(), 4);
-        Long orderId2 = orderService.order(member2.getId(), testItem.getId(), 2);
-        List<Long> byMemberId = orderService.findByMemberId(join.getId());
-        for (Long order : byMemberId) {
-            System.out.println("order.getId() = " + order);
-        }
-        System.out.println("orderId = " + orderId);
-        System.out.println("orderId2 = " + orderId2);
+        Long order = orderService.order(member2Join.getId(), item.getId(), 3);
+        Order findOrder = orderService.findById(order);
+
+        //then
+        Assertions.assertThat(findOrder.getId()).isEqualTo(order);
     }
 
     @Test
@@ -71,12 +68,10 @@ class OrderServiceVer1Test {
         //when
         int orderCount = 11; //재고보다 많은 수량
 
-        Assertions.assertThatThrownBy(()-> orderService.order(member1.getId(),item.getId(),orderCount))
-                .isInstanceOf(NotEnoughStockException.class);
 
         //then
-//        Assertions.assertThatThrownBy(() -> orderService.order(member1.getId(), item.getId(), orderCount))
-//                .isInstanceOf(NotEnoughStockException.class);
+        Assertions.assertThatThrownBy(()-> orderService.order(member1.getId(),item.getId(),orderCount))
+                .isInstanceOf(NotEnoughStockException.class);
     }
     @Test
     @Rollback(value = false)
@@ -97,28 +92,6 @@ class OrderServiceVer1Test {
         assertEquals(10,item.getStockQuantity());
     }
 
-    @Test
-    public void myOrderList() {
 
 
-        //given
-        List<MemberOrderDto> memberOrderDtos = orderService.myOrderListPaging(1L, 0, 10);
-
-        //when
-        for (MemberOrderDto memberOrderDto : memberOrderDtos) {
-            System.out.println("memberOrderDto = " + memberOrderDto.getOrderTime());
-        }
-        //then
-    }
-    @Test
-    public void customerOrderList() {
-        //given
-        List<CustomerOrderList> customerOrderLists = orderService.customerOrderListPaging(1L, 0, 10);
-        //when
-        //then
-        List<Long> longs = orderService.customerOrderId(1L);
-        for (Long aLong : longs) {
-            System.out.println("aLong = " + aLong);
-        }
-    }
 }

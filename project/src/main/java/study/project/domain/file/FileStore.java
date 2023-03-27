@@ -19,7 +19,6 @@ public class FileStore {
     private String fileDir;
 
 
-
     public String getFullPath(String filename){
         return fileDir + filename;
     }

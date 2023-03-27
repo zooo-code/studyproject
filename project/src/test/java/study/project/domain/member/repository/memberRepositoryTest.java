@@ -17,8 +17,13 @@ class memberRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
     @Test
-    public void member() {
-        new Address("123","서울시","서울구","서울동");
-        new Member("kim","test","123",);
+    public void memberCreate() {
+        Address address = new Address("123", "서울시", "서울구", "서울동");
+        Member member = new Member("kim", "test", "123", address);
+        Member save = memberRepository.save(member);
+
+        Member findMember = memberRepository.findById(save.getId()).get();
+
+        assertThat(save).isEqualTo(findMember);
     }
 }

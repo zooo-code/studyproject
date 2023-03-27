@@ -42,10 +42,7 @@ public class ItemServiceVer1 implements ItemService{
         return itemRepository.findById(itemId);
     }
 
-    @Override
-    public List<Item> findAllItems() {
-        return itemRepository.findAll();
-    }
+
 
     @Override
     public List<MemberItemDto> myItemList(Long memberId) {
@@ -93,6 +90,11 @@ public class ItemServiceVer1 implements ItemService{
     @Override
     public List<Item> itemSearchPageable(ItemSearch itemSearch) {
         return itemRepository.itemSearchPaging( itemSearch);
+    }
+
+    @Override
+    public Long count() {
+        return itemRepository.count();
     }
 
 
