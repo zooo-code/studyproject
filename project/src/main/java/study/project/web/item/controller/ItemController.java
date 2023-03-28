@@ -23,7 +23,6 @@ import study.project.web.item.dto.EditItemForm;
 import study.project.web.item.dto.ItemForm;
 import study.project.web.item.dto.MemberItemDto;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Optional;

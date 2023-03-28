@@ -2,11 +2,11 @@ package study.project.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import study.project.domain.item.Item;
 import study.project.domain.item.search.ItemSearch;
@@ -15,7 +15,7 @@ import study.project.domain.member.Member;
 import study.project.page.Pagination;
 import study.project.web.argumentResolver.Login;
 
-import java.util.Collections;
+
 import java.util.List;
 
 @Slf4j
@@ -75,7 +75,6 @@ public class HomeController {
         if (itemSearch.getItemName() == null){
             itemSearch.setItemName("");
         }
-        log.info("{} itemSearch check",itemSearch.getItemName());
         model.addAttribute("itemSearch",itemSearch);
 
 

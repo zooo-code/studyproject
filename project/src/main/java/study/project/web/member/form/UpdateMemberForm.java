@@ -2,7 +2,7 @@ package study.project.web.member.form;
 
 import lombok.Getter;
 import lombok.Setter;
-import study.project.domain.address.Address;
+
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;

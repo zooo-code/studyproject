@@ -136,7 +136,6 @@ public class OrderController {
 
     @GetMapping("/customerOrderList")
     public String customerOrderList(@Login Member loginMember, Model model,
-
                                     @RequestParam(defaultValue = "1") int page){
         int allCnt = orderService.customerOrderList(loginMember.getId()).size();
         //페이지
