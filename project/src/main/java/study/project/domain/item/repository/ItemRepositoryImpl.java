@@ -1,15 +1,9 @@
 package study.project.domain.item.repository;
 
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.support.PageableExecutionUtils;
 import study.project.domain.item.Item;
-import study.project.domain.item.QItem;
 import study.project.domain.item.search.ItemSearch;
 import study.project.web.item.dto.MemberItemDto;
 import study.project.web.item.dto.QMemberItemDto;

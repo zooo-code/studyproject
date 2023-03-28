@@ -67,12 +67,12 @@
         <nav aria-label="Page navigation example " class="nav justify-content-center bg-light">
           <ul class="pagination">
             <li class="page-item">
-              <a class="page-link" th:href="@{/?page=1}" aria-label="Previous">
+              <a class="page-link" th:href="@{|/?page=1&itemName=${itemSearch.itemName}|}" aria-label="Previous">
                 <span aria-hidden="true">처음</span>
               </a>
             </li>
             <li class="page-item">
-              <a class="page-link" th:href="@{|/?page=${pagination.prevBlock}|}" aria-label="Previous">
+              <a class="page-link" th:href="@{|/?page=${pagination.prevBlock}&itemName=${itemSearch.itemName}|}" aria-label="Previous">
                 <span aria-hidden="true">이전</span>
               </a>
             </li>
@@ -80,17 +80,17 @@
               <li class="page-item"
                   th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
                   th:each="pageButton : ${#numbers.sequence(start, end)}">
-                <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:if="${pageButton eq page}" style="color: #fd7e14;" th:text="${pageButton}"></a>
-                <a class="page-link" th:href="@{|/?page=${pageButton}|}" th:unless="${pageButton eq page}" th:text="(${pageButton}==0)? null:${pageButton}"></a>
+                <a class="page-link" th:href="@{|/?page=${pageButton}&itemName=${itemSearch.itemName}|}" th:if="${pageButton eq page}" style="color: #fd7e14;" th:text="${pageButton}"></a>
+                <a class="page-link" th:href="@{|/?page=${pageButton}&itemName=${itemSearch.itemName}|}" th:unless="${pageButton eq page}" th:text="(${pageButton}==0)? null:${pageButton}"></a>
               </li>
             </th:block>
             <li class="page-item">
-              <a class="page-link" th:href="@{|/?page=${pagination.nextBlock}|}" aria-label="Next">
+              <a class="page-link" th:href="@{|/?page=${pagination.nextBlock}&itemName=${itemSearch.itemName}|}" aria-label="Next">
                 <span aria-hidden="true">다음</span>
               </a>
             </li>
             <li class="page-item">
-              <a class="page-link" th:href="@{|/?page=${pagination.totalPageCnt}|}" aria-label="Previous">
+              <a class="page-link" th:href="@{|/?page=${pagination.totalPageCnt}&itemName=${itemSearch.itemName}|}" aria-label="Previous">
                 <span aria-hidden="true">끝</span>
               </a>
             </li>

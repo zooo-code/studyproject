@@ -52,7 +52,8 @@ public class HomeController {
     @GetMapping("/")
     public String Home(@Login Member loginMember,
                        @RequestParam(defaultValue = "1") int page,
-                       @ModelAttribute("itemSearch") ItemSearch itemSearch , Model model){
+                       ItemSearch itemSearch,
+                       Model model){
 
         if (loginMember == null){
             return "home";
@@ -71,6 +72,12 @@ public class HomeController {
         model.addAttribute("items",items);
         model.addAttribute("pagination",pagination);
         model.addAttribute("page",page);
+        if (itemSearch.getItemName() == null){
+            itemSearch.setItemName("");
+        }
+        log.info("{} itemSearch check",itemSearch.getItemName());
+        model.addAttribute("itemSearch",itemSearch);
+
 
         
         return "loginHome";
