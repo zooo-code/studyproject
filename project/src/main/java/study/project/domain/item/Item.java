@@ -77,7 +77,6 @@ public class Item {
     public void removeStock(Integer quantity){
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {
-
             throw new NotEnoughStockException("need more stock");
         }
         this.stockQuantity = restStock;

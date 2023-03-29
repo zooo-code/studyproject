@@ -30,6 +30,7 @@
                 <th>주문 상태</th>
                 <th>주문 삭제</th>
                 <th>배송 상태</th>
+                <th>배송 확정</th>
             </tr>
             </thead>
             <tbody>
@@ -51,6 +52,15 @@
                     </div>
                 </td>
                 <td th:text="${order.delivery.status}"></td>
+                <td>
+                    <div class="col" th:if="${order.delivery.status eq order.delivery.status.START} ">
+                        <form method="post" th:action="@{/order/delivery/{orderId}/complete (orderId = ${order.orderId})}">
+                            <button class="w-75 btn btn-secondary "
+                                    style="background-color: darkorange; border-color: darkorange;"
+                                    th:method="post" type="submit">배송 확정</button>
+                        </form>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>

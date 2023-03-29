@@ -3,12 +3,11 @@ package study.project.domain.order.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.project.domain.delivery.Delivery;
 import study.project.domain.delivery.DeliveryStatus;
+import study.project.domain.exception.WrongApproachException;
 import study.project.domain.item.Item;
 import study.project.domain.item.repository.ItemRepository;
 import study.project.domain.member.Member;
@@ -70,7 +69,22 @@ public class OrderServiceVer1 implements OrderService{
         return order.get();
     }
 
+    @Override
+    @Transactional
+    public Boolean completeDelivery(Long memberId, Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new WrongApproachException("wrong approach"));
+        order.setStatus(OrderStatus.COMP);
+        List<Order> findByMemberId = orderRepository.findByMemberId(memberId);
+        boolean contains = findByMemberId.contains(order);
+        if (contains && order.getDelivery().getStatus() == DeliveryStatus.START){
+            order.getDelivery().setStatus(DeliveryStatus.COMP);
+            return true;
+        }
+        return false;
+
+    }
     //주문 취소
+
     @Override
     @Transactional
     public Boolean cancelOrder(Long orderId){
@@ -97,6 +111,7 @@ public class OrderServiceVer1 implements OrderService{
 
     @Override
     public ArrayList<Long> findByMemberId(Long memberId) {
+
         List<Order> byMemberId = orderRepository.findByMemberId(memberId);
         ArrayList<Long> Orders = new ArrayList<>();
         for (Order order : byMemberId) {

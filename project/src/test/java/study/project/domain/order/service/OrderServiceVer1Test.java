@@ -92,6 +92,31 @@ class OrderServiceVer1Test {
         assertEquals(10,item.getStockQuantity());
     }
 
+    @Test
+    public void 주문확인() {
+        //given
+        Member member = new Member("test","test1", "123");
+        Member member1 = memberService.join(member);
+        Item testItem = new Item(member1, "testItem", 10, 1000);
+        Item item = itemService.saveItem(testItem);
+        Member member2 = new Member("test1", "test1", "123");
+        Member member2Join = memberService.join(member2);
 
+        //when
+        int orderCount = 3;
+        Long orderId = orderService.order(member1.getId(), item.getId(), orderCount);
+        Order order = orderService.findById(orderId);
+        Long order1 = orderService.order(member1.getId(), item.getId(), orderCount);
+        List<Order> byMemberId = orderRepository.findByMemberId(member1.getId());
+        Long order2 = orderService.order(member2Join.getId(), item.getId(), orderCount);
+        Order byId = orderService.findById(order2);
+        List<Order> byMemberId1 = orderRepository.findByMemberId(member2Join.getId());
+        //then
+        boolean contains = byMemberId.contains(order);
+        Assertions.assertThat(contains).isTrue();
+//        member1 이 주문한거 포함하면 안됨
+        boolean contains1 = byMemberId1.contains(order);
+        Assertions.assertThat(contains1).isFalse();
+    }
 
 }

@@ -80,7 +80,6 @@ public class OrderController {
         List<Long> OrderByMemberId = orderService.findByMemberId(loginMember.getId());
         if (!OrderByMemberId.contains(orderId)){
             redirectAttributes.addAttribute("status",true);
-
             return "redirect:/order/MyOrderList";
         }
         OrderItem orderItem = orderItemService.findOrderItem(orderId);
@@ -198,5 +197,17 @@ public class OrderController {
         }
         redirectAttributes.addAttribute("successDelivery", true);
         return "redirect:/order/customerOrderList";
+    }
+
+    @PostMapping("/delivery/{orderId}/complete")
+    public String completeDelivery(@Login Member loginMember, @PathVariable Long orderId,
+                                   RedirectAttributes redirectAttributes){
+        Boolean completeDelivery = orderService.completeDelivery(loginMember.getId(), orderId);
+        if (completeDelivery){
+            redirectAttributes.addAttribute("completeDelivery",true);
+            return "redirect:/order/MyOrderList";
+        }
+        redirectAttributes.addAttribute("failDelivery",true);
+        return "redirect:/order/MyOrderList";
     }
 }

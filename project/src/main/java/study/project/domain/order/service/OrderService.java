@@ -1,7 +1,5 @@
 package study.project.domain.order.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import study.project.domain.member.Member;
 import study.project.domain.order.Order;
 import study.project.domain.order.dto.CustomerOrderList;
@@ -15,6 +13,8 @@ public interface OrderService {
     Order startDelivery(Long memberId, Long orderId);
 
     Boolean cancelOrder(Long orderId);
+
+    Boolean completeDelivery(Long memberId, Long orderId);
 
     Order findById(Long orderId);
 
@@ -40,4 +40,6 @@ public interface OrderService {
     Member findMember(Long orderId);
 
     List<Long> customerOrderId(Long memberId);
+
+
 }
