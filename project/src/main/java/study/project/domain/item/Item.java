@@ -3,6 +3,8 @@ package study.project.domain.item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.repository.Temporal;
+import org.springframework.format.annotation.DateTimeFormat;
 import study.project.domain.exception.NotEnoughStockException;
 import study.project.domain.file.UploadFile;
 import study.project.domain.item.category.ItemCategory;
@@ -29,8 +31,8 @@ public class Item {
     private String itemName;
     private Integer stockQuantity;
     private Integer price;
-
-    private String createItemTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createItemTime;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "item_category_id")
@@ -55,8 +57,7 @@ public class Item {
         this.itemName = itemName;
         this.stockQuantity = stockQuantity;
         this.price = price;
-        this.createItemTime = LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.createItemTime = LocalDateTime.now();
         this.imageFile = imageFile;
     }
 
@@ -65,8 +66,8 @@ public class Item {
         this.itemName = itemName;
         this.stockQuantity = stockQuantity;
         this.price = price;
-        this.createItemTime = LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.createItemTime = LocalDateTime.now();
+
     }
 
     //비지니스 로직

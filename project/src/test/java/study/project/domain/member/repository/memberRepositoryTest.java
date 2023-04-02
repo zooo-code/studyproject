@@ -26,4 +26,13 @@ class memberRepositoryTest {
 
         assertThat(save).isEqualTo(findMember);
     }
+
+    @Test
+    public void transactionTest () {
+        //given
+
+        //when
+
+        //then
+    }
 }
