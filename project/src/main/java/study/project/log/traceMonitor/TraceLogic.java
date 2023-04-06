@@ -33,6 +33,19 @@ public class TraceLogic {
     }
 
     /**
+     * beginSync(..)
+     * 기존 TraceId 에서 createNextId() 를 통해 다음 ID를 구한다.
+     * createNextId() 의 TraceId 생성 로직은 다음과 같다.
+     * 트랜잭션ID는 기존과 같이 유지한다.
+     * 깊이를 표현하는 Level은 하나 증가한다. ( 0 -> 1 )
+     */
+    public TraceStatus beginSync(TraceId beforeTraceId, String message) {
+        TraceId nextId = beforeTraceId.createNextId();
+        Long startTimeMs = System.currentTimeMillis();
+        log.info("[" + nextId.getId() + "] " + addSpace(START_PREFIX, nextId.getLevel()) + message);
+        return new TraceStatus(nextId, startTimeMs, message);
+    }
+    /**
      * 로그를 정상 종료한다.
      * 파라미터로 시작 로그의 상태( TraceStatus )를 전달 받는다. 이 값을 활용해서 실행 시간을 계산하고,
      * 종료시에도 시작할 때와 동일한 로그 메시지를 출력할 수 있다.
