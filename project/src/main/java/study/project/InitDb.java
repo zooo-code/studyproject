@@ -57,7 +57,7 @@ public class InitDb {
                 Item item1 = itemService.saveItem(item);
                 orderService.order(memberB.getId(),item1.getId(),i+1);
             }
-
+            
         }
         public void dbInit2(){
 
