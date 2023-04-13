@@ -28,4 +28,28 @@ class traceLogicTest {
         trace.end(status2);
         trace.end(status1);
     }
+
+    @Test
+    public void traceTestSync () {
+        //given
+        TraceLogic trace = new TraceLogic();
+        //when
+        TraceStatus status = trace.begin("hi");
+        TraceStatus status1 = trace.beginSync(status.getTraceId(), "hi2");
+        //then
+        trace.end(status1);
+        trace.end(status);
+    }
+
+    @Test
+    public void traceTestEx () {
+        //given
+        TraceLogic trace = new TraceLogic();
+        //when
+        TraceStatus status = trace.begin("hi");
+        TraceStatus status1 = trace.beginSync(status.getTraceId(), "hi2");
+        //then
+        trace.exception(status1,new IllegalStateException());
+        trace.exception(status,new IllegalStateException());
+    }
 }
