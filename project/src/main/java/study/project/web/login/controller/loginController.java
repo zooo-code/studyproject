@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import study.project.domain.login.LoginService;
 import study.project.domain.member.Member;
+import study.project.log.logtrace.LogTrace;
+import study.project.log.logtrace.TraceStatus;
 import study.project.web.interceptor.SessionConst;
 import study.project.web.login.form.loginForm;
 
@@ -21,10 +23,12 @@ import javax.servlet.http.HttpSession;
 public class loginController {
 
     private final LoginService loginService;
+    private final LogTrace logTrace;
 
     @GetMapping("/login")
     public String loginForm(Model model){
         model.addAttribute("loginForm",new loginForm());
+        TraceStatus loginForm = logTrace.begin("loginForm");
         return "login/loginForm";
     }
     @PostMapping("/login")
