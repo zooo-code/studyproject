@@ -23,12 +23,11 @@ import javax.servlet.http.HttpSession;
 public class loginController {
 
     private final LoginService loginService;
-    private final LogTrace logTrace;
+
 
     @GetMapping("/login")
     public String loginForm(Model model){
         model.addAttribute("loginForm",new loginForm());
-        TraceStatus loginForm = logTrace.begin("loginForm");
         return "login/loginForm";
     }
     @PostMapping("/login")
