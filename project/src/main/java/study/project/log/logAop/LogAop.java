@@ -18,7 +18,7 @@ public class LogAop {
     private final LogTrace logTrace;
 
     @Around("execution(* study.project..*(..))")
-    public Object logTraceTime(ProceedingJoinPoint joinPoint){
+    public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         TraceStatus status = null;
 
         try {
@@ -29,8 +29,9 @@ public class LogAop {
 
             logTrace.end(status);
             return result;
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            logTrace.exception(status, e);
+            throw e;
         }
     }
 }

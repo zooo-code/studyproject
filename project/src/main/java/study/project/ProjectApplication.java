@@ -14,9 +14,6 @@ public class ProjectApplication {
 		SpringApplication.run(ProjectApplication.class, args);
 	}
 
-	@Bean
-	public LogTrace logTrace() {
-		return new ThreadLocalLogTrace();
-	}
+
 
 }

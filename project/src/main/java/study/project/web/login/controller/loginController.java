@@ -7,12 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import study.project.domain.login.LoginService;
 import study.project.domain.member.Member;
-import study.project.log.LogAopTrace;
-import study.project.log.logtrace.LogTrace;
-import study.project.log.logtrace.TraceStatus;
+
 import study.project.web.interceptor.SessionConst;
 import study.project.web.login.form.loginForm;
 
@@ -24,8 +22,6 @@ import javax.servlet.http.HttpSession;
 public class loginController {
 
     private final LoginService loginService;
-
-    @LogAopTrace
     @GetMapping("/login")
     public String loginForm(Model model){
         model.addAttribute("loginForm",new loginForm());
