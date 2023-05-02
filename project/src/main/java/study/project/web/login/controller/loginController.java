@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import study.project.domain.login.LoginService;
 import study.project.domain.member.Member;
 
+import study.project.log.LogAopTrace;
 import study.project.web.interceptor.SessionConst;
 import study.project.web.login.form.loginForm;
 
@@ -23,11 +24,13 @@ public class loginController {
 
     private final LoginService loginService;
     @GetMapping("/login")
+    @LogAopTrace
     public String loginForm(Model model){
         model.addAttribute("loginForm",new loginForm());
         return "login/loginForm";
     }
     @PostMapping("/login")
+    @LogAopTrace
     public String login(@Validated @ModelAttribute loginForm form, BindingResult result,
                         @RequestParam(defaultValue = "/") String redirectURL,
                         HttpServletRequest request){

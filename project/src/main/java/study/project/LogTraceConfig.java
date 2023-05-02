@@ -9,7 +9,7 @@ import study.project.log.logtrace.LogTrace;
 import study.project.log.logtrace.ThreadLocalLogTrace;
 
 
-//@Configuration
+@Configuration
 public class LogTraceConfig {
     @Bean
     public LogTrace logTrace() {

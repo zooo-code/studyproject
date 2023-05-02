@@ -8,6 +8,7 @@ import study.project.domain.item.Item;
 import study.project.domain.file.UploadFile;
 import study.project.domain.item.repository.ItemRepository;
 import study.project.domain.item.search.ItemSearch;
+import study.project.log.LogAopTrace;
 import study.project.web.item.dto.MemberItemDto;
 
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class ItemServiceVer1 implements ItemService{
     public List<Item> itemSearchPageable(ItemSearch itemSearch , int startIndex, int pageSize) {
         return itemRepository.itemSearchPaging( itemSearch ,  startIndex,  pageSize);
     }
-
+    @LogAopTrace
     @Override
     public List<Item> itemSearchPageable(ItemSearch itemSearch) {
         return itemRepository.itemSearchPaging( itemSearch);

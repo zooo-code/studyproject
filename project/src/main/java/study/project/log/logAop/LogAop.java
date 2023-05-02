@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import study.project.log.LogAopTrace;
 import study.project.log.logtrace.LogTrace;
-import study.project.log.logtrace.ThreadLocalLogTrace;
 import study.project.log.logtrace.TraceStatus;
 
 @Slf4j
@@ -17,8 +17,8 @@ public class LogAop {
 
     private final LogTrace logTrace;
 
-    @Around("execution(* study.project..*(..))")
-    public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Around("@annotation(logAopTrace)")
+    public Object execute(ProceedingJoinPoint joinPoint, LogAopTrace logAopTrace) throws Throwable {
         TraceStatus status = null;
 
         try {

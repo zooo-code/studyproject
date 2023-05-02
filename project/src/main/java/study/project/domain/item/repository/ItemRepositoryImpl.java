@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import study.project.domain.item.Item;
 import study.project.domain.item.search.ItemSearch;
+import study.project.log.LogAopTrace;
 import study.project.web.item.dto.MemberItemDto;
 import study.project.web.item.dto.QMemberItemDto;
 
@@ -77,7 +78,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
                 .limit(pageSize)
                 .fetch();
     }
-
+    @LogAopTrace
     @Override
     public List<Item> itemSearchPaging(ItemSearch itemSearch) {
         return queryFactory.selectFrom(item)

@@ -12,6 +12,7 @@ import study.project.domain.item.Item;
 import study.project.domain.item.search.ItemSearch;
 import study.project.domain.item.service.ItemService;
 import study.project.domain.member.Member;
+import study.project.log.LogAopTrace;
 import study.project.page.Pagination;
 import study.project.web.argumentResolver.Login;
 
@@ -50,6 +51,7 @@ public class HomeController {
         return "loginHome";
     }
     @GetMapping("/")
+    @LogAopTrace
     public String Home(@Login Member loginMember,
                        @RequestParam(defaultValue = "1") int page,
                        ItemSearch itemSearch,
