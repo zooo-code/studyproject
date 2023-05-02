@@ -36,7 +36,7 @@
   - 상품 이미지 업로드
   - 이미지 예외 처리 runtimeException 으로 변경 해결
   - 테스트 데이터 베이스 설정 격리, 테스트를 반복적으로 할수 있게 실행
-  - log trace 추가
+  - log trace 추가 AOP 매서드 적용(log)
 - dependency
   - thymeleaf
   - validation
@@ -53,7 +53,7 @@
   - 사용자 시뮬레이션 영상?
   - 동시성 문제 테스트
   - 단방향 맵핑 관계 점검
-  - AOP 매서드 적용(log)
+ 
   
 - 언젠가는 해야할 것
   - optional get 으로 받은거 수정
