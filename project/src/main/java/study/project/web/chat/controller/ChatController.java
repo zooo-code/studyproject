@@ -1,6 +1,7 @@
 package study.project.web.chat.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import study.project.domain.chat.ChatRoom;
 import study.project.domain.chat.service.ChatService;
@@ -8,7 +9,7 @@ import study.project.domain.chat.service.ChatService;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RestController
+@Controller
 @RequestMapping("/chat")
 public class ChatController {
     private final ChatService chatService;
